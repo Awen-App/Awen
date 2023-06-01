@@ -1,0 +1,74 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+  userId String @id @default(cuid())
+  email String
+  password String 
+  donations Donation[]
+}
+
+
+// model Post{
+//   idPost String @id @default(cuid())
+//   title String
+//   author User? @relation(fields: [authorid],references: [id])
+//   authorid String
+// }
+
+model Organization{
+
+  orgId String @id @default(cuid())
+  orgName String
+  orgEmail String
+  orgPassword String
+  description String
+  category String
+  orgImg String
+  rip String
+  causes Cause[]
+}
+
+model Cause{
+  causeId String @id @default(cuid())
+  causeImg String
+  title String
+  causeDescription String
+  causeCategory String
+  createdAt DateTime @default(now())
+  target Int
+  current Int
+  accepted Boolean @default(false)
+  status Boolean @default(false)
+  author Organization @relation(fields: [authorId], references: [orgId])
+  authorId String
+  donations Donation[]
+}
+
+
+model Donation{
+  donationId String @id @default(cuid())
+  createdAt DateTime @default(now())
+  amount Int
+  user User @relation(fields: [userId] ,references: [userId])
+  userId String
+  cause Cause @relation(fields: [causeId] ,references: [causeId])
+  causeId String
+}
+
+
+model Admin {
+  adminId String @id @default(cuid())
+  email String
+  password String 
+}
