@@ -14,7 +14,6 @@ datasource db {
 model User {
   userId String @id @default(cuid())
   email String
-  password String 
   donations Donation[]
 }
 
@@ -31,7 +30,6 @@ model Organization{
   orgId String @id @default(cuid())
   orgName String
   orgEmail String
-  orgPassword String
   description String
   category String
   orgImg String
@@ -70,5 +68,4 @@ model Donation{
 model Admin {
   adminId String @id @default(cuid())
   email String
-  password String 
 }

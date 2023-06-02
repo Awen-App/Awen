@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View, TextInput,Button } from 'react-native';
-import { auth,googleAuthProvider } from '../config/configFireBase'
+import { auth,googleAuthProvider } from '../fireBaseConfig'
 import { createUserWithEmailAndPassword ,signInWithPopup,signOut} from "firebase/auth";
 function AuthOrganization() {
     const [email,setEmail]=useState('');

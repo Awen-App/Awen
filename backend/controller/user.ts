@@ -16,8 +16,7 @@ const addUser=async(req:Request,res:Response)=>{
     try {
         await prisma.user.create({
             data:{
-                email:req.body.email,
-                password:req.body.password
+                email:req.body.email
             }
         })
         res.json("created")
