@@ -2,7 +2,6 @@
 CREATE TABLE "User" (
     "userId" TEXT NOT NULL,
     "email" TEXT NOT NULL,
-    "password" TEXT NOT NULL,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("userId")
 );
@@ -12,7 +11,6 @@ CREATE TABLE "Organization" (
     "orgId" TEXT NOT NULL,
     "orgName" TEXT NOT NULL,
     "orgEmail" TEXT NOT NULL,
-    "orgPassword" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "category" TEXT NOT NULL,
     "orgImg" TEXT NOT NULL,
@@ -53,7 +51,6 @@ CREATE TABLE "Donation" (
 CREATE TABLE "Admin" (
     "adminId" TEXT NOT NULL,
     "email" TEXT NOT NULL,
-    "password" TEXT NOT NULL,
 
     CONSTRAINT "Admin_pkey" PRIMARY KEY ("adminId")
 );
