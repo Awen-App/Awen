@@ -24,12 +24,13 @@ const getOneCause = async (req:Request, res:Response) =>{
 //this function posts one cause in the database
 const postOneCauses = async (req:Request, res:Response) =>{
     try {
+        console.log(req.body)
         const one= await cause.create({data: {
             causeImg: req.body.causeImg,
             title: req.body.title,
             causeDescription: req.body.causeDescription,
             causeCategory: req.body.causeCategory,
-            createdAt: req.body.createdAt,
+            createdAt: new Date(),
             target: req.body.target,
             current: req.body.current,
             accepted: req.body.accepted,
@@ -40,6 +41,7 @@ const postOneCauses = async (req:Request, res:Response) =>{
             }})
             res.status(200).json(one)
     } catch (error) {
+        console.log(error)
         res.status(500).json(error)
     }
 }
