@@ -1,6 +1,6 @@
-// import cors from '@types/cors'
 import express from "express"
 import routeUser from './routes/userRoutes'
+import organizationRoute  from './routes/organizations'
 const app=express();
 
 
@@ -8,11 +8,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 // app.use(cors())
 app.use(routeUser)
-// const prisma = new PrismaClient()
-// app.get('/',async (req :Request,res:Response)=>{
-//     const result =await prisma.user.findMany()
-//     res.json(result)
-// })
+app.use(organizationRoute)
 
 
 // app.post('/',async (req :Request,res:Response)=>{

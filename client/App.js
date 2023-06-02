@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput,Button } from 'react-native';
 import React,{useState} from 'react'
+import AuthOrganization from './componenets/AuthOrganization';
 //----
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -65,6 +66,7 @@ export default function App() {
         onPress={() => Check()}
       />
       <StatusBar style="auto" />
+      <AuthOrganization/>
     </View>
   );
 }
