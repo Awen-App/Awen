@@ -1,14 +1,9 @@
 import React,{useState} from 'react'
 import {View , TextInput,Button} from 'react-native'
-import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import firebaseConfig from '../fireBaseConfig.js';
+import {auth,googleAuthProvider} from '../fireBaseConfig'
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import axios from 'axios'
 
-
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth();
 
 const UserLogin = () => {
     const [email, setEmail] = useState('');

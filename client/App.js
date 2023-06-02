@@ -14,7 +14,7 @@ const App = () => {
           component={HomeScreen}
           options={{title: 'Welcome'}}
         /> */}
-        <Stack.Screen name="UserLogin" component={UserLogin} />
+        {/* <Stack.Screen name="UserLogin" component={UserLogin} /> */}
         <Stack.Screen name="Organization" component={AuthOrganization} />
 
       </Stack.Navigator>
