@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import {View , TextInput,Button} from 'react-native'
+import {View , TextInput,Button,Alert} from 'react-native'
 import {auth,googleAuthProvider} from '../fireBaseConfig'
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import axios from 'axios'
@@ -16,8 +16,24 @@ const UserLogin = () => {
     await axios.post('http://localhost:3001/users',{email:user.email})
   })
   .catch((error) => {
+    switch (error.code) {
+      case 'auth/email-already-in-use':
+        Alert.alert(`Email address ${this.state.email} already in use.`);
+        break;
+      case 'auth/invalid-email':
+        console.log(`Email address ${this.state.email} is invalid.`);
+        break;
+      case 'auth/operation-not-allowed':
+        console.log(`Error during sign up.`);
+        break;
+      case 'auth/weak-password':
+        console.log('Password is not strong enough. Add additional characters including special characters and numbers.');
+        break;
+      default:
+        console.log(error.message);
+        break;
+    }
     
-    console.log(error.message);
     // ..
   });
     }
