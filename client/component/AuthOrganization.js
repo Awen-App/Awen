@@ -3,6 +3,9 @@ import { StyleSheet, Text, View, TextInput,Button } from 'react-native';
 import { auth,googleAuthProvider } from '../fireBaseConfig'
 import { createUserWithEmailAndPassword ,signInWithPopup} from "firebase/auth";
 import  axios from 'axios';
+import ADDRESS_IP from '../env'
+// import secret from 'react-native-config';
+// require('dotenv').config({ path: './.env.development' })
 function AuthOrganization() {
     const [email,setEmail]=useState('');
     const [password,setPassword]=useState('');
@@ -23,7 +26,7 @@ function AuthOrganization() {
     console.log("salem")
     createUserWithEmailAndPassword(auth, email,password).then(() =>{
     
-      axios.post("http://192.168.103.2:3001/organizations/",org).then(res => {
+      axios.post(`http://${ADDRESS_IP}:3001/organizations/`,org).then(res => {
         console.log(org)
         console.log(res)
       console.log("success")}).catch(err =>console.log(err,"check"))
