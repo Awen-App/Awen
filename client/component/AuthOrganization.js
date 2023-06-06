@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View, TextInput,Button } from 'react-native';
 import { auth,googleAuthProvider } from '../fireBaseConfig'
-import { createUserWithEmailAndPassword ,signInWithPopup,signOut} from "firebase/auth";
+import { createUserWithEmailAndPassword ,signInWithPopup} from "firebase/auth";
 import  axios from 'axios';
 function AuthOrganization() {
     const [email,setEmail]=useState('');
@@ -19,50 +19,19 @@ function AuthOrganization() {
       orgImg:image,
       rip:rib    
   }
-  // const signIn = ()=>{
-  //   console.log("houni")
-  //   // createUserWithEmailAndPassword(auth, email,password).then(result =>{
-  //   //   console.log("success firebase")
-  //     axios.post("http://192.168.252.223:3001/organizations",org).then(res => {
-  //       console.log(org)
-  //       console.log(res)
-  //     console.log("success")}).catch(err =>console.log(err))
-
-  // }
-
-    // const signIn=async()=>{
-    //   console.log("clicked")
-    //     try{
-    //       createUserWithEmailAndPassword(auth,email,password)
-    //       .then(()=>{
-    //         console.log("dkhalt fél create")
-    //       axios.post("http://192.168.100.25:3001/organizations",org)
-    //       .then((res)=>{
-    //         console.log("dkhalt fél then")
-    //         console.log(res,"succes")
-    //       })
-    //       .catch((err)=>{
-    //         console.log("dkhalt fél catch")
-    //          console.log(err,'this axios error')
-    //       })
-    //      })
-    //     }
-    //     catch(err){
-    //       console.log("dkhalt fél catchfirebase")
-    //         console.log(err,'this is firebase error')
-    //     }
-    // }
+  const signUp = ()=>{
+    console.log("salem")
+    createUserWithEmailAndPassword(auth, email,password).then(() =>{
+    
+      axios.post("http://192.168.103.10:3001/organizations/",org).then(res => {
+        console.log(org)
+        console.log(res)
+      console.log("success")}).catch(err =>console.log(err,"check"))
+    }).catch(err => console.log("hedhi firebase",err))
+  }
     const signInWthGoogle=async()=>{
         try{
          await signInWithPopup(auth,googleAuthProvider);
-        }
-        catch(err){
-            console.log(err)
-        }
-    }
-    const logOut=async()=>{
-        try{
-         await signOut(auth);
         }
         catch(err){
             console.log(err)
@@ -107,17 +76,13 @@ function AuthOrganization() {
         onChangeText={img=>setImage(img)}
       />
        <Button
-        title="signIn"
-        onPress={() => signIn()}
+        title="signUp"
+        onPress={() => signUp()}
       />
           <Button
         title="signIn With google"
         onPress={() => signInWthGoogle()}
       />
-      <Button
-        title="logout"
-        onPress={() =>logOut()}
-      />   
   </View>
 );
 }
