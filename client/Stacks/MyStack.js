@@ -2,11 +2,12 @@ import * as React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import UserLogin from '../component/UserLogin'
 import UserSignup from '../component/UserSignup';
-import AuthOrganization from '../component/AuthOrganization';
+import AuthOrganization from '../component/organization/AuthOrganization';
 import GetStarted from '../navigation/screens/GetStarted';
-import SignInOrganization from '../component/SignIn';
+import SignInOrganization from '../component/organization/SignIn';
 import AllCauses from '../component/AllCauses';
 import CauseByCategory from '../component/CauseByCategory';
+import HomeOrganization from '../component/organization/HomeOrganization';
 const Stack = createNativeStackNavigator();
 const MyStack = () => {
   return (
@@ -19,6 +20,7 @@ const MyStack = () => {
         <Stack.Screen name="OrganizationLogin" component={SignInOrganization} options={{ headerShown: false }}/>
         <Stack.Screen name= "AllCauses" component={AllCauses} options={{ headerShown:false}}/>
         <Stack.Screen name= "CauseByCategory" component={CauseByCategory} options={{ headerShown:false}}/>
+        <Stack.Screen name= "organizationHome" component={HomeOrganization} options={{ headerShown:false}}/>
       </Stack.Navigator>
   );
 };

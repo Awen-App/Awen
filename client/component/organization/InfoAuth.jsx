@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import {View,Button} from 'react-native'
-import {auth} from '../fireBaseConfig'
+import {auth} from '../../fireBaseConfig'
 import {signOut} from "firebase/auth";
 
 

@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, ScrollView, View, Image, Button } from 'react-native';
 import axios from 'axios';
-import ADDRESS_IP from '../env';
 
 
 const AllCauses = () => {
   const [data, setData] = useState([]);
   const getCauses = () => {
     axios
-      .get(`http://${ADDRESS_IP}:3001/getcauses`)
+      .get("http://192.168.103.6:3001/getcauses")
       .then(response => {
         setData(response.data);
         console.log(data, '----', response.data);
       })
-      .catch(error => console.log(error, 'allCauses error'));
+      .catch(error => console.log(error));
   };
 
   useEffect(() => {

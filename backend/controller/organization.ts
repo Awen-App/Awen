@@ -21,7 +21,7 @@ const postOrg=async(req:Request,res:Response)=>{
             orgEmail: req.body.orgEmail,
             description:req.body.description,
             category:req.body.category,
-            orgImg:req.body.orgImg,
+            orgImg:"https://1000logos.net/wp-content/uploads/2020/08/Anonymous-Logo.png",
             rip:req.body.rip
             },
           });
