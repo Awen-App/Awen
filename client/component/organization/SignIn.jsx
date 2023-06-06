@@ -1,11 +1,12 @@
 import React,{useState} from 'react'
 import {View , TextInput,Button} from 'react-native'
-import {auth,googleAuthProvider} from '../fireBaseConfig'
+import {auth,googleAuthProvider} from '../../fireBaseConfig'
 import {signInWithEmailAndPassword} from "firebase/auth";
-
+import {useNavigation} from '@react-navigation/native'
 
 
 const SignInOrganization = () => {
+  let navigation=useNavigation();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
   const signIn=()=>{
@@ -36,7 +37,11 @@ const SignInOrganization = () => {
             <Button
                 title="Sign-in"
                 color="#841584"
-                onPress={()=>signIn()}
+                onPress={()=>{
+                  signIn()
+                  navigation.navigate('organizationHome')
+
+                }}
 
             />
         </View>
