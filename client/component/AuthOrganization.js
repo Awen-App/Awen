@@ -23,7 +23,7 @@ function AuthOrganization() {
     console.log("salem")
     createUserWithEmailAndPassword(auth, email,password).then(() =>{
     
-      axios.post("http://192.168.103.10:3001/organizations/",org).then(res => {
+      axios.post("http://192.168.103.2:3001/organizations/",org).then(res => {
         console.log(org)
         console.log(res)
       console.log("success")}).catch(err =>console.log(err,"check"))
