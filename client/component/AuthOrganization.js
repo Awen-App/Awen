@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { StyleSheet, Text, View, TextInput,Button } from 'react-native';
 import { auth,googleAuthProvider } from '../fireBaseConfig'
 import { createUserWithEmailAndPassword ,signInWithPopup} from "firebase/auth";
+import secret from "react-native-config"
 import  axios from 'axios';
 function AuthOrganization() {
     const [email,setEmail]=useState('');
@@ -20,23 +21,21 @@ function AuthOrganization() {
       rip:rib    
   }
   const signUp = ()=>{
-    console.log("salem")
-    createUserWithEmailAndPassword(auth, email,password).then(() =>{
-    
-      axios.post("http://192.168.103.10:3001/organizations/",org).then(res => {
-        console.log(org)
-        console.log(res)
-      console.log("success")}).catch(err =>console.log(err,"check"))
-    }).catch(err => console.log("hedhi firebase",err))
+    createUserWithEmailAndPassword(auth, email,password).then((res) =>{
+      console.log(res)
+      axios.post(`http://192.168.103.6:3001/organizations/`,org).then(res => {
+      console.log("success")})
+      .catch(err =>console.log(err))
+    }).catch(err => console.log(err))
   }
-    const signInWthGoogle=async()=>{
-        try{
-         await signInWithPopup(auth,googleAuthProvider);
-        }
-        catch(err){
-            console.log(err)
-        }
-    }
+    // const signInWthGoogle=async()=>{
+    //     try{
+    //      await signInWithPopup(auth,googleAuthProvider);
+    //     }
+    //     catch(err){
+    //         console.log(err)
+    //     }
+    // }
   return (
     <View style={styles.container}>
         <TextInput
@@ -79,10 +78,10 @@ function AuthOrganization() {
         title="signUp"
         onPress={() => signUp()}
       />
-          <Button
+          {/* <Button
         title="signIn With google"
         onPress={() => signInWthGoogle()}
-      />
+      /> */}
   </View>
 );
 }
