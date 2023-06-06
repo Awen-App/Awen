@@ -1,33 +1,20 @@
 import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar';
+import { View } from 'react-native';
+import AwenHeader from './component/AwenHeader';
+import MainContainer from './navigation/MainContainer';
+import { NavigationContainer } from "@react-navigation/native";
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import HomeScreen from './component/HomeScreen';
-import UserLogin from './component/UserLogin';
-import AuthOrganization from './component/AuthOrganization';
-import Navbar from './component/Navbar';
-import { StyleSheet, Text, View, TextInput,Button } from 'react-native';
-const Stack = createNativeStackNavigator();
-const App = () => {
-  return (
-    <View style={styles.container}>
-    
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home"component={HomeScreen}/> 
-         <Stack.Screen name="UserLogin" component={UserLogin} /> 
-        <Stack.Screen name="Organization" component={AuthOrganization} />
-
-
-      </Stack.Navigator>
-    </NavigationContainer>
-    <Navbar/>
-    </View>
-  );
-};
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
-
-export default App;
+import MyStack from './Stacks/MyStack';
+const Stack=createNativeStackNavigator();
+export default App=()=>{
+    return (
+        <NavigationContainer>
+            <Stack.Navigator>
+            <Stack.Screen name="Tabs" component={MainContainer} options={{ headerTitle: () => <AwenHeader /> }}/>
+            <Stack.Screen name='MyStack' component={MyStack} options={{ headerTitle: () => <View /> }}/>
+            </Stack.Navigator>
+            <StatusBar style="auto"/>
+        </NavigationContainer>
+    )
+}
