@@ -1,17 +1,41 @@
-import React,{useState} from 'react'
-
+import React,{useState,useEffect} from 'react'
+// import * as Network from 'expo-network';
 import {View ,Text, TextInput,Button,Alert,StyleSheet,TouchableOpacity} from 'react-native'
 import {auth,googleAuthProvider} from '../fireBaseConfig';
 import { createUserWithEmailAndPassword,signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
+// import NetworkInfo from 'react-native-network-info';
+import ADDRESS_IP from '../env'
+// import Constants from 'expo-constants';
+// import * as Network from 'expo-network'
+// const {manifest}=Constants;
+// import dotenv from 'react-native-dotenv'
+// import secret from 'react-native-config'
 const UserSignup = () => {
+    // const [ipv4Address, setIpv4Address] = useState(null);
+    // console.log(manifest.debuggerHost.split(':').shift())
+    // const [apiAdress,setApiAdress]=useState("");
+    // console.log(Constants)
     const navigation=useNavigation();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confpassword, setConfpassword] = useState('');
+    // const getApiAdress=async()=>{
+    //   const api=await NetworkInfo.NetworkInfo.getIPV4Address();
+    //   console.log(api)
+    //   setApiAdress(api)
+    // }
     const addUser=async()=>{
-      const user=await axios.get(`http://192.168.252.223:3001/users/${email}`)
+      // await getApiAdress();
+      // console.log(apiAdress)
+      // console.log(window.location.host)
+      
+      // NetworkInfo.NetworkInfo.getIPV4Address(ip => {
+      //   setApiAdress(ip); // This will print the IPV4 address
+      // });
+      // console.log(apiAdress)
+      const user=await axios.get(`http://${ADDRESS_IP}:3001/users/${email}`)
       if(user.data.length>0){
          Alert.alert("user already exist")
          navigation.navigate('UserSignin')
@@ -24,7 +48,8 @@ const UserSignup = () => {
       createUserWithEmailAndPassword(auth, email, password)
       .then(async(userCredential) => {
         const user = userCredential.user;
-        await axios.post('http://192.168.252.223:3001/users',{email:user.email})
+        await axios.post(`http://${ADDRESS_IP}:3001/users`,{email:user.email})
+        Alert.alert('user created successfully')
       })
       .catch((error) => {
         switch (error.code) {
@@ -47,6 +72,13 @@ const UserSignup = () => {
                 });
                   
     }
+
+    // useEffect(() => {
+    //   (async () => {
+    //     const { ipAddress } = await Network.getIpAddressAsync();
+    //     setIpv4Address(ipAddress);
+    //   })();
+    // }, []);
     // const userSignUpWithGoogle = async () => {
     //   try {
     //     const { idToken } = await GoogleSignin.signIn();
