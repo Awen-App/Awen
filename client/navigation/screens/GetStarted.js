@@ -10,5 +10,7 @@ export default GetStarted=()=>{
         <Text onPress={()=>navigation.navigate('UserSignin')}> signin as a user</Text>
         <Text onPress={()=>navigation.navigate('OrganizationSignUp')}> signup as an organization</Text>
         <Text onPress={()=>navigation.navigate('OrganizationLogin')}> signin as an Organization</Text>
+        <Text onPress={()=>navigation.navigate('AllCauses')}>All</Text>
+        <Text onPress={()=>navigation.navigate('CauseByCategory')}>Bycategory</Text>
     </View>)
 }

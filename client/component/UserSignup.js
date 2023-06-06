@@ -6,13 +6,14 @@ import { createUserWithEmailAndPassword,signInWithPopup, GoogleAuthProvider } fr
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 // import NetworkInfo from 'react-native-network-info';
-import ADDRESS_IP from '../env'
+import ADDRESS_IP from '../env.js'
 // import Constants from 'expo-constants';
 // import * as Network from 'expo-network'
 // const {manifest}=Constants;
 // import dotenv from 'react-native-dotenv'
 // import secret from 'react-native-config'
 const UserSignup = () => {
+    console.log(ADDRESS_IP)
     // const [ipv4Address, setIpv4Address] = useState(null);
     // console.log(manifest.debuggerHost.split(':').shift())
     // const [apiAdress,setApiAdress]=useState("");
