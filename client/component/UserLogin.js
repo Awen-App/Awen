@@ -1,17 +1,20 @@
 import React, {useState} from 'react'
 import {View , Text,TextInput,Button,Alert,StyleSheet,TouchableOpacity} from 'react-native'
 import {auth} from  "../fireBaseConfig";
+
 import {signInWithEmailAndPassword} from 'firebase/auth'
 const UserLogin = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     
     const [tokenResponse,setTokenResponse]=useState({})
+
     const login=()=>{
     
         signInWithEmailAndPassword(auth,email, password)
             .then((u) => {
                 setTokenResponse(u._tokenResponse)
+                console.log(tokenResponse)
             }).catch((error) => {
             console.log(error);
         });
