@@ -5,6 +5,8 @@ const cause=prisma.cause
 
 //this functions gets all causes
 const getAllCauses =async (req:Request,res:Response) =>{
+    console.log(req.url, 'request url');
+    
     try {
         const causes = await cause.findMany()   
         res.status(200).json(causes)    

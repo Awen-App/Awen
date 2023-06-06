@@ -13,7 +13,7 @@ const AllCauses = () => {
         setData(response.data);
         console.log(data, '----', response.data);
       })
-      .catch(error => console.log(error));
+      .catch(error => console.log(error, 'allCauses error'));
   };
 
   useEffect(() => {
