@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, ScrollView, View, Image, Button } from 'react-native';
+import { StyleSheet, Text, ScrollView, View, ImageBackground, Image, Button } from 'react-native';
 import axios from 'axios';
-
 
 const AllCauses = () => {
   const [data, setData] = useState([]);
+
   const getCauses = () => {
     axios
       .get("http://192.168.103.6:3001/getcauses")
@@ -41,13 +41,12 @@ const AllCauses = () => {
 
       return (
         <View key={el.causeId} style={styles.itemContainer}>
-          <View style={styles.imageContainer}>
-            <Image source={{ uri: el.causeImg }} style={styles.image} resizeMode="contain" />
-            <Text style={styles.title}>{el.title}</Text>
-          </View>
-          <View>
-            <Text>{timeAgo}</Text>
-          </View>
+          <ImageBackground source={{ uri: el.causeImg }} style={styles.imageContainer} resizeMode="cover">
+            <View style={styles.titleContainer}>
+              <Text style={styles.title}>{el.title}</Text>
+              <Text style={styles.time}>{timeAgo}</Text>
+            </View>
+          </ImageBackground>
           <View style={styles.amountsContainer}>
             <Text style={styles.amountText}>Target: {el.target}DT</Text>
             <Text style={styles.amountText}>Current: {el.current}DT</Text>
@@ -58,20 +57,20 @@ const AllCauses = () => {
               style={[styles.progressBar, { width: `${percentage}%`, backgroundColor: progressColor }]}
             />
           </View>
-         <View style={styles.buttonContainer}>
-  <Button style={styles.button} title="Details" onPress={() => handleDetailsPress(el)} />
-  <Button style={styles.button} title="Quick Donation" onPress={() => handleQuickDonationPress(el)} />
-</View>
+          <View style={styles.buttonContainer}>
+            <Button style={[styles.button, styles.topButton]} title="Details" onPress={() => handleDetailsPress(el)} />
+            <Button style={[styles.button, styles.bottomButton]} title="Quick Donation" onPress={() => handleQuickDonationPress(el)} />
+          </View>
         </View>
       );
     });
   };
 
-  const handleDetailsPress = (el) => {
+  const handleDetailsPress = el => {
     console.log('Details button pressed for:', el);
   };
 
-  const handleQuickDonationPress = (el) => {
+  const handleQuickDonationPress = el => {
     console.log('Quick Donation button pressed for:', el);
   };
 
@@ -93,15 +92,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 10,
-  },
-  image: {
-    width: 100,
+    width: '100%',
     height: 100,
-    marginRight: 10,
+    justifyContent: 'center',
+  },
+  titleContainer: {
+    alignItems: 'center',
+    marginTop: 10,
   },
   title: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: 'bold',
+    color: 'white',
+  },
+  time: {
+    fontSize: 14,
+    color: 'white',
   },
   amountsContainer: {
     flexDirection: 'row',
@@ -123,14 +129,20 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   buttonContainer: {
-    buttonContainer: {
-      marginTop: 10,
-      alignItems: 'center',
-    },
-    button: {
-      marginVertical: 5,
-      width: '80%',
-    },}
+    marginTop: 10,
+    alignItems: 'center',
+  },
+  button: {
+    marginVertical: 5,
+    width: '80%',
+    borderRadius: 5,
+  },
+  topButton: {
+    backgroundColor: '#33A09A',
+  },
+  bottomButton: {
+    backgroundColor: '#FFA500',
+  },
 });
 
 export default AllCauses;

@@ -7,7 +7,7 @@ import ADDRESS_IP from '../env';
   const [data, setData] = useState([]);
   const getCauses = () => {
     axios
-      .get(`http://${ADDRESS_IP}:3001/getcauseby/${category}`)
+      .get(`http://${ADDRESS_IP}:3001/getcauseby/Social`)
       .then(response => {
         setData(response.data);
         console.log(data, '----', response.data);
