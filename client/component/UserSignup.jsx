@@ -23,6 +23,7 @@ const UserSignup = () => {
         Alert.alert("you should confirm your password")
         return
       }
+      console.log(email,"emilll")
       createUserWithEmailAndPassword(auth, email, password)
       .then(async(userCredential) => {
         const user = userCredential.user;
@@ -92,7 +93,7 @@ const UserSignup = () => {
             <TouchableOpacity style={styles.appButtonContainer} >
               <Text style={styles.appButtonText}>Sign up with Google</Text>
             </TouchableOpacity>
-            <Text>Already have an account? Sign In</Text>
+            <Text>Already have an account? Sign In.</Text>
         </View>
   )
 }
