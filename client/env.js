@@ -1,2 +1,2 @@
-const ADDRESS_IP="192.168.76.223"
+const ADDRESS_IP=" 192.168.1.18"
 export default ADDRESS_IP
