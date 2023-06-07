@@ -13,7 +13,6 @@ const getAllOrg=async(req:Request,res:Response)=>{
     }
 }
 const postOrg=async(req:Request,res:Response)=>{
-    console.log(req.body)
     try{
         const organizations=await prisma.organization.create({
             data:{
@@ -25,6 +24,7 @@ const postOrg=async(req:Request,res:Response)=>{
             rip:req.body.rip
             },
           });
+          console.log(req.body)
         res.status(201).json(organizations)
     }catch(err){
         console.log(err)

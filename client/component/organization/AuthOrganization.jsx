@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, View, TextInput,Button,TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput,Button,TouchableOpacity ,Image} from 'react-native';
 import { auth,googleAuthProvider } from '../../fireBaseConfig'
 import { createUserWithEmailAndPassword ,signInWithPopup} from "firebase/auth";
 import {useNavigation} from '@react-navigation/native'
-import ADDRESS_IP from '../env'
+import ADDRESS_IP from '../../env';
 import  axios from 'axios';
 function AuthOrganization() {
     let navigation=useNavigation();
@@ -41,24 +41,25 @@ function AuthOrganization() {
     // }
   return (
        <View style={styles.signin}>
-        <View style={styles.head}>
-        <TouchableOpacity
-           onPress={()=>navigation.navigate('UserSignup')}
-           style={styles.appButtonContainer1}>
-            <Text 
-            style={styles.appButtonText}>
-              user
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-           onPress={()=>navigation.navigate('OrganizationSignUp')}
-           style={styles.appButtonContainer1}>
-            <Text 
-            style={styles.appButtonText}>
-             organization
-              </Text>
-            </TouchableOpacity>
-        </View>
+           <Image
+            style={{ width: 80, height: 80 ,margin:50}}
+            source={require('../../assets/awenLogo.png')}
+          />
+           <Text style={styles.wlc}>Sign up to continue </Text>
+            <View style={styles.head}>
+              <TouchableOpacity
+                onPress={()=>{
+                  navigation.navigate('OrganizationSignUp')}}
+               style={styles.org}>
+                <Text style={styles.appButtonText1}>Organization</Text>
+              </TouchableOpacity>
+              <TouchableOpacity 
+               onPress={()=>{
+                navigation.navigate('UserSignup')}}
+              style={styles.org}>
+                <Text style={styles.appButtonText1}>Donner</Text>
+              </TouchableOpacity>
+            </View>
            
         <TextInput   
         style={styles.textInput}
@@ -121,9 +122,8 @@ const styles = StyleSheet.create({
   },
   head:{
     flexDirection: 'row',
-    flex:0.3,
-    marginRight:29
-
+    height:50,
+    marginVertical:40
   },
 textInput:{
     width: '70%',
@@ -159,6 +159,30 @@ appButtonContainer: {
     paddingHorizontal: 12,
     marginRight:10
 
+  },
+  org:{
+
+    width:'45%',
+    backgroundColor: '#009688',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 5,
+    marginRight:5,
+    display:'flex',
+    justifyContent:'center',
+    alignItems:'center'
+  },
+  appButtonText1: {
+    fontSize: 15,
+    color: "#fff",
+    fontWeight: "bold",
+    alignSelf: "center",
+    textTransform: "uppercase"
+  },
+  wlc:{
+    // color: '#fff',
+    fontSize: 26,
+    fontWeight: 'bold',
   }
 
 });
