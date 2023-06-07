@@ -10,7 +10,7 @@ export default function AwenHeader() {
           style={{ width: 30, height: 30 }}
           source={require('../assets/awenLogo.png')}
         />
-        <Text style={{color: 'black', paddingLeft:"80%",fontSize: 10}} onPress={()=>navigation.navigate("MyStack")}>Get Started</Text>
+        <Text style={{color: 'black', paddingLeft:"60%",fontSize: 10, marginLeft:20}} onPress={()=>navigation.navigate("MyStack")}>Get Started</Text>
       </View>
     );
   }
