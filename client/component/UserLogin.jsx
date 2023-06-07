@@ -52,7 +52,7 @@ const UserLogin = () => {
             <TouchableOpacity onPress={()=>login()} style={styles.appButtonContainer}>
                 <Text style={styles.appButtonText}>Sign In</Text>
             </TouchableOpacity>
-            <Text>Don't have an account? Sign Up</Text>
+            <Text>Don't have an account? Sign Up.</Text>
             {/* <Button
                 title="Log-In"
                 color="#33A09A"
