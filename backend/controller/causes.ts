@@ -78,6 +78,26 @@ const archiveCause=async (req:Request,res:Response) => {
         res.status(500).send(error)
     }
 }
+const updateCurrent=async (req:Request,res:Response) => {
+    try {
+        const updated = await cause.update({where:{
+            causeId:req.params.id
+        },data:{current:req.body.current,},})
+        res.status(200).send("donated")
+    } catch (error) {
+        res.status(500).send(error)
+    }
+}
+const updateImg=async (req:Request,res:Response) => {
+    try {
+        const updated = await cause.update({where:{
+            causeId:req.params.id
+        },data:{causeImg:req.body.causeImg,},})
+        res.status(200).send("donated")
+    } catch (error) {
+        res.status(500).send(error)
+    }
+}
 // this function deletes one cause 
 const deleteCause=async (req:Request,res:Response)=>{
     try {
@@ -131,4 +151,6 @@ export default{
     getAllNonActive,
     getAllAccepted,
     getAllNonAccepted,
+    updateCurrent,
+    updateImg,
 }
