@@ -44,7 +44,7 @@ const AllCauses = () => {
   const all = () => {
     return data.map(el => {
       const percentage = (el.current / el.target) * 100;
-      const progressColor = percentage >= 100 ? 'green' : 'red';
+      const progressColor = percentage >= 100 ? 'green' : percentage >= 66 ? 'yellow' : percentage>= 33 ?'orange':'red';
       const timeAgo = formatTimeAgo(el.createdAt);
 
       return (
