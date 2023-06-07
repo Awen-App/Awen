@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import {View , Image,Text,TextInput,Button,Alert,StyleSheet,TouchableOpacity} from 'react-native'
 import {auth,googleAuthProvider} from '../../fireBaseConfig'
-import {signInWithEmailAndPassword} from "firebase/auth";
+import {signInWithEmailAndPassword,sendPasswordResetEmail} from "firebase/auth";
 import {useNavigation} from '@react-navigation/native'
 
 
@@ -17,6 +17,15 @@ const SignInOrganization = () => {
     .catch((error) => {
     console.log(error.message,'mtaa firebase');
   });
+    }
+    const reset=()=>{
+      sendPasswordResetEmail(auth,email)
+      .then((res)=> {
+        console.log(email,"email")
+        alert('password sent')} )
+        .catch((error) => {
+          console.error('Error during password reset:', error);
+        });
     }
     return (
       <View style={styles.signin}>
@@ -63,6 +72,9 @@ const SignInOrganization = () => {
 
               }}
              >Don't have an account? Sign Up.</Text>
+                   <Text 
+              onPress={()=>{reset()}}
+             >Forgot password ?</Text>
           </View>
    
   )
