@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TextInput,Button,TouchableOpacity } from 'react
 import { auth,googleAuthProvider } from '../../fireBaseConfig'
 import { createUserWithEmailAndPassword ,signInWithPopup} from "firebase/auth";
 import {useNavigation} from '@react-navigation/native'
-
+import ADDRESS_IP from '../env'
 import  axios from 'axios';
 function AuthOrganization() {
     let navigation=useNavigation();
@@ -26,7 +26,7 @@ function AuthOrganization() {
   const signUp = ()=>{
     createUserWithEmailAndPassword(auth, email,password).then((res) =>{
       console.log(res)
-      axios.post(`http://192.168.103.6:3001/organizations/`,org).then(res => {
+      axios.post(`http://${ADDRESS_IP}/organizations/`,org).then(res => {
       console.log("success")})
       .catch(err =>console.log(err))
     }).catch(err => console.log(err))
