@@ -31,7 +31,7 @@ const UserLogin = () => {
                 <Text style={styles.appButtonText1}>Organization</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.org}>
-                <Text style={styles.appButtonText1}>Doner</Text>
+                <Text style={styles.appButtonText1}>Donor</Text>
               </TouchableOpacity>
             </View>
         <TextInput

@@ -89,7 +89,7 @@ function AuthOrganization() {
       />
        <TextInput
         style={styles.textInput}
-        placeholder="rib.."
+        placeholder="RIB..."
         onChangeText={rib=>setRib(rib)}
       />
           <TouchableOpacity
