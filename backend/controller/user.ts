@@ -21,26 +21,12 @@ const addUser=async(req:Request,res:Response)=>{
         })
         res.json("created")
     } catch (error) {
-        console.log("from adding user")
         res.json(error)
     }
 }
 
-const checkUser = async (req: Request, res: Response): Promise<void> => {
-    try {
-      const userByEmail = await prisma.user.findMany({
-        where: {
-          email: req.params.email,
-        },
-      });
-      res.json(userByEmail)
-    } catch (err) {
-      console.log(err);
-      res.json(err);
-    }
-  };
+
 export default {
     getAllUsers,
-    addUser,
-    checkUser
+    addUser
 }
