@@ -5,6 +5,8 @@ const cause=prisma.cause
 
 //this functions gets all causes
 const getAllCauses =async (req:Request,res:Response) =>{
+    console.log(req.url, 'request url');
+    
     try {
         const causes = await cause.findMany()   
         res.status(200).json(causes)    
@@ -54,13 +56,44 @@ const getByCategory= async (req:Request,res:Response)=>{
         res.status(500).send(error)
       }
 }
-// this function updates one cause 
-const updateCause=async (req:Request,res:Response) => {
+// this function accepts one cause 
+const acceptCause=async (req:Request,res:Response) => {
     try {
         const updated = await cause.update({where:{
             causeId:req.params.id
-        },data:{}})
-        res.status(200).send("updated")
+        },data:{accepted:true}})
+        res.status(200).send("accepted")
+    } catch (error) {
+        res.status(500).send(error)
+    }
+}
+// this function archives one cause 
+const archiveCause=async (req:Request,res:Response) => {
+    try {
+        const updated = await cause.update({where:{
+            causeId:req.params.id
+        },data:{status:true,},})
+        res.status(200).send("archived")
+    } catch (error) {
+        res.status(500).send(error)
+    }
+}
+const updateCurrent=async (req:Request,res:Response) => {
+    try {
+        const updated = await cause.update({where:{
+            causeId:req.params.id
+        },data:{current:req.body.current,},})
+        res.status(200).send("donated")
+    } catch (error) {
+        res.status(500).send(error)
+    }
+}
+const updateImg=async (req:Request,res:Response) => {
+    try {
+        const updated = await cause.update({where:{
+            causeId:req.params.id
+        },data:{causeImg:req.body.causeImg,},})
+        res.status(200).send("donated")
     } catch (error) {
         res.status(500).send(error)
     }
@@ -74,11 +107,50 @@ const deleteCause=async (req:Request,res:Response)=>{
         res.status(500).send(error)
     }
 }
+const getAllAccepted =async (req:Request,res:Response) =>{ 
+    try {
+        const causes = await cause.findMany({where:{accepted:true}})   
+        res.status(200).json(causes)    
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+const getAllNonAccepted =async (req:Request,res:Response) =>{
+    try {
+        const causes = await cause.findMany({where:{accepted:false}})   
+        res.status(200).json(causes)    
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+const getAllActive =async (req:Request,res:Response) =>{
+    try {
+        const causes = await cause.findMany({where:{status:true}})   
+        res.status(200).json(causes)    
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+const getAllNonActive =async (req:Request,res:Response) =>{
+    try {
+        const causes = await cause.findMany({where:{status:false}})   
+        res.status(200).json(causes)    
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
 export default{
     getAllCauses,
     getOneCause,
     postOneCauses,
     getByCategory,
-    updateCause,
-    deleteCause
+    acceptCause,
+    archiveCause,
+    deleteCause,
+    getAllActive,
+    getAllNonActive,
+    getAllAccepted,
+    getAllNonAccepted,
+    updateCurrent,
+    updateImg,
 }
