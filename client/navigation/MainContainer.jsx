@@ -11,6 +11,7 @@ import Chat from "./screens/Chat";
 import Help from "./screens/Help";
 import Greed from "./screens/Greed";
 
+
 const homeName='Home';
 const settingName='Settings';
 const chat='chatbox';

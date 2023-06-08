@@ -8,6 +8,7 @@ import SignInOrganization from '../component/organization/SignIn';
 import AllCauses from '../component/AllCauses';
 import CauseByCategory from '../component/CauseByCategory';
 import HomeOrganization from '../component/organization/HomeOrganization';
+import CauseDetail from '../component/CauseDetail';
 const Stack = createNativeStackNavigator();
 const MyStack = () => {
   return (
@@ -21,6 +22,7 @@ const MyStack = () => {
         <Stack.Screen name= "AllCauses" component={AllCauses} options={{ headerShown:false}}/>
         <Stack.Screen name= "CauseByCategory" component={CauseByCategory} options={{ headerShown:false}}/>
         <Stack.Screen name= "organizationHome" component={HomeOrganization} options={{ headerShown:false}}/>
+        <Stack.Screen name='CauseDetails' component={CauseDetail} options={{ headerShown: false }}/>
       </Stack.Navigator>
   );
 };
