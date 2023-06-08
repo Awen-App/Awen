@@ -78,6 +78,7 @@ const archiveCause=async (req:Request,res:Response) => {
         res.status(500).send(error)
     }
 }
+// this function updates the current amount of money
 const updateCurrent=async (req:Request,res:Response) => {
     try {
         const updated = await cause.update({where:{
@@ -88,6 +89,7 @@ const updateCurrent=async (req:Request,res:Response) => {
         res.status(500).send(error)
     }
 }
+// this function updates the cause image
 const updateImg=async (req:Request,res:Response) => {
     try {
         const updated = await cause.update({where:{
@@ -107,6 +109,7 @@ const deleteCause=async (req:Request,res:Response)=>{
         res.status(500).send(error)
     }
 }
+// this function accepts a cause into the main feed of causes
 const getAllAccepted =async (req:Request,res:Response) =>{ 
     try {
         const causes = await cause.findMany({where:{accepted:true}})   
@@ -115,6 +118,7 @@ const getAllAccepted =async (req:Request,res:Response) =>{
         res.status(500).json(error)
     }
 }
+// this function gets all non accepted causes
 const getAllNonAccepted =async (req:Request,res:Response) =>{
     try {
         const causes = await cause.findMany({where:{accepted:false}})   
@@ -123,6 +127,7 @@ const getAllNonAccepted =async (req:Request,res:Response) =>{
         res.status(500).json(error)
     }
 }
+//this function gets all active causes
 const getAllActive =async (req:Request,res:Response) =>{
     try {
         const causes = await cause.findMany({where:{status:true}})   
@@ -131,6 +136,7 @@ const getAllActive =async (req:Request,res:Response) =>{
         res.status(500).json(error)
     }
 }
+//this function gets all non active causes
 const getAllNonActive =async (req:Request,res:Response) =>{
     try {
         const causes = await cause.findMany({where:{status:false}})   
