@@ -17,7 +17,7 @@ const settingName='Settings';
 const chat='chatbox';
 const help='help';
 const menu='grid'
-export default MainContainer=()=>{
+ const MainContainer=()=>{
     return (
        
             
@@ -67,3 +67,4 @@ export default MainContainer=()=>{
         
     )
 }
+export default MainContainer

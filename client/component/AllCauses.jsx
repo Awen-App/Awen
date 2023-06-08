@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, ScrollView, View, ImageBackground, Image, Button } from 'react-native';
+import { StyleSheet, Text, ScrollView, View, ImageBackground, TouchableOpacity, Button } from 'react-native';
 import axios from 'axios';
 import ADDRESS_IP from '../env';
+import { FitScreen } from '@mui/icons-material';
+
 
 const AllCauses = () => {
   const [data, setData] = useState([]);
@@ -32,14 +34,21 @@ const AllCauses = () => {
     const createdAt = new Date(timestamp);
     const diff = Math.abs(now - createdAt);
     const hours = Math.floor(diff / (1000 * 60 * 60));
-
+  
     if (hours === 0) {
       const minutes = Math.floor(diff / (1000 * 60));
       return `${minutes} minutes ago`;
-    } else {
+    } else if (hours < 24) {
       return `${hours} hours ago`;
+    } else if (hours < 720) {
+      const days = Math.floor(hours / 24);
+      return `${days} days ago`;
+    } else {
+      const months = Math.floor(hours / 720);
+      return `${months} months ago`;
     }
   };
+
 
   const all = () => {
     return data.map(el => {
@@ -52,31 +61,32 @@ const AllCauses = () => {
           <ImageBackground source={{ uri: el.causeImg }} style={styles.imageContainer} resizeMode="cover">
             <View style={styles.titleContainer}>
               <Text style={styles.title}>{el.title}</Text>
-              <Text style={styles.time}>{timeAgo}</Text>
-              <Text style={styles.category}>Category : {el.causeCategory}</Text>
+              <Text style={styles.time}></Text>
+              <Text style={styles.category}>Category : {el.causeCategory}                  Since:{timeAgo}</Text>
             </View>
           </ImageBackground>
-          <View style={styles.amountsContainer}>
-            <Text style={styles.amountText}>Target: {el.target}DT</Text>
-            <Text style={styles.amountText}>Current: {el.current}DT</Text>
-          </View>
-          
           <View style={styles.progressContainer}>
             <View style={[styles.progressBar, { width: `${percentage}%`, backgroundColor: progressColor }]} />
            
             <Text style={styles.progressText}>{percentage.toFixed(0)}%</Text>
           </View>
+
+          <View style={styles.amountsContainer}>
+            <Text style={styles.amountText}>Target Amount: {el.target}DT</Text>
+            <Text style={styles.amountText}>Current Amount: {el.current}DT</Text>
+          </View>
+          
+          
           <View style={styles.buttonContainer}>
-            <Button
-              style={[styles.topButton]}
-              title="Details"
-              onPress={() => handleDetailsPress(el)}
-            />
-            <Button
-              style={[styles.bottomButton]}
-              title="Quick Donation"
-              onPress={() => handleQuickDonationPress(el)}
-            />
+            <TouchableOpacity style={[styles.topButton]} onPress={() => handleDetailsPress(el)}>
+              <Text style={[styles.buttonTitle]}>Details</Text>
+            </TouchableOpacity>
+              
+            <TouchableOpacity style={[styles.bottomButton]} onPress={() => handleQuickDonationPress(el)}>
+              <Text style={[styles.buttonTitle]}>Quick Donation</Text>
+              </TouchableOpacity>
+              
+              
           </View>
         </View>
       );
@@ -108,12 +118,13 @@ const styles = StyleSheet.create({
   itemContainer: {
     alignItems: 'center',
     marginBottom: 20,
+    backgroundColor:"#D9DDDC",
   },
   imageContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 10,
-    width: 300,
+     width: 300,
     height: 100,
     justifyContent: 'center',
   },
@@ -128,12 +139,12 @@ const styles = StyleSheet.create({
   },
   time: {
     fontSize: 14,
-    color: 'white',
+    color: '#FFA500',
   },
   category: {
     fontWeight:"bold",
     fontSize: 14,
-    color: 'white',
+    color: '#FFA500',
   },
   amountsContainer: {
     alignSelf:'center',
@@ -145,15 +156,15 @@ const styles = StyleSheet.create({
   },
   progressContainer: {
     alignSelf:'center',
-    width: 200,
-    height: 15,
+    width: 250,
+    height: 19,
     backgroundColor: '#ada6a6',
     marginTop: 5,
     marginBottom: 10,
     borderRadius: 5,
   },
   progressBar: {
-    height: 15,
+    height: 19,
     borderRadius: 5,
     width: 100,
   },
@@ -170,19 +181,26 @@ const styles = StyleSheet.create({
   },
  
   topButton: {
+    border: 'solid',
     marginVertical: 5,
-    width: 100,
+    width: 250,
     borderRadius: 5,
-    Color: '#33A09A',
+    backgroundColor: '#33A09A',
   },
   bottomButton: {
     marginVertical: 5,
-    width: 100,
+    width: 250,
     borderRadius: 5,
     backgroundColor: '#FFA500',
   },
   scrollContainer: {
     alignItems: 'center',
+  },
+  buttonTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'white',
+    textAlign: 'center',
   },
 });
 

@@ -23,12 +23,6 @@ model User {
 }
 
 
-// model Post{
-//   idPost String @id @default(cuid())
-//   title String
-//   author User? @relation(fields: [authorid],references: [id])
-//   authorid String
-// }
 
 model Organization{
 
