@@ -1,7 +1,7 @@
 import cause from '../controller/causes'
 import express from 'express';
 const causeRoute=express.Router();
-
+causeRoute.get('/slidecauses',cause.getLimitToSlideShow)
 causeRoute.get('/getcauses',cause.getAllCauses);
 causeRoute.get('/getcause/:id',cause.getOneCause);
 causeRoute.post('/postcauses',cause.postOneCauses);
