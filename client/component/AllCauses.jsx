@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, ScrollView, View, ImageBackground, TouchableOpacity, Button } from 'react-native';
+import { StyleSheet, Text, ScrollView, View, ImageBackground, TouchableOpacity} from 'react-native';
 import axios from 'axios';
 import ADDRESS_IP from '../env';
-import { FitScreen } from '@mui/icons-material';
+
 
 
 const AllCauses = () => {
@@ -53,23 +53,25 @@ const AllCauses = () => {
   const all = () => {
     return data.map(el => {
       const percentage = (el.current / el.target) * 100;
-      const progressColor = percentage >= 100 ? 'green' : percentage >= 66 ? 'yellow' : percentage>= 33 ?'orange':'red';
+      const progressColor = percentage >= 100 ? '#ff6600' : percentage >= 66 ? '#ff781f' : percentage>= 33 ?'#ff8b3d':'#ff9d5c';
       const timeAgo = formatTimeAgo(el.createdAt);
 
       return (
+        <View style={styles.all}>
         <View key={el.causeId} style={styles.itemContainer}>
-          <ImageBackground source={{ uri: el.causeImg }} style={styles.imageContainer} resizeMode="cover">
-            <View style={styles.titleContainer}>
-              <Text style={styles.title}>{el.title}</Text>
-              <Text style={styles.time}></Text>
-              <Text style={styles.category}>Category : {el.causeCategory}                  Since:{timeAgo}</Text>
-            </View>
-          </ImageBackground>
-          <View style={styles.progressContainer}>
+                 <View style={styles.progressContainer}>
             <View style={[styles.progressBar, { width: `${percentage}%`, backgroundColor: progressColor }]} />
-           
             <Text style={styles.progressText}>{percentage.toFixed(0)}%</Text>
           </View>
+          <ImageBackground source={{ uri: el.causeImg }} style={styles.imageContainer} resizeMode="cover">
+            
+            <View style={styles.titleContainer}>
+              <Text style={styles.title}>{el.title}</Text>
+              <Text style={styles.category}>{el.causeCategory}</Text>
+              
+            </View>
+          </ImageBackground>
+   
 
           <View style={styles.amountsContainer}>
             <Text style={styles.amountText}>Target Amount: {el.target}DT</Text>
@@ -83,11 +85,11 @@ const AllCauses = () => {
             </TouchableOpacity>
               
             <TouchableOpacity style={[styles.bottomButton]} onPress={() => handleQuickDonationPress(el)}>
-              <Text style={[styles.buttonTitle]}>Quick Donation</Text>
+              <Text style={[styles.buttonTitle]}>Donate</Text>
               </TouchableOpacity>
-              
-              
           </View>
+        </View>
+        <Text style={styles.time}>{timeAgo}</Text>
         </View>
       );
     });
@@ -114,37 +116,45 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 20,
+    
   },
   itemContainer: {
     alignItems: 'center',
-    marginBottom: 20,
-    backgroundColor:"#D9DDDC",
+    marginBottom: 0,
+    backgroundColor:"white",
+    borderRadius: 10,
+    opacity: 10.5,
   },
   imageContainer: {
+    opacity: 10.5,
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 10,
      width: 300,
-    height: 100,
+    height: 200,
     justifyContent: 'center',
   },
   titleContainer: {
     alignItems: 'center',
     marginTop: 10,
+    backgroundColor:"white",
+    width:300,
+    opacity: 0.7,
   },
-  title: {
+  title: {  
     fontSize: 20,
     fontWeight: 'bold',
-    color: 'white',
+    color: '#ff6600',
   },
   time: {
-    fontSize: 14,
-    color: '#FFA500',
+    fontSize: 16,
+    color: '#ada6a6',
   },
   category: {
     fontWeight:"bold",
-    fontSize: 14,
-    color: '#FFA500',
+    fontSize: 16,
+    color: '#33A09A',
+    
   },
   amountsContainer: {
     alignSelf:'center',
@@ -156,15 +166,15 @@ const styles = StyleSheet.create({
   },
   progressContainer: {
     alignSelf:'center',
-    width: 250,
-    height: 19,
+    width: 300,
+    height: 25,
     backgroundColor: '#ada6a6',
     marginTop: 5,
     marginBottom: 10,
     borderRadius: 5,
   },
   progressBar: {
-    height: 19,
+    height: 25,
     borderRadius: 5,
     width: 100,
   },
@@ -172,35 +182,47 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     alignSelf: 'center',
-    fontSize: 10,
+    fontSize: 17,
+    color:'white'
   },
   buttonContainer: {
+    flexDirection: 'row',
     marginTop: 10,
     alignItems: 'center',
     width: 200,
   },
  
   topButton: {
+    marginLeft:-32,
     border: 'solid',
     marginVertical: 5,
-    width: 250,
+    width: 125,
     borderRadius: 5,
-    backgroundColor: '#33A09A',
+    borderColor: "#ada6a6",
+    borderWidth: 1,
+    marginHorizontal:15,
+    backgroundColor:"white",
   },
   bottomButton: {
     marginVertical: 5,
-    width: 250,
+    width: 125,
     borderRadius: 5,
-    backgroundColor: '#FFA500',
+    borderColor: "#ada6a6",
+    borderWidth: 1,
+    backgroundColor:'white',
+    
   },
   scrollContainer: {
     alignItems: 'center',
   },
   buttonTitle: {
-    fontSize: 20,
+    fontSize: 17,
     fontWeight: 'bold',
-    color: 'white',
+    color: '#ada6a6',
     textAlign: 'center',
+  },
+  all:{
+marginBottom:20,
   },
 });
 
