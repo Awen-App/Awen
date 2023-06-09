@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import {Request,Response} from 'express'
 const prisma =new PrismaClient();
 
-
+//------------------------get all organizations------------------------
 const getAllOrg=async(req:Request,res:Response)=>{
     try{
         const organizations=await prisma.organization.findMany();
@@ -12,6 +12,7 @@ const getAllOrg=async(req:Request,res:Response)=>{
         res.send(err)
     }
 }
+//------------------------post one organization-------------------------
 const postOrg=async(req:Request,res:Response)=>{
     try{
         const organizations=await prisma.organization.create({
@@ -24,11 +25,21 @@ const postOrg=async(req:Request,res:Response)=>{
             rip:req.body.rip
             },
           });
-          console.log(req.body)
+        console.log(req.body)
         res.status(201).json(organizations)
     }catch(err){
         console.log(err)
         res.status(500).send(err)
     }
 }
-export default {getAllOrg,postOrg}
+//--------------------get organization by email---------------------------------
+const getOneOrgByEmail=async(req:Request,res:Response)=>{
+    try {
+        const one= await prisma.organization.findMany({where:{orgEmail:req.params.email}})
+        res.status(200).json(one)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+
+export default {getAllOrg,postOrg,getOneOrgByEmail}
