@@ -6,6 +6,7 @@ import {useNavigation} from '@react-navigation/native'
 import ADDRESS_IP from '../../env';
 import  axios from 'axios';
 function AuthOrganization() {
+
     let navigation=useNavigation();
     const [email,setEmail]=useState('');
     const [password,setPassword]=useState('');
@@ -14,18 +15,20 @@ function AuthOrganization() {
     const [category,setCat]=useState("");
     const [rib,setRib]=useState("");
 
-    const org={
-      orgName:name,
-      orgEmail:email,
-      description:desc,
-      category:category,
-      orgImg:"https://1000logos.net/wp-content/uploads/2020/08/Anonymous-Logo.png",
-      rip:rib    
-  }
+    
   const signUp = ()=>{
     createUserWithEmailAndPassword(auth, email,password).then((res) =>{
       console.log(res)
-      console.log(org)
+      const org={
+        orgId:auth.currentUser.uid,
+        orgName:name,
+        orgEmail:email,
+        description:desc,
+        category:category,
+        orgImg:"https://1000logos.net/wp-content/uploads/2020/08/Anonymous-Logo.png",
+        rip:rib    
+    }
+    console.log(org,'this is org');
       axios.post(`http://${ADDRESS_IP}:3001/organizations/`,org).then(res => {
       console.log("success")})
       .catch(err =>console.log(err))
@@ -59,8 +62,7 @@ function AuthOrganization() {
               style={styles.org}>
                 <Text style={styles.appButtonText1}>Donner</Text>
               </TouchableOpacity>
-            </View>
-           
+            </View>  
         <TextInput   
         style={styles.textInput}
         placeholder="name..."
