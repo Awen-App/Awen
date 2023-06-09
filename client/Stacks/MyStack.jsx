@@ -8,6 +8,7 @@ import SignInOrganization from '../component/organization/SignIn';
 import AllCauses from '../component/AllCauses';
 import CauseByCategory from '../component/CauseByCategory';
 import NavbarOrganization from '../component/organization/NavbarOrganization';
+import TermsAndConditions from '../component/TermsAndConditions';
 const Stack = createNativeStackNavigator();
 const MyStack = () => {
   return (
