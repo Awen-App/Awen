@@ -12,7 +12,6 @@ function AuthOrganization() {
     const [name,setName]=useState("");
     const [desc,setDesc]=useState("");
     const [category,setCat]=useState("");
-    const [image,setImage]=useState("");
     const [rib,setRib]=useState("");
 
     const org={
@@ -20,13 +19,14 @@ function AuthOrganization() {
       orgEmail:email,
       description:desc,
       category:category,
-      orgImg:image,
+      orgImg:"https://1000logos.net/wp-content/uploads/2020/08/Anonymous-Logo.png",
       rip:rib    
   }
   const signUp = ()=>{
     createUserWithEmailAndPassword(auth, email,password).then((res) =>{
       console.log(res)
-      axios.post(`http://${ADDRESS_IP}/organizations/`,org).then(res => {
+      console.log(org)
+      axios.post(`http://${ADDRESS_IP}:3001/organizations/`,org).then(res => {
       console.log("success")})
       .catch(err =>console.log(err))
     }).catch(err => console.log(err))
@@ -89,7 +89,7 @@ function AuthOrganization() {
       />
        <TextInput
         style={styles.textInput}
-        placeholder="rib.."
+        placeholder="RIB..."
         onChangeText={rib=>setRib(rib)}
       />
           <TouchableOpacity

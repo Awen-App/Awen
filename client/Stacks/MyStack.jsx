@@ -7,20 +7,23 @@ import GetStarted from '../navigation/screens/GetStarted';
 import SignInOrganization from '../component/organization/SignIn';
 import AllCauses from '../component/AllCauses';
 import CauseByCategory from '../component/CauseByCategory';
-import HomeOrganization from '../component/organization/HomeOrganization';
+import NavbarOrganization from '../component/organization/NavbarOrganization';
 const Stack = createNativeStackNavigator();
 const MyStack = () => {
   return (
   
       <Stack.Navigator>
+        {/* Tarek routs */}
         <Stack.Screen name='getStarted' component={GetStarted} options={{ headerShown: false }}/>
         <Stack.Screen name="UserSignup" component={UserSignup} options={{ headerShown: false }}/>
         <Stack.Screen name="UserSignin" component={UserLogin} options={{ headerShown: false }}/>
+        {/* Amrou routs */}
         <Stack.Screen name="OrganizationSignUp" component={AuthOrganization} options={{ headerShown: false }}/>
         <Stack.Screen name="OrganizationLogin" component={SignInOrganization} options={{ headerShown: false }}/>
+        <Stack.Screen name= "organizationHome" component={NavbarOrganization} options={{ headerShown:false}}/>
+        {/* Sarhane routs */}
         <Stack.Screen name= "AllCauses" component={AllCauses} options={{ headerShown:false}}/>
         <Stack.Screen name= "CauseByCategory" component={CauseByCategory} options={{ headerShown:false}}/>
-        <Stack.Screen name= "organizationHome" component={HomeOrganization} options={{ headerShown:false}}/>
       </Stack.Navigator>
   );
 };

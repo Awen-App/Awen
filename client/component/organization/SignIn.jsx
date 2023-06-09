@@ -10,18 +10,19 @@ const SignInOrganization = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
   const signIn=()=>{
-    console.log("it works")
     signInWithEmailAndPassword(auth,email,password)
     .then((userCredential)=> {
-    console.log(userCredential.user)} )
+    console.log(userCredential.user.email)
+    navigation.navigate('organizationHome')
+  } )
     .catch((error) => {
-    console.log(error.message,'mtaa firebase');
+    console.log(error.message);
   });
     }
     const reset=()=>{
       sendPasswordResetEmail(auth,email)
       .then((res)=> {
-        console.log(email,"email")
+        console.log(email)
         alert('password sent')} )
         .catch((error) => {
           console.error('Error during password reset:', error);
@@ -59,20 +60,16 @@ const SignInOrganization = () => {
             />
             <TouchableOpacity   onPress={()=>{
                   signIn()
-                  navigation.navigate('organizationHome')
+          
 
                 }}
                  style={styles.appButtonContainer}>
                 <Text style={styles.appButtonText}>Sign In</Text>
             </TouchableOpacity>
             <Text 
-              onPress={()=>{
-                signIn()
-                navigation.navigate('OrganizationSignUp')
-
-              }}
+              onPress={()=>{navigation.navigate('OrganizationSignUp') }}
              >Don't have an account? Sign Up.</Text>
-                   <Text 
+            <Text 
               onPress={()=>{reset()}}
              >Forgot password ?</Text>
           </View>
