@@ -16,7 +16,6 @@ const AllCauses = () => {
         setData(response.data);
         console.log(data, '----', response.data);
 
-        // Calculate and set the progress
         response.data.forEach(el => {
           const percentage = (el.current / el.target) * 100;
           setProgress(percentage);
