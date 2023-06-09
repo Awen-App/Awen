@@ -148,6 +148,19 @@ const getLimitToSlideShow=async(req:Request,res:Response)=>{
         res.status(500).json(error)
     }
 }
+
+const getAllOfOneOrganization = async (req:Request,res:Response) =>{
+    try {
+        const causes = await cause.findMany({
+            where: {
+                authorId: req.params.idorg
+            }
+        })   
+        res.status(200).json(causes)    
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
 export default{
     getAllCauses,
     getOneCause,
@@ -162,5 +175,6 @@ export default{
     getAllNonAccepted,
     updateCurrent,
     updateImg,
-    getLimitToSlideShow
+    getLimitToSlideShow,
+    getAllOfOneOrganization
 }
