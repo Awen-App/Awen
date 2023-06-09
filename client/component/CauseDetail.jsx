@@ -21,7 +21,7 @@ const CauseDetail = () => {
   }, []);
 
   const percentage = (cause.current / cause.target) * 100;
-  const progressColor = percentage >= 100 ? 'green' : percentage >= 66 ? 'yellow' : percentage >= 33 ? 'orange' : 'red';
+  const progressColor = percentage >= 100 ? '#ff6600' : percentage >= 66 ? '#ff781f' : percentage>= 33 ?'#ff8b3d':'#ff9d5c';
 
   return (
     <View style={styles.container}>
