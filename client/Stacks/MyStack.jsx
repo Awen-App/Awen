@@ -9,6 +9,10 @@ import AllCauses from '../component/AllCauses';
 import CauseByCategory from '../component/CauseByCategory';
 import NavbarOrganization from '../component/organization/NavbarOrganization';
 import TermsAndConditions from '../component/TermsAndConditions';
+import CauseDetail from '../component/CauseDetail';
+import GetStart from '../component/GetStart';
+
+
 const Stack = createNativeStackNavigator();
 const MyStack = () => {
   return (
@@ -25,6 +29,9 @@ const MyStack = () => {
         {/* Sarhane routs */}
         <Stack.Screen name= "AllCauses" component={AllCauses} options={{ headerShown:false}}/>
         <Stack.Screen name= "CauseByCategory" component={CauseByCategory} options={{ headerShown:false}}/>
+        {/* Aziz routs */}
+        <Stack.Screen name= "CauseDetails" component={CauseDetail} options={{ headerShown:false}}/>
+        <Stack.Screen name= "GetStart" component={GetStart} options={{ headerShown:false}}/>
       </Stack.Navigator>
   );
 };
