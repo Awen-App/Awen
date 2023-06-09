@@ -139,6 +139,15 @@ const getAllNonActive =async (req:Request,res:Response) =>{
         res.status(500).json(error)
     }
 }
+
+const getLimitToSlideShow=async(req:Request,res:Response)=>{
+    try {
+        const causes = await cause.findMany({take:7})   
+        res.status(200).json(causes)    
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
 export default{
     getAllCauses,
     getOneCause,
@@ -153,4 +162,5 @@ export default{
     getAllNonAccepted,
     updateCurrent,
     updateImg,
+    getLimitToSlideShow
 }
