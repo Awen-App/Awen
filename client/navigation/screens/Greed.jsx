@@ -1,7 +1,7 @@
 
 
 import React, { useEffect, useState } from 'react';
-import { View, Text,ImageBackground,StyleSheet ,ScrollView,Dimensions} from 'react-native';
+import { View, Text,ImageBackground,StyleSheet ,ScrollView,Dimensions,TouchableOpacity} from 'react-native';
 // import Slideshow from 'react-native-image-slider-show';
 import axios from 'axios';
 import ADDRESS_IP from '../../env';
@@ -9,6 +9,7 @@ import Swiper from 'react-native-swiper'
 import Track from '../../component/Track';
 import { Padding } from '@mui/icons-material';
 
+import OneCause from '../../component/OneCause';
 const x=[0,1,2,3,4]
 const Greed = () => {
   const [data, setData] = useState([]);
@@ -45,8 +46,8 @@ if(data.length>0){
       })}
     </Swiper>
     </View>
-    <Text style={styles.track}>Categories:</Text>
-    <View style={{ flex:1}}>
+    <Text style={styles.track}>Categories</Text>
+    <View style={{ flex:0.5}}>
         <Swiper style={styles.swiper2}
             loop={true}
             showsPagination={true}
@@ -58,8 +59,18 @@ if(data.length>0){
           })}
         </Swiper>
     </View >
-    <View style={{padding:50}}>
-      <Text>helo</Text>
+    <Text style={styles.all}>All</Text>
+    <View >
+        <Swiper style={styles.wrapper} loop={true} showsPagination={true} height={400}>
+          {data.map((cause,i)=>{
+            return (<View key={i} style={{flex:1}}>
+              <OneCause cause={cause} />
+            </View>)
+          })}
+        </Swiper>
+        <TouchableOpacity  style={styles.appButtonContainer}>
+              <Text style={styles.appButtonText}>Show more</Text>
+        </TouchableOpacity> 
     </View>
     </ScrollView>
   )
@@ -120,5 +131,27 @@ const styles=StyleSheet.create({
     // flex:0.6,
     // display:'flex',
     // flexDirection:'row'
+  },
+  all:{
+    fontSize:25,
+    marginLeft:20,
+    marginTop:20,
+    marginBottom:20
+  },
+  appButtonContainer: {
+        width:'70%',
+        elevation: 8,
+        backgroundColor: "#009688",
+        borderRadius: 10,
+        paddingVertical: 10,
+        paddingHorizontal: 12,
+        marginLeft:50
+  },
+  appButtonText: {
+    fontSize: 18,
+    color: "#fff",
+    fontWeight: "bold",
+    alignSelf: "center",
+    textTransform: "uppercase"
   }
 })
