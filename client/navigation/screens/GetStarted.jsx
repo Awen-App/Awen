@@ -13,5 +13,6 @@ export default GetStarted=()=>{
         <Text onPress={()=>navigation.navigate('AllCauses')}>All</Text>
         <Text onPress={()=>navigation.navigate('CauseByCategory')}>Bycategory</Text>
         <Text onPress={()=>navigation.navigate('CauseDetails')}>CauseDetails</Text>
+        <Text onPress={()=>navigation.navigate('GetStart')}>GetStart</Text>
     </View>)
 }
