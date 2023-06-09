@@ -17,7 +17,7 @@ const postOrg=async(req:Request,res:Response)=>{
     try{
         const organizations=await prisma.organization.create({
             data:{
-                orgId:req.body.orgId,
+            orgId:req.body.orgId,
             orgName:req.body.orgName,
             orgEmail: req.body.orgEmail,
             description:req.body.description,
