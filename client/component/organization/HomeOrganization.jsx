@@ -5,28 +5,20 @@ import axios from 'axios';
 import ADDRESS_IP from '../../env';
 function HomeOrganization() {
   const [data,setData]=useState([]);
-  const[id,setId]=useState("");
   const user = auth.currentUser.email;
   console.log(user,"this is user")
 
-  const getData= () => {
+
+  const getData = () => {
     axios
       .get(`http://${ADDRESS_IP}:3001/organizations/${user}/`)
-      .then(response => {
-        setId(response.data[0].orgId);
-        console.log(response.data[0].orgId,'response')
-        
-      }).then(res => {
-        console.log(id,"this is id ");
-        axios
-      .get(`http://${ADDRESS_IP}:3001/causes/${id}/`)
-      .then(response => {
-        setData(response.data);
+      .then(response => {;
+        console.log(response.data[0].orgId, 'response');
+        return axios.get(`http://${ADDRESS_IP}:3001/causes/${response.data[0].orgId}`);
       })
       .then(res => {
-        console.log(data,'this is data');
-      })
-      .catch(error => console.log(error,'heyy')); 
+        setData(res.data);
+        console.log(res.data, 'this is data');
       })
       .catch(error => console.log(error));
   };
