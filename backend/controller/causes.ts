@@ -2,15 +2,8 @@ import { PrismaClient } from "@prisma/client";
 import {Request,Response} from 'express'
 const prisma =new PrismaClient();
 const cause=prisma.cause
-const cloudinary = require("cloudinary").v2;
 require("dotenv").config();
 
-// --------------------Configure Cloudinary with your account details
-cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-  });
 
 //-------------------------this functions gets all causes
 const getAllCauses =async (req:Request,res:Response) =>{
@@ -36,9 +29,8 @@ const getOneCause = async (req:Request, res:Response) =>{
 const postOneCauses = async (req:Request, res:Response) =>{
     try {
         console.log(req.body)
-        const image = await cloudinary.uploader.upload(`${req.body.causeImg}`);
         const one= await cause.create({data: {
-            causeImg: image.secure_url,
+            causeImg: req.body.causeImg,
             title: req.body.title,
             causeDescription: req.body.causeDescription,
             causeCategory: req.body.causeCategory,
