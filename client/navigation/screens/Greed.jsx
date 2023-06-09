@@ -7,6 +7,7 @@ import axios from 'axios';
 import ADDRESS_IP from '../../env';
 import Swiper from 'react-native-swiper'
 import Track from '../../component/Track';
+import { Padding } from '@mui/icons-material';
 
 const x=[0,1,2,3,4]
 const Greed = () => {
@@ -50,18 +51,16 @@ if(data.length>0){
             loop={true}
             showsPagination={true}
             height={250}
-            // dot={false}
-            // height={200}
-            // width={400}
-            // paginationStyle={
-            //   {margin:10}
-            // }
+            
           >
           {x.map((e,i)=>{
             return <Track key={i}/>
           })}
         </Swiper>
     </View >
+    <View style={{padding:50}}>
+      <Text>helo</Text>
+    </View>
     </ScrollView>
   )
 }
