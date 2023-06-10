@@ -3,7 +3,11 @@ import {Request,Response} from 'express'
 const prisma =new PrismaClient();
 const cause=prisma.cause
 
-//this functions gets all causes
+require("dotenv").config();
+
+
+//-------------------------this functions gets all causes
+
 const getAllCauses =async (req:Request,res:Response) =>{
     console.log(req.url, 'request url');
     
