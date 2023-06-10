@@ -8,6 +8,7 @@ import ADDRESS_IP from '../../env';
 import Swiper from 'react-native-swiper'
 import Track from '../../component/Track';
 import { Padding } from '@mui/icons-material';
+// import {Spinner} from 'native-base'
 
 import OneCause from '../../component/OneCause';
 const x=[0,1,2,3,4]
