@@ -1,12 +1,13 @@
 import * as React from "react";
-import { View , Text} from "react-native";
+import { View , Text,ScrollView} from "react-native";
+import GetStart from "../../component/GetStart";
 
 
 
 export default HomeScreen=()=>{
     return (
-        <View>
-            <Text>this is the homeScreen</Text>
-        </View>
+            <ScrollView>
+                <GetStart/> 
+            </ScrollView>
     )
 }

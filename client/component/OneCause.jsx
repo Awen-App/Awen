@@ -1,9 +1,10 @@
 import React from 'react'
 import { StyleSheet, Text, ScrollView, View, ImageBackground, TouchableOpacity} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 const OneCause = ({cause}) => {
     const percentage = (cause.current / cause.target) * 100;
     const progressColor = percentage >= 100 ? '#ff6600' : percentage >= 66 ? '#ff781f' : percentage>= 33 ?'#ff8b3d':'#ff9d5c';
-    
+    const navigation=useNavigation()
   return (
     <View key={cause.causeId} style={styles.itemContainer}>
                  <View style={styles.progressContainer}>
@@ -27,7 +28,7 @@ const OneCause = ({cause}) => {
           
           
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={[styles.topButton]}>
+            <TouchableOpacity style={[styles.topButton]} onPress={()=>navigation.navigate('CauseDetails',{cause})}>
               <Text style={[styles.buttonTitle]}>Details</Text>
             </TouchableOpacity>
               
