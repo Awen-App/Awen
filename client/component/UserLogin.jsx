@@ -1,14 +1,13 @@
 import React, {useState} from 'react'
 import {View , Image,Text,TextInput,Button,Alert,StyleSheet,TouchableOpacity} from 'react-native'
 import {auth} from  "../fireBaseConfig";
-
-import {signInWithEmailAndPassword} from 'firebase/auth'
+import { useNavigation } from '@react-navigation/native';
+import {signInWithEmailAndPassword,sendPasswordResetEmail} from 'firebase/auth'
 const UserLogin = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    
-    const [tokenResponse,setTokenResponse]=useState({})
-
+    const [tokenResponse,setTokenResponse]=useState({});
+    const navigation=useNavigation();
     const login=()=>{
     
         signInWithEmailAndPassword(auth,email, password)
@@ -19,18 +18,27 @@ const UserLogin = () => {
             console.log(error);
         });
     }
+    const reset=()=>{
+      sendPasswordResetEmail(auth,email)
+      .then((res)=> {
+        console.log(email)
+        alert('password sent')} )
+        .catch((error) => {
+          console.error('Error during password reset:', error);
+        });
+    }
   return (
     <View style={styles.signin}>
         <Image
-            style={{ width: 80, height: 80 ,margin:50}}
-            source={require('../assets/awenLogo.png')}
+            style={{ width: 140, height: 80 ,marginTop:80,marginBottom:50}}
+            source={require('../assets/logo-awen-final1.png')}
           />
             <Text style={styles.wlc}>Sign In to continue </Text>
             <View style={styles.head}>
-              <TouchableOpacity style={styles.org}>
-                <Text style={styles.appButtonText1}>Organization</Text>
+              <TouchableOpacity style={styles.org} onPress={()=>navigation.navigate("OrganizationLogin")}>
+                <Text style={styles.appButtonText2}>Organization</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.org}>
+              <TouchableOpacity style={styles.donor}>
                 <Text style={styles.appButtonText1}>Donor</Text>
               </TouchableOpacity>
             </View>
@@ -52,12 +60,10 @@ const UserLogin = () => {
             <TouchableOpacity onPress={()=>login()} style={styles.appButtonContainer}>
                 <Text style={styles.appButtonText}>Sign In</Text>
             </TouchableOpacity>
-            <Text>Don't have an account? Sign Up.</Text>
-            {/* <Button
-                title="Log-In"
-                color="#33A09A"
-                onPress={()=>login()}
-            /> */}
+            <Text>Don't have an account? </Text><Text onPress={()=>navigation.navigate('UserSignup')}>Sign Up.</Text>
+            <Text 
+              onPress={()=>{reset()}}
+             >Forgot password ?</Text>
     </View>
   )
 }
@@ -107,6 +113,18 @@ const styles=StyleSheet.create({
       org:{
   
         width:'45%',
+        backgroundColor: '#fff',
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        borderRadius: 5,
+        marginRight:5,
+        display:'flex',
+        justifyContent:'center',
+        alignItems:'center'
+      },
+      donor:{
+  
+        width:'45%',
         backgroundColor: '#009688',
         paddingHorizontal: 20,
         paddingVertical: 10,
@@ -119,6 +137,13 @@ const styles=StyleSheet.create({
       appButtonText1: {
         fontSize: 15,
         color: "#fff",
+        fontWeight: "bold",
+        alignSelf: "center",
+        textTransform: "uppercase"
+      },
+      appButtonText2: {
+        fontSize: 15,
+        color: "#009688",
         fontWeight: "bold",
         alignSelf: "center",
         textTransform: "uppercase"

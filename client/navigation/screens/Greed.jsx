@@ -7,14 +7,25 @@ import axios from 'axios';
 import ADDRESS_IP from '../../env';
 import Swiper from 'react-native-swiper'
 import Track from '../../component/Track';
-import { Padding } from '@mui/icons-material';
-
+// import { Padding } from '@mui/icons-material';
+// import {Spinner} from 'native-base'
+import {useNavigation} from '@react-navigation/native';
 import OneCause from '../../component/OneCause';
 const x=[0,1,2,3,4]
 const Greed = () => {
+  const navigation=useNavigation();
   const [data, setData] = useState([]);
-  const screenWidth = Dimensions.get('window').width;
+  const [latest,setLatest]=useState([]);
   useEffect(() => {
+    const retrieveLatest=async()=>{
+      
+      try {
+        const res=await axios.get(`http://${ADDRESS_IP}:3001/latest`);
+        setLatest(res.data);
+      } catch (error) {
+        console.error('Error retrieving data:', error);
+      }
+    }
     const retrieveToSlide = async () => {
       try {
         const res = await axios.get(`http://${ADDRESS_IP}:3001/slidecauses`);
@@ -25,6 +36,7 @@ const Greed = () => {
     };
 
     retrieveToSlide();
+    retrieveLatest();
   }, []);
 
 if(data.length>0){
@@ -63,6 +75,19 @@ if(data.length>0){
     <View >
         <Swiper style={styles.wrapper} loop={true} showsPagination={true} height={400}>
           {data.map((cause,i)=>{
+            return (<View key={i} style={{flex:1}}>
+              <OneCause cause={cause} />
+            </View>)
+          })}
+        </Swiper>
+        <TouchableOpacity  style={styles.appButtonContainer} onPress={()=>navigation.navigate('AllCauses')}>
+              <Text style={styles.appButtonText}>Show more</Text>
+        </TouchableOpacity> 
+    </View>
+    <Text style={styles.all}>Latest</Text>
+    <View >
+        <Swiper style={styles.wrapper} loop={true} showsPagination={true} height={400}>
+          {latest.map((cause,i)=>{
             return (<View key={i} style={{flex:1}}>
               <OneCause cause={cause} />
             </View>)

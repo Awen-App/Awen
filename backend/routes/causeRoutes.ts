@@ -14,5 +14,5 @@ causeRoute.get('/causenonactive',cause.getAllNonActive)
 causeRoute.get('/causeaccepted',cause.getAllAccepted)
 causeRoute.get('/causenonaccepted',cause.getAllNonAccepted)
 causeRoute.get('/causes/:idorg',cause.getAllOfOneOrganization);
-
+causeRoute.get('/latest',cause.getLatest)
 export default causeRoute;

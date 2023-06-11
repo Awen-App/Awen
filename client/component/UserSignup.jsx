@@ -55,15 +55,15 @@ const UserSignup = () => {
       
         <View style={styles.signin}>
             <Image
-            style={{ width: 80, height: 80 ,margin:50}}
-            source={require('../assets/awenLogo.png')}
+            style={{ width: 140, height: 80 ,marginTop:80,marginBottom:50}}
+            source={require('../assets/logo-awen-final1.png')}
           />
             <Text style={styles.wlc}>Sign up to continue </Text>
             <View style={styles.head}>
-              <TouchableOpacity style={styles.org}>
-                <Text style={styles.appButtonText1}>Organization</Text>
+              <TouchableOpacity style={styles.org} onPress={()=>navigation.navigate('OrganizationSignUp')}>
+                <Text style={styles.appButtonText2}>Organization</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.org}>
+              <TouchableOpacity style={styles.donor}>
                 <Text style={styles.appButtonText1}>Doner</Text>
               </TouchableOpacity>
             </View>
@@ -93,7 +93,8 @@ const UserSignup = () => {
             <TouchableOpacity style={styles.appButtonContainer} >
               <Text style={styles.appButtonText}>Sign up with Google</Text>
             </TouchableOpacity>
-            <Text>Already have an account? Sign In.</Text>
+            <Text>Already have an account? </Text>
+            <Text onPress={()=>navigation.navigate('UserSignin')}>Sign In</Text>
         </View>
   )
 }
@@ -157,7 +158,7 @@ const styles=StyleSheet.create({
     org:{
 
       width:'45%',
-      backgroundColor: '#009688',
+      backgroundColor: '#fff',
       paddingHorizontal: 20,
       paddingVertical: 10,
       borderRadius: 5,
@@ -177,5 +178,24 @@ const styles=StyleSheet.create({
       // color: '#fff',
       fontSize: 26,
       fontWeight: 'bold',
+    },
+    appButtonText2: {
+      fontSize: 15,
+      color: "#009688",
+      fontWeight: "bold",
+      alignSelf: "center",
+      textTransform: "uppercase"
+    },
+    donor:{
+
+      width:'45%',
+      backgroundColor: '#009688',
+      paddingHorizontal: 20,
+      paddingVertical: 10,
+      borderRadius: 5,
+      marginRight:5,
+      display:'flex',
+      justifyContent:'center',
+      alignItems:'center'
     }
 })
