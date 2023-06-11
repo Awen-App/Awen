@@ -51,7 +51,7 @@ The Awen mobile app is provided</Text>
     </View>
   );
 };
-export default TermsAndConditions;
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -71,3 +71,4 @@ const styles = StyleSheet.create({
         marginBottom: 20,
       }
 });
+export default TermsAndConditions;
