@@ -166,6 +166,17 @@ const getAllOfOneOrganization = async (req:Request,res:Response) =>{
     }
 }
 
+const getLatest=async (req:Request,res:Response) =>{
+    try {
+        const causes = await cause.findMany({
+            take:-4
+        })   
+        res.status(200).json(causes)    
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+
 export default{
     getAllCauses,
     getOneCause,
@@ -181,5 +192,6 @@ export default{
     updateCurrent,
     updateImg,
     getLimitToSlideShow,
-    getAllOfOneOrganization
+    getAllOfOneOrganization,
+    getLatest
 }

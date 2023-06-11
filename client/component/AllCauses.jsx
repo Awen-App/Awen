@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, ScrollView, View, ImageBackground, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import ADDRESS_IP from '../env';
+import OneCause from './OneCause';
+
 
 const AllCauses = () => {
   const [data, setData] = useState([]);
@@ -66,42 +68,7 @@ const AllCauses = () => {
 
       return (
         <View key={el.causeId} style={styles.all}>
-          <View  style={styles.itemContainer}>
-            <View style={styles.progressContainer}>
-              <View style={[styles.progressBar, { width: `${percentage}%`, backgroundColor: progressColor }]} />
-              <Text style={styles.progressText}>{percentage.toFixed(0)}%</Text>
-            </View>
-            <ImageBackground source={{ uri: el.causeImg }} style={styles.imageContainer} resizeMode="cover">
-              <View style={styles.titleContainer}>
-                <Text style={styles.title}>{el.title}</Text>
-                <Text style={styles.category}>{el.causeCategory}</Text>
-              </View>
-            </ImageBackground>
-            <View style={styles.amountsContainer}>
-              <Text style={styles.amountText}>Target Amount: {el.target}DT</Text>
-              <Text style={styles.amountText}>Current Amount: {el.current}DT</Text>
-            </View>
-            <View style={styles.buttonContainer}>
-              <TouchableOpacity
-                style={[
-                  styles.topButton,
-                  detailsPressed && el.causeId === detailsPressed ? styles.clickedButton : null,
-                ]}
-                onPress={() => handleDetailsPress(el)}
-              >
-                <Text style={[styles.buttonTitle, detailsPressed && el.causeId === detailsPressed ? styles.clickedTitle : null]}>Details</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.bottomButton,
-                  donationPressed && el.causeId === donationPressed ? styles.clickedButton : null,
-                ]}
-                onPress={() => handleQuickDonationPress(el)}
-              >
-                <Text style={[styles.buttonTitle, donationPressed && el.causeId === donationPressed ? styles.clickedTitle : null]}>Donate</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+          <OneCause cause={el}/>
           <Text style={styles.time}>{timeAgo}</Text>
         </View>
       );

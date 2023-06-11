@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View,Text } from 'react-native';
-import {useNavigation} from '@react-navigation/native'
+import {useNavigation} from '@react-navigation/native';
 
 export default GetStarted=()=>{
     let navigation=useNavigation();
