@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 import {Request,Response} from 'express'
 const prisma =new PrismaClient();
 
@@ -22,7 +22,7 @@ const postOrg=async(req:Request,res:Response)=>{
             orgEmail: req.body.orgEmail,
             description:req.body.description,
             category:req.body.category,
-            orgImg:"https://1000logos.net/wp-content/uploads/2020/08/Anonymous-Logo.png",
+            orgImg:req.body.orgImg,
             rip:req.body.rip
             },
           });
@@ -42,5 +42,35 @@ const getOneOrgByEmail=async(req:Request,res:Response)=>{
         res.status(500).json(error)
     }
 }
+//--------------------get organization by id---------------------------------
+const getOneOrgById=async(req:Request,res:Response)=>{
+    console.log(req.params)
+    try {
+        const one= await prisma.organization.findUnique({where:{orgId:req.params.id}})
+        console.log(req.params.id,one,'hhhh')
+        res.status(200).json(one)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+//------------------update organization -----------------
+const updateImage = async (req: Request, res: Response) => {
+    try {
+        const updated = await prisma.organization.update({
+            where: {
+                orgId: req.params.id
+            },
+            data:{orgImg:req.body.orgImg}
+        });
 
-export default {getAllOrg,postOrg,getOneOrgByEmail}
+        res.status(200).send("image updated");
+        console.log(res,'okk')
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error);
+    }
+};
+
+
+
+export default {getAllOrg,postOrg,getOneOrgByEmail,getOneOrgById,updateImage}
