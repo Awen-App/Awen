@@ -102,7 +102,7 @@ function HomeOrganization() {
 
   return (
     <View style={styles.container}>
-                 <ScrollView contentContainerStyle={styles.scrollContainer}>{all()}</ScrollView>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>{all()}</ScrollView>
     </View>
   );
 }
