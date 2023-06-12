@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect, useContext} from 'react'
 // import * as Network from 'expo-network';
 import {View ,Text, Image,TextInput,Button,Alert,StyleSheet,TouchableOpacity} from 'react-native'
 import {auth,googleAuthProvider} from '../fireBaseConfig';
@@ -6,8 +6,10 @@ import { createUserWithEmailAndPassword,signInWithPopup, GoogleAuthProvider } fr
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import ADDRESS_IP from '../env.js'
+import { AuthContext } from './Context';
 const UserSignup = () => {
     const navigation=useNavigation();
+    const [authUser,setAuthUser]=useContext(AuthContext)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confpassword, setConfpassword] = useState('');
@@ -17,26 +19,29 @@ const UserSignup = () => {
       if(user.data.length>0){
          Alert.alert("user already exist")
          navigation.navigate('UserSignin')
-         return
+         return;
         }
       if(confpassword!==password){
         Alert.alert("you should confirm your password")
         return
       }
-      console.log(email,"emilll")
+      
       createUserWithEmailAndPassword(auth, email, password)
       .then(async(userCredential) => {
         const user = userCredential.user;
-        await axios.post(`http://${ADDRESS_IP}:3001/users`,{email:user.email})
+        console.log(userCredential)
+        await axios.post(`http://${ADDRESS_IP}:3001/users`,{email})
+        setAuthUser({email:email,token:userCredential._tokenResponse.idToken})
         Alert.alert('user created successfully')
+        navigation.navigate('grid')
       })
       .catch((error) => {
         switch (error.code) {
           case 'auth/email-already-in-use':
-            Alert.alert(`Email address ${this.state.email} already in use.`);
+            Alert.alert(`Email address ${email} already in use.`);
             break;
             case 'auth/invalid-email':
-              Alert.alert(`Email address ${this.state.email} is invalid.`);
+              Alert.alert(`Email address ${email} is invalid.`);
               break;
               case 'auth/operation-not-allowed':
                 Alert.alert(`Error during sign up.`);

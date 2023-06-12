@@ -1,19 +1,23 @@
-import React, {useState} from 'react'
+import React, {useContext, useState} from 'react'
 import {View , Image,Text,TextInput,Button,Alert,StyleSheet,TouchableOpacity} from 'react-native'
 import {auth} from  "../fireBaseConfig";
 import { useNavigation } from '@react-navigation/native';
-import {signInWithEmailAndPassword,sendPasswordResetEmail} from 'firebase/auth'
-const UserLogin = () => {
+import {signInWithEmailAndPassword,sendPasswordResetEmail} from 'firebase/auth';
+// import ADDRESS_IP from '../env';
+// import axios from 'axios';
+import { AuthContext } from './Context';
+const UserLogin =() => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [tokenResponse,setTokenResponse]=useState({});
+    const [authUser,setAuthUser]=useContext(AuthContext);
+    console.log(authUser)
     const navigation=useNavigation();
-    const login=()=>{
-    
+    const login=async()=>{
+        
         signInWithEmailAndPassword(auth,email, password)
             .then((u) => {
-                setTokenResponse(u._tokenResponse)
-                console.log(tokenResponse)
+                setAuthUser({email:email,token:u._tokenResponse.idToken})
+                navigation.navigate('grid')
             }).catch((error) => {
             console.log(error);
         });
