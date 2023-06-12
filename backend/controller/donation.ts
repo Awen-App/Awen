@@ -23,7 +23,21 @@ const getDonationByUser=async(req:Request,res:Response)=>{
         res.json(err)
     }
 }
+const AddDonation=async(req:Request,res:Response)=>{
+    try{
+        await prisma.donation.create({
+            data:{
+                ...req.body
+            }
+        })
+        res.status(200).json("created")
+    }catch(err){
+        console.log(err);
+        res.json(err)
+    }
+}
 export default {
     getDonations,
-    getDonationByUser
+    getDonationByUser,
+    AddDonation
 }

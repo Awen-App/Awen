@@ -39,6 +39,9 @@ const ProfileUser = () => {
     return (
         <View>
             <Text>profile</Text>
+            <Text>{donation[0].amount}</Text>
+            <Text>{donation[1].amount}</Text>
+            <Text>{donation[2].amount}</Text>
             <View>
                 <Text onPress={()=>{
                     logOutUser();
@@ -48,16 +51,16 @@ const ProfileUser = () => {
         </View>
       )
   }
-  else{
-    return(
-        <View style={{top:200}}>
-                <Text onPress={()=>{
-                    logOutUser();
-                    navigation.navigate('Home')
-                }}>LogOut</Text>
-            </View>
-    )
-  }
+//   else{
+//     return(
+//         <View style={{top:200}}>
+//                 <Text onPress={()=>{
+//                     logOutUser();
+//                     navigation.navigate('Home')
+//                 }}>LogOut</Text>
+//             </View>
+//     )
+//   }
 }
 
 export default ProfileUser
