@@ -4,13 +4,13 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 const Tab=createBottomTabNavigator();
 import HomeOrganization from "./HomeOrganization";
 import Add from './AddCause'
-import SettingScreen from '../../navigation/screens/SettingScreen';
 import Chat from "../../navigation/screens/Chat";
 import Help from "../../navigation/screens/Help";
+import Profile from "./Profile";
 
 
 const homeName='Home';
-const settingName='Settings';
+const prof='profile';
 const chat='chatbox';
 const help='help';
 const add='add'
@@ -35,11 +35,11 @@ export default MainContainer2=()=>{
                         if(routeName===homeName){
                             iconName=focused ? 'home' : 'home-outline'
                         }
-                        else if(routeName===settingName){
-                            iconName=focused ? 'settings' : 'settings-outline'
+                        else if(routeName===prof){
+                            iconName = focused ? 'person' : 'person-outline';
                         }
                         else if(routeName===add){
-                            iconName=focused ? 'grid' : 'grid-outline'
+                            iconName = focused ? 'add-circle' : 'add-circle-outline';
                         }
                         else if(routeName===chat){
                             iconName=focused ? 'chatbox' : 'chatbox-ellipses-outline'
@@ -56,7 +56,7 @@ export default MainContainer2=()=>{
                 <Tab.Screen name={homeName} component={HomeOrganization} options={{ headerShown: false }}/>
                 <Tab.Screen name={chat} component={Chat} options={{ headerShown: false }}/>
                 <Tab.Screen name={add} component={Add} options={{ headerShown: false }}/>
-                <Tab.Screen name={settingName} component={SettingScreen} options={{ headerShown: false }}/>
+                <Tab.Screen name={prof} component={Profile} options={{ headerShown: false }}/>
                 <Tab.Screen name={help} component={Help} options={{ headerShown: false }}/>
                 
             </Tab.Navigator>
