@@ -8,7 +8,7 @@ import { AuthContext } from './Context';
 export default function AwenHeader() {
     const navigation=useNavigation()
     const [authUser,setAuthUser]=React.useContext(AuthContext)
-    
+    // console.log(authUser)
     
     return (
       <View style={styles.header}>
@@ -18,7 +18,7 @@ export default function AwenHeader() {
         />
         {authUser.email===null && <Text style={{color: 'black', paddingLeft:"60%",fontSize: 10, marginLeft:20}} onPress={()=>navigation.navigate("UserSignin")}>Log In</Text>}
         {authUser.email!==null && <Text style={{color: 'black', paddingLeft:"60%",fontSize: 10, marginLeft:20}} onPress={()=>{
-          navigation.navigate("profile");
+          navigation.navigate("profileUser");
         }}>Profile</Text>}
       </View>
     );
