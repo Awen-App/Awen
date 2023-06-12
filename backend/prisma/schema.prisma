@@ -69,6 +69,24 @@ model Donation{
   causeId String
 }
 
+model Conversation {
+  conversationId String @id @default(cuid())
+  orgName String
+  userEmail String
+  orgId String
+  messages Message[]
+}
+
+model Message{
+  messageId  String @id @default(cuid())
+  sender String
+  content String
+  createdAt DateTime @default(now())
+  conversation Conversation @relation(fields: [conversationId] ,references: [conversationId])
+  conversationId String
+}
+
+
 
 model Admin {
   adminId String @id @default(cuid())
