@@ -69,6 +69,6 @@ const styles = StyleSheet.create({
       text: {
         fontSize: 16,
         marginBottom: 20,
-      },
+      }
 });
 export default TermsAndConditions;

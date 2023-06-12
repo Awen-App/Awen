@@ -62,7 +62,6 @@ const menu='grid'
                 <Tab.Screen name={menu} component={Greed} options={{ headerShown: false }}/>
                 <Tab.Screen name={settingName} component={SettingScreen} options={{ headerShown: false }}/>
                 <Tab.Screen name={help} component={Help} options={{ headerShown: false }}/>
-                
             </Tab.Navigator>
         
     )

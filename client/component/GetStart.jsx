@@ -1,8 +1,9 @@
 import { Translate } from '@mui/icons-material';
 import React from 'react';
 import { View, Text, ImageBackground, TouchableOpacity, StyleSheet,Image } from 'react-native';
-
+import { useNavigation } from '@react-navigation/native';
 const GetStart = () => {
+  const navigation=useNavigation()
   return (
    
       
@@ -25,7 +26,7 @@ const GetStart = () => {
         </Text>
         
       </View>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('grid')}>
           <Text style={styles.buttonText}>Get Started</Text>
         </TouchableOpacity>
     </View>
@@ -64,7 +65,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   description: {
-    color: '',
+    // color: '',
     fontSize: 16,
     textAlign: 'center',
     marginBottom: 30,

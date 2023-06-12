@@ -3,15 +3,18 @@ import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet } from 'rea
 import Icon from 'react-native-vector-icons/Feather';
 import axios from 'axios';
 import ADDRESS_IP from '../env';
-
-const CauseDetail = () => {
+import { useRoute } from '@react-navigation/native';
+const CauseDetail = (props) => {
+  // console.log('primar consolog',props.route.params.cause.causeId)
+  // console.log('second consolog',props.route.key)
   const [cause, setCause] = useState({});
   const [showDescription, setShowDescription] = useState(false);
-
+  // const route=useRoute();
+  // const id=route.params.id
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get(`http://${ADDRESS_IP}:3001/getcause/clijfptw30000miv8bnl6bw3w`);
+        const response = await axios.get(`http://${ADDRESS_IP}:3001/getcause/${props.route.params.cause.causeId}`);
         setCause(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
