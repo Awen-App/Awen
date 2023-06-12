@@ -10,14 +10,14 @@ const LoadingScreen = () => {
     useEffect(() => {
       const rotateAnimation = Animated.timing(rotateValue, {
         toValue: 1,
-        duration: 2000,
+        duration: 3000,
         easing: Easing.linear,
         useNativeDriver: true,
       });
 
       rotateAnimation.start(() => {
-        SplashScreen.hide();
-        navigation.navigate('Home');
+        
+        navigation.navigate('GetStart');
       });
 
       return () => {
@@ -33,7 +33,7 @@ const LoadingScreen = () => {
     return (
       <View style={styles.container}>
         <Animated.Image
-          source={require('../assets/loading.png')} // Replace with your loading image
+          source={require('../assets/logo-awen-final1.png')}
           style={[styles.image, { transform: [{ rotate: spin }] }]}
         />
       </View>
@@ -47,7 +47,7 @@ const LoadingScreen = () => {
       backgroundColor: '#FFFFFF',
     },
     image: {
-      width: 200,
+      width: 300,
       height: 200,
     },
   });

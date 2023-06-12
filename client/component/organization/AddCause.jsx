@@ -11,7 +11,7 @@ function Addcause() {
   const[des,setDes]=useState("")
   const[cat,setCat]=useState("")
   const[target,setTarget]=useState("")
-
+ //---------upload image to cloudinary--------------
   const uploadImageToCloudinary = async (imageUri) => {
     const data = new FormData();
     let filename = imageUri.split('/').pop();
@@ -46,6 +46,7 @@ try {
   console.log("Upload Image Error", err, err.request, err.response);
 }
 }
+   //-------------------select image from galery-------------
 const selectImage = async () => {
   let result = await ImagePicker.launchImageLibraryAsync({
     mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -65,7 +66,6 @@ const selectImage = async () => {
     title:title,
     causeDescription:des,
     causeCategory:cat,
-    // createdAt: new Date(),
     target:Number(target),
     current: 0,
     accepted: true,
@@ -180,7 +180,6 @@ appButtonContainer: {
 
   },
   org:{
-
     width:'45%',
     backgroundColor: '#009688',
     paddingHorizontal: 20,
