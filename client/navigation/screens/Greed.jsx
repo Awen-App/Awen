@@ -58,7 +58,7 @@ if(data.length>0){
       {data.map((cause,i)=>{
         return (<ImageBackground source={{uri:cause.causeImg}} key={i} style={styles.image} >
           <Text style={styles.text}>{cause.title}</Text>
-          <Text>date</Text>
+          <Text style={{color:'white'}}>date</Text>
         </ImageBackground>)
       })}
     </Swiper>

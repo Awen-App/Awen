@@ -31,8 +31,8 @@ export default App=()=>{
                     <Stack.Screen name= "organizationHome" component={NavbarOrganization} options={{ headerShown:false}}/>
                     <Stack.Screen name="OrganizationLogin" component={SignInOrganization} options={{ headerShown: false }}/>       
                     <Stack.Screen name= "ModifyOrganization" component={Modify} options={{ headerShown:false}}/>
-                    <Stack.Screen name= "profile" component={Profile} options={{ headerShown:false}}/>
-                    <Stack.Screen name= "profileUser" component={ProfileUser} options={{ headerShown:false}}/> 
+                    <Stack.Screen name= "profile" component={Profile} options={{ headerTitle:false}}/>
+                    <Stack.Screen name= "profileUser" component={ProfileUser} options={{ headerTitle:"Your Donations"}}/> 
                     <Stack.Screen name="UserSignin" component={UserLogin} options={{ headerShown: false }}/>
                     <Stack.Screen name= "AllCauses" component={AllCauses} options={{ headerTitle: () => <View /> }}/>
                     <Stack.Screen name='MyStack' component={MyStack} options={{ headerTitle: () => <View />}}/>
