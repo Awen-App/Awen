@@ -2,16 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, ScrollView, View, ImageBackground, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import ADDRESS_IP from '../env';
+import LoadingScreen from './LoadingScreen';
 
 const CauseByCategory = ({ category }) => {
   const [data, setData] = useState([]);
-
+  const [isLoading, setIsLoading] = useState(true);
   const getCauses = () => {
     axios
       .get(`http://${ADDRESS_IP}:3001/getcauseby/Social`)
       .then(response => {
         setData(response.data);
         console.log(data, '----', response.data);
+        setIsLoading(false);
       })
       .catch(error => console.log(error));
   };
@@ -92,7 +94,9 @@ const CauseByCategory = ({ category }) => {
   const handleQuickDonationPress = el => {
     console.log('Quick Donation button pressed for:', el.causeId);
   };
-
+  if (isLoading) {
+    return <LoadingScreen />
+  }
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>{all()}</ScrollView>

@@ -8,22 +8,18 @@ import ADDRESS_IP from '../env';
 import { DataTable } from 'react-native-paper';
 import moment from 'moment/moment';
 
-// var total=0
+import LoadingScreen from './LoadingScreen';
 const ProfileUser = () => {
     
     const navigation=useNavigation();
     const [authUser,setAuthUser]=useContext(AuthContext)
     const [donation,setDonation]=useState([])
-    console.log(donation)
+    const [isLoading, setIsLoading] = useState(true);
     const logOutUser=()=>{
         auth.signOut();
         setAuthUser({email:null,token:''})
       }
-    // if(donation.length>0){
-    //     for(var i=0 ;i<donation.length;i++){
-    //         total=total+donation[i].amount
-    //     }
-    // }
+   
     const getDonation=async()=>{
         let allForUser=[];
         try{
@@ -40,6 +36,7 @@ const ProfileUser = () => {
                     allForUser.push({...cause.data,amount:resDonation.data[i].amount,createdAt:resDonation.data[i].createdAt})
                 }
             }
+            setIsLoading(false);
             setDonation(allForUser)
         }catch(err){
             console.log(err)
@@ -49,12 +46,10 @@ const ProfileUser = () => {
         getDonation();
         
     },[])
-//     const sum=()=>{
-//         for(var i=0;i<donation.length;i++){
-//             setTotal(prev=>prev+donation[i].amount)
-//     }
-// }
 
+    if (isLoading) {
+        return <LoadingScreen />
+      }
   if(donation.length>0){
     const total=donation.reduce((acc,curr)=>acc+curr.amount,0)
     return (
