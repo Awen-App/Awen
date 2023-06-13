@@ -17,7 +17,7 @@ const LoadingScreen = () => {
 
       rotateAnimation.start(() => {
         
-        navigation.navigate('GetStart');
+        // navigation.navigate('GetStart');
       });
 
       return () => {

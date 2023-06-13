@@ -5,10 +5,12 @@ import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import {auth} from '../fireBaseConfig'
 import ADDRESS_IP from '../env'
+import LoadingScreen from './LoadingScreen';
 const ProfileUser = () => {
     const navigation=useNavigation();
     const [authUser,setAuthUser]=useContext(AuthContext)
     const [donation,setDonation]=useState([])
+    const [isLoading, setIsLoading] = useState(true);
     const logOutUser=()=>{
         auth.signOut();
         setAuthUser({email:null,token:''})
@@ -27,6 +29,7 @@ const ProfileUser = () => {
                     allForUser.push({...cause.data[0],amount:resDonation.data[i].amount,createdAt:resDonation.data[i].createdAt})
                 }
             }
+            setIsLoading(false);
             setDonation(allForUser)
         }catch(err){
             console.log(err)
@@ -35,6 +38,9 @@ const ProfileUser = () => {
     useEffect(()=>{
         getDonation();
     },[])
+    if (isLoading) {
+        return <LoadingScreen />
+      }
   if(donation.length>0){
     return (
         <View>

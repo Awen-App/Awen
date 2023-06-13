@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { View, Text,ImageBackground,StyleSheet ,ScrollView,Dimensions,TouchableOpacity} from 'react-native';
+import LoadingScreen from '../../component/LoadingScreen';
 // import Slideshow from 'react-native-image-slider-show';
 import axios from 'axios';
 import ADDRESS_IP from '../../env';
@@ -16,12 +17,14 @@ const Greed = () => {
   const navigation=useNavigation();
   const [data, setData] = useState([]);
   const [latest,setLatest]=useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const retrieveLatest=async()=>{
       
       try {
         const res=await axios.get(`http://${ADDRESS_IP}:3001/latest`);
         setLatest(res.data);
+        setIsLoading(false);
       } catch (error) {
         console.error('Error retrieving data:', error);
       }
@@ -38,7 +41,9 @@ const Greed = () => {
     retrieveToSlide();
     retrieveLatest();
   }, []);
-
+  if (isLoading) {
+    return <LoadingScreen />
+  }
 if(data.length>0){
 
   return(
