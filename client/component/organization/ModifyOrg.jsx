@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState,useContext } from 'react'
 import { View, Text, Image, StyleSheet,TouchableOpacity,Button} from 'react-native';
 import {auth} from '../../fireBaseConfig'
 import * as ImagePicker from 'expo-image-picker';
 import ADDRESS_IP from '../../env';
 import axios from 'axios'
 import {useNavigation} from '@react-navigation/native'
+import {TrakkerContext} from '../Context'
 function ModifyOrg({route}) {
   let navigation=useNavigation();
+    const [trakker,setTrakker] = useContext(TrakkerContext);
     const[image,setImage]=useState("");
     const [buttonColor, setButtonColor] = useState('#000000');;
     const org=route.params.org
@@ -78,7 +80,8 @@ function ModifyOrg({route}) {
             .catch((error) => {
               console.log(error.message);
             });
-            navigation.navigate("profile")
+            setTrakker(!trakker)
+            // navigation.navigate("profile")
 
         } catch (error) {
           console.log(error.message);
@@ -86,7 +89,7 @@ function ModifyOrg({route}) {
       };
 
   return (
-    <View>
+    <View style={styles.head}>
      <Button title="Select Image" onPress={selectImage} color={buttonColor} />
      <TouchableOpacity
            onPress={()=>{
@@ -98,31 +101,15 @@ function ModifyOrg({route}) {
               Submit
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity
-           onPress={()=>{
-            auth.signOut
-             }}
-           style={styles.appButtonContainer}>
-            <Text 
-            style={styles.appButtonText}>
-              Sign out
-              </Text>
-            </TouchableOpacity>
     </View>
   )
 }
 const styles = StyleSheet.create({
   
-  signin: {
-    flex: 0.9,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 20,
-  },
   head:{
     flexDirection: 'row',
     height:50,
-    marginVertical:40
+    marginVertical:40,
   },
 textInput:{
     width: '70%',
@@ -134,6 +121,7 @@ textInput:{
     borderRadius :13,
 },
 appButtonContainer: {
+  flex:0.5,
     width:'70%',
     elevation: 8,
     backgroundColor: "#009688",

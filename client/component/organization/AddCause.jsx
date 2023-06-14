@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState ,useContext} from 'react'
 import { StyleSheet, Text, View, TextInput,TouchableOpacity ,Image,Button} from 'react-native'
 import {auth} from '../../fireBaseConfig'
 import * as ImagePicker from 'expo-image-picker';
 import ADDRESS_IP from '../../env';
+import {TrakkerContext} from '../Context'
 import axios from 'axios'
 function Addcause() {
   const [buttonColor, setButtonColor] = useState('#000000');
@@ -11,6 +12,7 @@ function Addcause() {
   const[des,setDes]=useState("")
   const[cat,setCat]=useState("")
   const[target,setTarget]=useState("")
+  const [trakker,setTrakker] = useContext(TrakkerContext);
  //---------upload image to cloudinary--------------
   const uploadImageToCloudinary = async (imageUri) => {
     const data = new FormData();
@@ -38,6 +40,7 @@ try {
   if (response.data.secure_url !== '') {
     const image = response.data.secure_url;
     setImage(image); 
+    alert("uploaded with success")
   } else {
     Alert.alert("Error", "Image upload failed");
   }
@@ -79,6 +82,7 @@ const selectImage = async () => {
       .then(response => {
         console.log(response)
         alert("added succefully");
+        setTrakker(!trakker)
       })
       .catch(error => 
         console.log(error.mesage));

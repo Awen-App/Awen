@@ -5,13 +5,15 @@ import causeRoute from "./routes/causeRoutes";
 import organizationRoute  from './routes/organizations'
 import donationRoute from './routes/donationRoutes'
 const app=express();
+const stripSecretKey=process.env.STRIPE_API_SECRET;
+const stripePublicKey=process.env.STRIPE_API_PUBLIC
 
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
 app.use(routeUser)
-
+app.set("view engine","ejs")
 app.use(causeRoute)
 
 app.use(organizationRoute)

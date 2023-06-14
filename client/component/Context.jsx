@@ -15,4 +15,19 @@ const AuthProvider = ({ children }) => {
   );
 };
 
-export { AuthContext, AuthProvider };
+const TrakkerContext = createContext();
+
+const TrakkerProvider = ({ children }) => {
+  const [trakker, setTrakker] = useState(false);
+
+  return (
+    <TrakkerContext.Provider value={[trakker, setTrakker]}>
+      {children}
+    </TrakkerContext.Provider>
+  );
+};
+const organizationContext = createContext();
+
+
+export { AuthContext, AuthProvider, TrakkerContext, TrakkerProvider };
+
