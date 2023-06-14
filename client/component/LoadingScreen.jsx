@@ -10,14 +10,14 @@ const LoadingScreen = () => {
     useEffect(() => {
       const rotateAnimation = Animated.timing(rotateValue, {
         toValue: 1,
-        duration: 3000,
+        duration: 10000,
         easing: Easing.linear,
         useNativeDriver: true,
       });
 
       rotateAnimation.start(() => {
         
-        navigation.navigate('GetStart');
+        // navigation.navigate('GetStart');
       });
 
       return () => {

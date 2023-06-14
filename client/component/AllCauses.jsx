@@ -3,13 +3,14 @@ import { StyleSheet, Text, ScrollView, View, ImageBackground, TouchableOpacity }
 import axios from 'axios';
 import ADDRESS_IP from '../env';
 import OneCause from './OneCause';
-
+import LoadingScreen from './LoadingScreen';
 
 const AllCauses = () => {
   const [data, setData] = useState([]);
   const [progress, setProgress] = useState(0);
   const [detailsPressed, setDetailsPressed] = useState(false);
   const [donationPressed, setDonationPressed] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getCauses = () => {
     axios
@@ -22,6 +23,7 @@ const AllCauses = () => {
           const percentage = (el.current / el.target) * 100;
           setProgress(percentage);
         });
+        setIsLoading(false);
       })
       .catch(error => console.log(error));
   };
@@ -74,6 +76,10 @@ const AllCauses = () => {
       );
     });
   };
+
+  if (isLoading) {
+    return <LoadingScreen />
+  }
 
   return (
     <View style={styles.container}>

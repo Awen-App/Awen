@@ -1,16 +1,24 @@
-import React from 'react'
+import React,{useState} from 'react'
 import {Text , View ,ImageBackground,StyleSheet} from 'react-native'
+import { useNavigation } from '@react-navigation/native';
 
-const Track = () => {
-  return (
-    <View style={{flex:0.9}}>
-        <ImageBackground source={require('../assets/texture.jpg')} style={styles.backgroundImage}>
-                <Text style={styles.title}>title</Text>
-                <Text style={styles.desc}>desc</Text>
-                
-        </ImageBackground>
-    </View>
-  )
+import Icon from 'react-native-vector-icons/Entypo';
+const category=[{name:"Environmental", icon:"globe"},{name:"Social",icon:"slideshare"},{name:"Aid",icon:"heart"},{name:"Other",icon:"infinity"}]
+const Track = ({el}) => {
+  const navigation=useNavigation()
+const [choice,setChoice]=useState("")
+console.log(choice)
+const categories=()=>{  
+return(
+  <ImageBackground source={require('../assets/texture.jpg')} style={styles.backgroundImage }>
+          <Text style={styles.title} onPress={()=>{setChoice(el.name),navigation.navigate('CauseByCategory', {choice})}}>{el.name}</Text>
+          <Icon style={styles.icon} name={el.icon} size={80} color="black" />
+  </ImageBackground>
+)
+}
+   return(
+    <View style={{flex:0.9}}>{categories()}</View>
+   )
 }
 
 export default Track
@@ -21,7 +29,7 @@ const styles=StyleSheet.create({
     // gridTemplateColumns: 'repeat(2, 1fr)',
   
         height:900,
-        width:200,
+        width:210,
         borderRadius:15,
         overflow:'hidden',
         // justifyContent:'center',
@@ -30,10 +38,16 @@ const styles=StyleSheet.create({
     },
     title:{
       color:'black',
-      fontSize:25,
-      margin:20
+      fontSize:20,
+      margin:30,
+      fontWeight:'bold',
+      alignSelf: 'center',
     },
     desc:{
       margin:5
+    },
+    icon:{
+      alignSelf: 'center',
+      
     }
 })

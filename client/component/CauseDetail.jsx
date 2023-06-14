@@ -3,12 +3,14 @@ import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet } from 'rea
 import Icon from 'react-native-vector-icons/Feather';
 import axios from 'axios';
 import ADDRESS_IP from '../env';
+import LoadingScreen from './LoadingScreen';
 import { useRoute } from '@react-navigation/native';
 const CauseDetail = (props) => {
   // console.log('primar consolog',props.route.params.cause.causeId)
   // console.log('second consolog',props.route.key)
   const [cause, setCause] = useState({});
   const [showDescription, setShowDescription] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   // const route=useRoute();
   // const id=route.params.id
   useEffect(() => {
@@ -16,6 +18,7 @@ const CauseDetail = (props) => {
       try {
         const response = await axios.get(`http://${ADDRESS_IP}:3001/getcause/${props.route.params.cause.causeId}`);
         setCause(response.data);
+        setIsLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -25,7 +28,9 @@ const CauseDetail = (props) => {
 
   const percentage = (cause.current / cause.target) * 100;
   const progressColor = percentage >= 100 ? '#ff6600' : percentage >= 66 ? '#ff781f' : percentage>= 33 ?'#ff8b3d':'#ff9d5c';
-
+  if (isLoading) {
+    return <LoadingScreen />
+  }
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -57,7 +62,7 @@ const CauseDetail = (props) => {
           {/* Render your donors list here */}
         </View>
         <TouchableOpacity style={styles.button} onPress={() => setShowDescription(!showDescription)}>
-          <Text style={styles.buttonText}>Detail</Text>
+          <Text style={styles.buttonText}>More Details</Text>
         </TouchableOpacity>
         {showDescription && (
           <View style={styles.descriptionContainer}>
@@ -147,16 +152,21 @@ const styles = StyleSheet.create({
     color: '#33A09A',
   },
   button: {
-    backgroundColor: '#33A09A',
-    paddingVertical: 15,
-    paddingHorizontal: 25,
-    borderRadius: 20,
-    alignSelf: 'center',
-    marginVertical: 10,
+    marginLeft: 132,
+    border: 'solid',
+    marginVertical: 5,
+    width: 125,
+    borderRadius: 5,
+    borderColor: "#ada6a6",
+    borderWidth: 1,
+    marginHorizontal:15,
+    backgroundColor:"white",
   },
   buttonText: {
-    color: 'white',
+    fontSize: 17,
     fontWeight: 'bold',
+    color: '#ada6a6',
+    textAlign: 'center',
   },
   descriptionContainer: {
     marginHorizontal: 20,
