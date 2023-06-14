@@ -62,7 +62,7 @@ const CauseDetail = (props) => {
           {/* Render your donors list here */}
         </View>
         <TouchableOpacity style={styles.button} onPress={() => setShowDescription(!showDescription)}>
-          <Text style={styles.buttonText}>Detail</Text>
+          <Text style={styles.buttonText}>More Details</Text>
         </TouchableOpacity>
         {showDescription && (
           <View style={styles.descriptionContainer}>
@@ -152,16 +152,21 @@ const styles = StyleSheet.create({
     color: '#33A09A',
   },
   button: {
-    backgroundColor: '#33A09A',
-    paddingVertical: 15,
-    paddingHorizontal: 25,
-    borderRadius: 20,
-    alignSelf: 'center',
-    marginVertical: 10,
+    marginLeft: 132,
+    border: 'solid',
+    marginVertical: 5,
+    width: 125,
+    borderRadius: 5,
+    borderColor: "#ada6a6",
+    borderWidth: 1,
+    marginHorizontal:15,
+    backgroundColor:"white",
   },
   buttonText: {
-    color: 'white',
+    fontSize: 17,
     fontWeight: 'bold',
+    color: '#ada6a6',
+    textAlign: 'center',
   },
   descriptionContainer: {
     marginHorizontal: 20,

@@ -12,12 +12,15 @@ import Track from '../../component/Track';
 // import {Spinner} from 'native-base'
 import {useNavigation} from '@react-navigation/native';
 import OneCause from '../../component/OneCause';
+
+const category=[{name:"Environmental", icon:"globe"},{name:"Social",icon:"slideshare"},{name:"Aid",icon:"heart"},{name:"Other",icon:"infinity"}]
 const x=[0,1,2,3,4]
 const Greed = () => {
   const navigation=useNavigation();
   const [data, setData] = useState([]);
   const [latest,setLatest]=useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  
   useEffect(() => {
     const retrieveLatest=async()=>{
       
@@ -37,7 +40,7 @@ const Greed = () => {
         console.error('Error retrieving data:', error);
       }
     };
-
+    
     retrieveToSlide();
     retrieveLatest();
   }, []);
@@ -71,8 +74,8 @@ if(data.length>0){
             height={250}
             
           >
-          {x.map((e,i)=>{
-            return <Track key={i}/>
+          {category.map((e,i)=>{
+            return (<Track el={e} key={i}/>)
           })}
         </Swiper>
     </View >
@@ -184,5 +187,32 @@ const styles=StyleSheet.create({
     fontWeight: "bold",
     alignSelf: "center",
     textTransform: "uppercase"
-  }
+  },
+  categoryImage:{
+      
+    //   display: 'grid',
+    // gridTemplateColumns: 'repeat(2, 1fr)',
+  
+        height:900,
+        width:210,
+        borderRadius:15,
+        overflow:'hidden',
+        // justifyContent:'center',
+        // margin:50
+        marginLeft:90
+    },
+    title:{
+      color:'black',
+      fontSize:20,
+      margin:30,
+      fontWeight:'bold',
+      alignSelf: 'center',
+    },
+    desc:{
+      margin:5
+    },
+    icon:{
+      alignSelf: 'center',
+      
+    }
 })

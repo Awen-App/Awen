@@ -19,6 +19,7 @@ const Stack=createNativeStackNavigator();
 import { AuthProvider } from './component/Context';
 import ProfileUser from './component/ProfileUser';
 import GetStart from './component/GetStart';
+import CauseByCategory from './component/CauseByCategory';
 export default App=()=>{
     return (
         <AuthProvider>
@@ -37,6 +38,7 @@ export default App=()=>{
                     <Stack.Screen name= "AllCauses" component={AllCauses} options={{ headerTitle: () => <View /> }}/>
                     <Stack.Screen name='MyStack' component={MyStack} options={{ headerTitle: () => <View />}}/>
                     <Stack.Screen name= "GetStart" component={GetStart} options={{ headerShown:false}}/>
+                    <Stack.Screen name= "CauseByCategory" component={CauseByCategory} options={{ headerShown:false}}/>
                 </Stack.Navigator>
                 <StatusBar style="auto"/>
             </NavigationContainer>

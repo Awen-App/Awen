@@ -1,10 +1,10 @@
 import * as React from 'react';
 //hedhi l bar l foukaneya
 
-import { StyleSheet ,View,Text,Image} from 'react-native';
+import { StyleSheet ,View,Text,Image,TouchableOpacity} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from './Context';
-
+import Icon from 'react-native-vector-icons/Feather';
 export default function AwenHeader() {
     const navigation=useNavigation()
     const [authUser,setAuthUser]=React.useContext(AuthContext)
@@ -16,10 +16,13 @@ export default function AwenHeader() {
           style={{ width: 45, height: 55 }}
           source={require('../assets/secondLogo.png')}
         />
-        {authUser.email===null && <Text style={{color: 'black', paddingLeft:"60%",fontSize: 10, marginLeft:20}} onPress={()=>navigation.navigate("UserSignin")}>Log In</Text>}
-        {authUser.email!==null && <Text style={{color: 'black', paddingLeft:"60%",fontSize: 10, marginLeft:20}} onPress={()=>{
+      
+        {authUser.email===null && <TouchableOpacity style={styles.profile} onPress={()=>navigation.navigate("UserSignin")}><Icon name="user" size={27} color="#33A09A" /><Text style={styles.text}>Log In</Text></TouchableOpacity>}
+        
+        {authUser.email!==null && <TouchableOpacity style={styles.profile} onPress={()=>{
           navigation.navigate("profileUser");
-        }}>Profile</Text>}
+        }}><Icon name="user" size={27} color="#33A09A" /><Text style={styles.text}>Profile</Text></TouchableOpacity>}
+        
       </View>
     );
   }
@@ -32,5 +35,17 @@ const styles=StyleSheet.create({
         alignItems:'center',
         paddingHorizontal:16,
         height:70
+    },
+    profile:{
+      flexDirection:'row',
+      color: 'black',
+      paddingLeft:"60%",
+      fontSize: 17,
+      marginLeft:20,
+      fontWeight:"bold",
+    },
+    text:{
+      fontSize: 17,
+      fontWeight:"bold",
     }
 })
