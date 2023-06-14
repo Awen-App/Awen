@@ -1,13 +1,15 @@
-import React, { useState ,useEffect} from 'react'
+import React, { useState ,useEffect,useContext} from 'react'
 import { View, Text, Image, StyleSheet,TouchableOpacity } from 'react-native';
 import {useNavigation} from '@react-navigation/native'
 import {auth} from '../../fireBaseConfig'
 import ADDRESS_IP from '../../env';
+import {TrakkerContext} from '../Context'
 import axios from 'axios'
 const Profile = () => {
     let navigation=useNavigation();
     const [organization,setOrg]=useState("")
     const orgid=auth.currentUser.uid;
+    const [trakker,setTrakker] = useContext(TrakkerContext);
     const getProfile=()=>{
         axios.get(`http://${ADDRESS_IP}:3001/organizations/id/${orgid}`)
         .then(res => {
@@ -18,7 +20,7 @@ const Profile = () => {
     useEffect(() => {
         getProfile();
         console.log(organization,'this is data');
-      },[]);
+      },[trakker]);
     
 
   return (
@@ -52,6 +54,14 @@ const Profile = () => {
             navigation.navigate(
             'ModifyOrganization',{org:organization})}}>
           <Text style={styles.appButtonText}>Modify</Text>
+        </TouchableOpacity>
+        <TouchableOpacity 
+        style={styles.appButtonContainer}
+        onPress={()=>{
+          auth.signOut()
+          navigation.navigate("OrganizationLogin")
+           }}>
+          <Text style={styles.appButtonText}>Sign out</Text>
         </TouchableOpacity>
       </View>
     </View>

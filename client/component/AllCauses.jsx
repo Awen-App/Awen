@@ -94,11 +94,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 20,
+    
   },
   itemContainer: {
     alignItems: 'center',
     marginBottom: 0,
-    backgroundColor: 'white',
+    backgroundColor:"white",
     borderRadius: 10,
     opacity: 10.5,
   },
@@ -107,18 +108,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 10,
-    width: 300,
+     width: 300,
     height: 200,
     justifyContent: 'center',
   },
   titleContainer: {
     alignItems: 'center',
     marginTop: 10,
-    backgroundColor: 'white',
-    width: 300,
+    backgroundColor:"white",
+    width:300,
     opacity: 0.7,
   },
-  title: {
+  title: {  
     fontSize: 20,
     fontWeight: 'bold',
     color: '#ff6600',
@@ -128,12 +129,13 @@ const styles = StyleSheet.create({
     color: '#ada6a6',
   },
   category: {
-    fontWeight: 'bold',
+    fontWeight:"bold",
     fontSize: 16,
     color: '#33A09A',
+    
   },
   amountsContainer: {
-    alignSelf: 'center',
+    alignSelf:'center',
     flexDirection: 'row',
     marginBottom: 5,
   },
@@ -141,7 +143,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   progressContainer: {
-    alignSelf: 'center',
+    alignSelf:'center',
     width: 300,
     height: 25,
     backgroundColor: '#ada6a6',
@@ -159,7 +161,7 @@ const styles = StyleSheet.create({
     top: 0,
     alignSelf: 'center',
     fontSize: 17,
-    color: 'white',
+    color:'white'
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -167,29 +169,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 200,
   },
+ 
   topButton: {
-    marginLeft: -32,
+    marginLeft:-32,
+    border: 'solid',
     marginVertical: 5,
     width: 125,
     borderRadius: 5,
-    borderColor: '#ada6a6',
+    borderColor: "#ada6a6",
     borderWidth: 1,
-    marginHorizontal: 15,
-    backgroundColor: 'white',
+    marginHorizontal:15,
+    backgroundColor:"white",
   },
   bottomButton: {
     marginVertical: 5,
     width: 125,
     borderRadius: 5,
-    borderColor: '#ada6a6',
+    borderColor: "#ada6a6",
     borderWidth: 1,
-    backgroundColor: 'white',
-  },
-  clickedButton: {
-    backgroundColor: '#ff6600',
-  },
-  clickedTitle: {
-    color: '#ff6600',
+    backgroundColor:'white',
+    
   },
   scrollContainer: {
     alignItems: 'center',
@@ -200,8 +199,8 @@ const styles = StyleSheet.create({
     color: '#ada6a6',
     textAlign: 'center',
   },
-  all: {
-    marginBottom: 20,
+  all:{
+marginBottom:20,
   },
 });
 

@@ -1,11 +1,13 @@
-import React, { useState ,useEffect} from 'react'
+import React, { useState ,useEffect,useContext} from 'react'
 import {StyleSheet, Text, ScrollView, View, ImageBackground, TouchableOpacity} from 'react-native';
 import {auth} from '../../fireBaseConfig'
 import axios from 'axios';
 import ADDRESS_IP from '../../env';
+import {TrakkerContext} from '../Context'
 function HomeOrganization() {
   const [data,setData]=useState([]);
   const user = auth.currentUser.email;
+  const [trakker,setTrakker] = useContext(TrakkerContext);
   console.log(user,"this is user")
 
 
@@ -22,6 +24,10 @@ function HomeOrganization() {
       })
       .catch(error => console.log(error));
   };
+  
+  useEffect(() => {
+    getData();
+  },[trakker]);
   
   const formatTimeAgo = timestamp => {
     const now = new Date();
@@ -96,9 +102,6 @@ function HomeOrganization() {
   };
 
 
-  useEffect(() => {
-    getData();
-  },[]);
 
   return (
     <View style={styles.container}>
