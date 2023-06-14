@@ -10,6 +10,7 @@ import SettingScreen from "./screens/SettingScreen";
 import Chat from "./screens/Chat";
 import Help from "./screens/Help";
 import Greed from "./screens/Greed";
+import RoomChat from "../component/RoomChat";
 
 
 const homeName='Home';
@@ -58,7 +59,7 @@ const menu='grid'
                 >
 
                 <Tab.Screen name={homeName} component={HomeScreen} options={{ headerShown: false }}/>
-                <Tab.Screen name={chat} component={Chat} options={{ headerShown: false }}/>
+                <Tab.Screen name={chat} component={RoomChat} options={{ headerShown: false }}/>
                 <Tab.Screen name={menu} component={Greed} options={{ headerShown: false }}/>
                 <Tab.Screen name={settingName} component={SettingScreen} options={{ headerShown: false }}/>
                 <Tab.Screen name={help} component={Help} options={{ headerShown: false }}/>

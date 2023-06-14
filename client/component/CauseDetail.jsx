@@ -4,7 +4,11 @@ import Icon from 'react-native-vector-icons/Feather';
 import axios from 'axios';
 import ADDRESS_IP from '../env';
 import LoadingScreen from './LoadingScreen';
+import io from 'socket.io-client';
 import { useRoute } from '@react-navigation/native';
+
+
+const socket=io.connect(`http://${ADDRESS_IP}:3001`)
 const CauseDetail = (props) => {
   // console.log('primar consolog',props.route.params.cause.causeId)
   // console.log('second consolog',props.route.key)
@@ -70,6 +74,7 @@ const CauseDetail = (props) => {
             <Text style={styles.description}>{cause.causeDescription}</Text>
           </View>
         )}
+        <Text>send a message</Text>
       </ScrollView>
     </View>
   );
