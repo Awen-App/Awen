@@ -4,15 +4,15 @@ import axios from 'axios';
 import ADDRESS_IP from '../env';
 import LoadingScreen from './LoadingScreen';
 
-const CauseByCategory = ({ category }) => {
+const CauseByCategory = ( props ) => {
+  console.log(props.route.params.choice)
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const getCauses = () => {
     axios
-      .get(`http://${ADDRESS_IP}:3001/getcauseby/Social`)
+      .get(`http://${ADDRESS_IP}:3001/getcauseby/${props.route.params.choice}`)
       .then(response => {
         setData(response.data);
-        console.log(data, '----', response.data);
         setIsLoading(false);
       })
       .catch(error => console.log(error));

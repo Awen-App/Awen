@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, ScrollView, View, ImageBackground, TouchableOpacity} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/Feather';
 const OneCause = ({cause}) => {
     const percentage = (cause.current / cause.target) * 100;
     const progressColor = percentage >= 100 ? '#ff6600' : percentage >= 66 ? '#ff781f' : percentage>= 33 ?'#ff8b3d':'#ff9d5c';
@@ -22,8 +23,10 @@ const OneCause = ({cause}) => {
    
 
           <View style={styles.amountsContainer}>
-            <Text style={styles.amountText}>Target Amount: {cause.target}DT</Text>
-            <Text style={styles.amountText}>Current Amount: {cause.current}DT</Text>
+          <Icon name="dollar-sign" size={14} color="#33A09A" />
+            <Text style={styles.targetText}>{cause.target}DT</Text>
+            <Icon name="flag" size={14} color="#33A09A" />
+            <Text style={styles.amountText}>{cause.current}DT</Text>
           </View>
           
           
@@ -94,7 +97,10 @@ const styles = StyleSheet.create({
       marginBottom: 5,
     },
     amountText: {
-      marginRight: 10,
+      marginRight: 0,
+    },
+    targetText: {
+      marginRight: 70,
     },
     progressContainer: {
       alignSelf:'center',
