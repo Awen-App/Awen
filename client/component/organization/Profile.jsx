@@ -104,6 +104,7 @@ const styles = StyleSheet.create({
     buttonContainer: {
       alignItems: 'center',
       marginTop: 20,
+      flexDirection: 'row',
     },
     appButtonContainer: {
       width: '40%',
@@ -112,6 +113,7 @@ const styles = StyleSheet.create({
       borderRadius: 10,
       paddingVertical: 10,
       paddingHorizontal: 12,
+      marginRight: 15,
     },
     appButtonText: {
       fontSize: 18,

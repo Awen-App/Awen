@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { View, Text,ImageBackground,StyleSheet ,ScrollView,Dimensions,TouchableOpacity} from 'react-native';
-import LoadingScreen from '../../component/LoadingScreen';
 // import Slideshow from 'react-native-image-slider-show';
 import axios from 'axios';
 import ADDRESS_IP from '../../env';
@@ -12,22 +11,17 @@ import Track from '../../component/Track';
 // import {Spinner} from 'native-base'
 import {useNavigation} from '@react-navigation/native';
 import OneCause from '../../component/OneCause';
-
-const category=[{name:"Environmental", icon:"globe"},{name:"Social",icon:"slideshare"},{name:"Aid",icon:"heart"},{name:"Other",icon:"infinity"}]
 const x=[0,1,2,3,4]
 const Greed = () => {
   const navigation=useNavigation();
   const [data, setData] = useState([]);
   const [latest,setLatest]=useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  
   useEffect(() => {
     const retrieveLatest=async()=>{
       
       try {
         const res=await axios.get(`http://${ADDRESS_IP}:3001/latest`);
         setLatest(res.data);
-        setIsLoading(false);
       } catch (error) {
         console.error('Error retrieving data:', error);
       }
@@ -40,13 +34,11 @@ const Greed = () => {
         console.error('Error retrieving data:', error);
       }
     };
-    
+
     retrieveToSlide();
     retrieveLatest();
   }, []);
-  if (isLoading) {
-    return <LoadingScreen />
-  }
+
 if(data.length>0){
 
   return(
@@ -61,7 +53,7 @@ if(data.length>0){
       {data.map((cause,i)=>{
         return (<ImageBackground source={{uri:cause.causeImg}} key={i} style={styles.image} >
           <Text style={styles.text}>{cause.title}</Text>
-          <Text style={{color:'white'}}>date</Text>
+          <Text>date</Text>
         </ImageBackground>)
       })}
     </Swiper>
@@ -74,8 +66,8 @@ if(data.length>0){
             height={250}
             
           >
-          {category.map((e,i)=>{
-            return (<Track el={e} key={i}/>)
+          {x.map((e,i)=>{
+            return <Track key={i}/>
           })}
         </Swiper>
     </View >

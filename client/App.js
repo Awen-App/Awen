@@ -15,6 +15,7 @@ import AuthOrganization from './component/organization/AuthOrganization';
 import Profile from './component/organization/Profile';
 import Modify from './component/organization/ModifyOrg';
 import NavbarOrganization from './component/organization/NavbarOrganization';
+import CauseByCategory from './component/CauseByCategory';
 import { AuthProvider, TrakkerProvider } from './component/Context';
 import ProfileUser from './component/ProfileUser';
 import CauseByCategory from './component/CauseByCategory';
