@@ -93,7 +93,7 @@ if(data.length>0){
             </View>)
           })}
         </Swiper>
-        <TouchableOpacity  style={styles.appButtonContainer}>
+        <TouchableOpacity  style={styles.appButtonContainer} onPress={()=>navigation.navigate("LatestCauses")}>
               <Text style={styles.appButtonText}>Show more</Text>
         </TouchableOpacity> 
     </View>
@@ -161,6 +161,7 @@ const styles=StyleSheet.create({
     fontSize:25,
     marginLeft:20,
     marginTop:20,
+    fontWeight: "bold",
     marginBottom:20
   },
   appButtonContainer: {
@@ -179,5 +180,31 @@ const styles=StyleSheet.create({
     fontWeight: "bold",
     alignSelf: "center",
     textTransform: "uppercase"
-  }
+  },
+  categoryImage:{
+      
+    //   display: 'grid',
+    // gridTemplateColumns: 'repeat(2, 1fr)',
+  
+        height:900,
+        width:210,
+        borderRadius:15,
+        overflow:'hidden',
+        gin:50,
+        marginLeft:90
+    },
+    title:{
+      color:'black',
+      fontSize:20,
+      margin:30,
+      fontWeight:'bold',
+      alignSelf: 'center',
+    },
+    desc:{
+      margin:5
+    },
+    icon:{
+      alignSelf: 'center',
+      
+    }
 })

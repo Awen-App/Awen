@@ -18,6 +18,8 @@ import NavbarOrganization from './component/organization/NavbarOrganization';
 import CauseByCategory from './component/CauseByCategory';
 import { AuthProvider, TrakkerProvider } from './component/Context';
 import ProfileUser from './component/ProfileUser';
+import CauseByCategory from './component/CauseByCategory';
+import LatestCauses from './component/LatestCauses';
 
 export default App = () => {
   const Stack = createNativeStackNavigator(); // Move Stack inside the component
@@ -40,6 +42,7 @@ export default App = () => {
             <Stack.Screen name="AllCauses" component={AllCauses} options={{ headerTitle: () => <View /> }} />
             <Stack.Screen name='MyStack' component={MyStack} options={{ headerTitle: () => <View /> }} />
             <Stack.Screen name= "CauseByCategory" component={CauseByCategory} options={{ headerShown:false}}/>
+            <Stack.Screen name= "LatestCauses" component={LatestCauses} options={{ headerShown:false}}/>
           </Stack.Navigator>
           <StatusBar style="auto" />
         </NavigationContainer>

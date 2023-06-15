@@ -2,18 +2,27 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, ScrollView, View, ImageBackground, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import ADDRESS_IP from '../env';
+import OneCause from './OneCause';
 import LoadingScreen from './LoadingScreen';
-import { useNavigation } from '@react-navigation/native';
-const CauseByCategory = ( props ) => {
-  const navigation=useNavigation()
-  console.log(props.route.params.choice)
+
+const LatestCauses = () => {
   const [data, setData] = useState([]);
+  const [progress, setProgress] = useState(0);
+  const [detailsPressed, setDetailsPressed] = useState(false);
+  const [donationPressed, setDonationPressed] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+
   const getCauses = () => {
     axios
-      .get(`http://${ADDRESS_IP}:3001/getcauseby/${props.route.params.choice}`)
+      .get(`http://${ADDRESS_IP}:3001/latest`)
       .then(response => {
         setData(response.data);
+        console.log(data, '----', response.data);
+
+        response.data.forEach(el => {
+          const percentage = (el.current / el.target) * 100;
+          setProgress(percentage);
+        });
         setIsLoading(false);
       })
       .catch(error => console.log(error));
@@ -28,7 +37,7 @@ const CauseByCategory = ( props ) => {
     const createdAt = new Date(timestamp);
     const diff = Math.abs(now - createdAt);
     const hours = Math.floor(diff / (1000 * 60 * 60));
-  
+
     if (hours === 0) {
       const minutes = Math.floor(diff / (1000 * 60));
       return `${minutes} minutes ago`;
@@ -43,61 +52,35 @@ const CauseByCategory = ( props ) => {
     }
   };
 
+  const handleDetailsPress = el => {
+    console.log('Details button pressed for:', el.causeId);
+    setDetailsPressed(true);
+  };
+
+  const handleQuickDonationPress = el => {
+    console.log('Quick Donation button pressed for:', el.causeId);
+    setDonationPressed(true);
+  };
 
   const all = () => {
-    return data.map(cause => {
-      const percentage = (cause.current / cause.target) * 100;
-      const progressColor = percentage >= 100 ? 'green' : percentage >= 66 ? 'ycauselow' : percentage>= 33 ?'orange':'red';
-      const timeAgo = formatTimeAgo(cause.createdAt);
+    return data.map(el => {
+      const percentage = (el.current / el.target) * 100;
+      const progressColor = percentage >= 100 ? '#ff6600' : percentage >= 66 ? '#ff781f' : percentage >= 33 ? '#ff8b3d' : '#ff9d5c';
+      const timeAgo = formatTimeAgo(el.createdAt);
 
       return (
-        <View key={cause.causeId} style={styles.itemContainer}>
-                 <View style={styles.progressContainer}>
-            <View style={[styles.progressBar, { width: `${percentage}%`, backgroundColor: progressColor }]} />
-           
-            <Text style={styles.progressText}>{percentage.toFixed(0)}%</Text>
-          </View>
-          <ImageBackground source={{ uri: cause.causeImg }} style={styles.imageContainer} resizeMode="cover">
-            <View style={styles.titleContainer}>
-              <Text style={styles.title}>{cause.title}</Text>
-              <Text style={styles.time}></Text>
-              <Text style={styles.category}>Category : {cause.causeCategory}                  Since:{timeAgo}</Text>
-            </View>
-          </ImageBackground>
-   
-
-          <View style={styles.amountsContainer}>
-            <Text style={styles.amountText}>Target Amount: {cause.target}DT</Text>
-            <Text style={styles.amountText}>Current Amount: {cause.current}DT</Text>
-          </View>
-          
-          
-          <View style={styles.buttonContainer}>
-          <TouchableOpacity style={[styles.topButton]} onPress={()=>navigation.navigate('CauseDetails',{cause})}>
-              <Text style={[styles.buttonTitle]}>Details</Text>
-            </TouchableOpacity>
-              
-            <TouchableOpacity style={[styles.bottomButton]} onPress={() => handleQuickDonationPress(cause)}>
-              <Text style={[styles.buttonTitle]}>Quick Donation</Text>
-              </TouchableOpacity>
-              
-              
-          </View>
+        <View key={el.causeId} style={styles.all}>
+          <OneCause cause={el}/>
+          <Text style={styles.time}>{timeAgo}</Text>
         </View>
       );
     });
   };
 
-  const handleDetailsPress = cause => {
-    console.log('Details button pressed for:', cause.causeId);
-  };
-
-  const handleQuickDonationPress = cause => {
-    console.log('Quick Donation button pressed for:', cause.causeId);
-  };
   if (isLoading) {
     return <LoadingScreen />
   }
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>{all()}</ScrollView>
@@ -221,4 +204,4 @@ marginBottom:20,
   },
 });
 
-export default CauseByCategory;
+export default LatestCauses;
