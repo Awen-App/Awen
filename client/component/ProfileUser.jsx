@@ -53,7 +53,8 @@ const ProfileUser = () => {
   if(donation.length>0){
     const total=donation.reduce((acc,curr)=>acc+curr.amount,0)
     return (
-        <ScrollView>
+        <ScrollView style={styles.container}>
+            <View style={styles.child}>
             <DataTable>
                 <DataTable.Header >
                     <DataTable.Title style={{flex:2}}>Cause Name</DataTable.Title>
@@ -64,7 +65,7 @@ const ProfileUser = () => {
                     return (
                         <DataTable.Row key={i} style={{ borderBottomWidth: 0 }}>
                             <DataTable.Cell style={{flex:2}}>{el.title}</DataTable.Cell>
-                            <DataTable.Cell style={{flex:1.5}}>{moment(el.createdAt).format("MMM Do YY")}</DataTable.Cell>
+                            <DataTable.Cell style={{flex:1.5}}>{moment(el.createdAt).format("MMM Do YYYY")}</DataTable.Cell>
                             <DataTable.Cell style={{flex:0.5}}>{el.amount}</DataTable.Cell>
                         </DataTable.Row>
                     )
@@ -81,6 +82,7 @@ const ProfileUser = () => {
                 <Text
                 style={styles.text}>LogOut</Text>
             </TouchableOpacity>
+            </View>
         </ScrollView>
       )
   }
@@ -89,6 +91,14 @@ const ProfileUser = () => {
 export default ProfileUser
 
 const styles=StyleSheet.create({
+    container:{
+        flex: 1,
+        marginTop: 250,
+    },
+    child:{
+        
+        flex: 1,
+    },
     logout:{
         width:'70%',
         elevation: 8,

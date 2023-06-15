@@ -101,7 +101,7 @@ if(data.length>0){
             </View>)
           })}
         </Swiper>
-        <TouchableOpacity  style={styles.appButtonContainer}>
+        <TouchableOpacity  style={styles.appButtonContainer} onPress={()=>navigation.navigate("LatestCauses")}>
               <Text style={styles.appButtonText}>Show more</Text>
         </TouchableOpacity> 
     </View>
@@ -169,6 +169,7 @@ const styles=StyleSheet.create({
     fontSize:25,
     marginLeft:20,
     marginTop:20,
+    fontWeight: "bold",
     marginBottom:20
   },
   appButtonContainer: {
@@ -197,8 +198,7 @@ const styles=StyleSheet.create({
         width:210,
         borderRadius:15,
         overflow:'hidden',
-        // justifyContent:'center',
-        // margin:50
+        gin:50,
         marginLeft:90
     },
     title:{

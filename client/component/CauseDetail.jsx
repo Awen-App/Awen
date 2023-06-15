@@ -57,10 +57,9 @@ const CauseDetail = (props) => {
             <Text style={[styles.amountValue, styles.boldText]}>{cause.target}</Text>
           </View>
         </View>
-        <View>
+        {/* <View>
           <Text style={styles.latestDonors}>Latest Donors</Text>
-          {/* Render your donors list here */}
-        </View>
+        </View> */}
         <TouchableOpacity style={styles.button} onPress={() => setShowDescription(!showDescription)}>
           <Text style={styles.buttonText}>More Details</Text>
         </TouchableOpacity>
