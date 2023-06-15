@@ -90,7 +90,7 @@ function ModifyOrg({route}) {
 
   return (
     <View style={styles.head}>
-     <Button title="Select Image" onPress={selectImage} color={buttonColor} />
+     <Button title="Select Image" onPress={selectImage} style={styles.appButtonContainer} />
      <TouchableOpacity
            onPress={()=>{
             updateImage()
@@ -109,25 +109,25 @@ const styles = StyleSheet.create({
   head:{
     flexDirection: 'row',
     height:50,
-    marginVertical:40,
+    marginVertical:'50%',
   },
-textInput:{
+  textInput:{
     width: '70%',
     height: 50,
-    borderColor: 'gray',
-    borderWidth: 1,
+    borderColor:'gray',
+    borderWidth:1,
     marginBottom: 10,
-    paddingHorizontal: 10,
+    paddingHorizontal:10,
     borderRadius :13,
-},
-appButtonContainer: {
-  flex:0.5,
-    width:'70%',
+  },
+  appButtonContainer: {
+    flex:0.5,
+    width:'15%',
     elevation: 8,
     backgroundColor: "#009688",
     borderRadius: 15,
-    paddingVertical: 10,
-    paddingHorizontal: 12
+    paddingVertical: 8,
+    paddingHorizontal:8
   },
   appButtonText: {
     fontSize: 18,

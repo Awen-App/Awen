@@ -55,7 +55,6 @@ function HomeOrganization() {
       const percentage = (el.current / el.target) * 100;
       const progressColor = percentage >= 100 ? 'green' : percentage >= 66 ? 'yellow' : percentage>= 33 ?'orange':'red';
       const timeAgo = formatTimeAgo(el.createdAt);
-
       return (
         <View key={el.causeId} style={styles.itemContainer}>
           <ImageBackground source={{ uri: el.causeImg }} style={styles.imageContainer} resizeMode="cover">
@@ -67,23 +66,23 @@ function HomeOrganization() {
           </ImageBackground>
           <View style={styles.progressContainer}>
             <View style={[styles.progressBar, { width: `${percentage}%`, backgroundColor: progressColor }]} />
-           
             <Text style={styles.progressText}>{percentage.toFixed(0)}%</Text>
           </View>
 
           <View style={styles.amountsContainer}>
             <Text style={styles.amountText}>Target Amount: {el.target}DT</Text>
             <Text style={styles.amountText}>Current Amount: {el.current}DT</Text>
+            <Text style={styles.amountText}>Status: {el.accepted}</Text>
           </View>
           
           
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={[styles.topButton]} onPress={() => handleDetailsPress(el)}>
+            {/* <TouchableOpacity style={[styles.topButton]} onPress={() => handleDetailsPress(el)}>
               <Text style={[styles.buttonTitle]}>Details</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
               
             <TouchableOpacity style={[styles.bottomButton]} onPress={() => handleQuickDonationPress(el)}>
-              <Text style={[styles.buttonTitle]}>Quick Donation</Text>
+              <Text style={[styles.buttonTitle]}>Detail</Text>
               </TouchableOpacity>
               
               
@@ -115,6 +114,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 20,
+    
   },
   itemContainer: {
     alignItems: 'center',
@@ -125,8 +125,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 10,
-     width: 300,
-    height: 100,
+    width: 350,
+    height: 130,
     justifyContent: 'center',
   },
   titleContainer: {

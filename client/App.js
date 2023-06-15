@@ -15,6 +15,7 @@ import AuthOrganization from './component/organization/AuthOrganization';
 import Profile from './component/organization/Profile';
 import Modify from './component/organization/ModifyOrg';
 import NavbarOrganization from './component/organization/NavbarOrganization';
+import CauseByCategory from './component/CauseByCategory';
 import { AuthProvider, TrakkerProvider } from './component/Context';
 import ProfileUser from './component/ProfileUser';
 
@@ -38,6 +39,7 @@ export default App = () => {
             <Stack.Screen name="UserSignin" component={UserLogin} options={{ headerShown: false }} />
             <Stack.Screen name="AllCauses" component={AllCauses} options={{ headerTitle: () => <View /> }} />
             <Stack.Screen name='MyStack' component={MyStack} options={{ headerTitle: () => <View /> }} />
+            <Stack.Screen name= "CauseByCategory" component={CauseByCategory} options={{ headerShown:false}}/>
           </Stack.Navigator>
           <StatusBar style="auto" />
         </NavigationContainer>

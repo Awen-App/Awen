@@ -90,9 +90,9 @@ const selectImage = async () => {
   return (
     <View style={styles.signin}>
            <Image
-            style={{ width: 80, height: 80 ,margin:50}}
-            source={require('../../assets/awenLogo.png')}
-          />
+          style={{ width: 140, height: 80 ,marginTop:80,marginBottom:50}}
+          source={require('../../assets/logo-awen-final1.png')}
+        />
            <Text style={styles.wlc}>Add a cause </Text>
            <Button title="Select Image" onPress={selectImage} color={buttonColor} />
 
