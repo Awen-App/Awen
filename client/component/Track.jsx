@@ -10,10 +10,10 @@ const [choice,setChoice]=useState("")
 console.log(choice)
 const categories=()=>{  
 return(
-  <ImageBackground source={require('../assets/texture.jpg')} style={styles.backgroundImage }>
+  <View >
           <Text style={styles.title} onPress={()=>{setChoice(el.name),navigation.navigate('CauseByCategory', {choice})}}>{el.name}</Text>
           <Icon style={styles.icon} name={el.icon} size={80} color="black" />
-  </ImageBackground>
+  </View>
 )
 }
    return(

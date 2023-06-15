@@ -21,13 +21,13 @@ export default MainContainer2=()=>{
             <Tab.Navigator
                 initialRouteName={homeName}
                 screenOptions={({route})=>({
-                    tabBarActiveTintColor:'white',
+                    tabBarActiveTintColor:'#ada6a6',
                     tabBarInactiveTintColor:'white',
                     tabBarShowLabel:false,
                     tabBarHideOnKeyboard:true,
                     tabBarStyle:{
                         height:60,
-                        backgroundColor:'#2fa7cc',
+                        backgroundColor:'#33A09A',
                         borderTopLeftRadius:15,
                         borderTopRightRadius:15
                     },

@@ -1,5 +1,6 @@
 import React, {useContext, useState} from 'react'
 import {View , Image,Text,TextInput,Button,Alert,StyleSheet,TouchableOpacity} from 'react-native'
+
 import {auth} from  "../fireBaseConfig";
 import { useNavigation } from '@react-navigation/native';
 import {signInWithEmailAndPassword,sendPasswordResetEmail} from 'firebase/auth';
@@ -7,21 +8,23 @@ import {signInWithEmailAndPassword,sendPasswordResetEmail} from 'firebase/auth';
 // import axios from 'axios';
 import { AuthContext } from './Context';
 const UserLogin =() => {
+   
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [authUser,setAuthUser]=useContext(AuthContext);
     console.log(authUser)
     const navigation=useNavigation();
     const login=async()=>{
-        
+       
         signInWithEmailAndPassword(auth,email, password)
             .then((u) => {
                 setAuthUser({email:email,token:u._tokenResponse.idToken})
                 navigation.navigate('grid')
             }).catch((error) => {
             console.log(error);
-        });
-    }
+        });}
+       
+    
     const reset=()=>{
       sendPasswordResetEmail(auth,email)
       .then((res)=> {
@@ -68,11 +71,15 @@ const UserLogin =() => {
             <Text 
               onPress={()=>{reset()}}
              >Forgot password ?</Text>
+             
+             
+     
+    
     </View>
   )
 }
 
-export default UserLogin
+
 
 const styles=StyleSheet.create({
     signin: {
@@ -156,6 +163,11 @@ const styles=StyleSheet.create({
         // color: '#fff',
         fontSize: 26,
         fontWeight: 'bold',
+      },
+      container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
       }
-
 })
+export default UserLogin
