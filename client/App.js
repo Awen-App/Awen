@@ -18,13 +18,16 @@ import NavbarOrganization from './component/organization/NavbarOrganization';
 import CauseByCategory from './component/CauseByCategory';
 import { AuthProvider, TrakkerProvider } from './component/Context';
 import ProfileUser from './component/ProfileUser';
-import CauseByCategory from './component/CauseByCategory';
 import LatestCauses from './component/LatestCauses';
+import { StripeProvider } from '@stripe/stripe-react-native';
 
 export default App = () => {
   const Stack = createNativeStackNavigator(); // Move Stack inside the component
 
   return (
+    <StripeProvider
+    publishableKey="pk_test_51NIClNIRnnaHIqBUs32n1r2zObkNYE80PNdQxvxahpIdnjoKtsXlcwUdYnWhsse6l864XYCpJWv7kJdjD4iECFMA00vdbxNEkw"// required for Apple Pay
+  >
     <AuthProvider>
       <TrakkerProvider>
         <NavigationContainer>
@@ -48,5 +51,7 @@ export default App = () => {
         </NavigationContainer>
       </TrakkerProvider>
     </AuthProvider>
+  </StripeProvider>
+   
   );
 };

@@ -1,16 +1,78 @@
 import React, { useState ,useEffect,useContext} from 'react'
 import {StyleSheet, Text, ScrollView, View, ImageBackground, TouchableOpacity} from 'react-native';
+import { useStripe } from '@stripe/stripe-react-native';
 import {auth} from '../../fireBaseConfig'
 import axios from 'axios';
 import ADDRESS_IP from '../../env';
 import {TrakkerContext} from '../Context'
+import CheckoutScreen  from '../../component/Payment';
 function HomeOrganization() {
   const [data,setData]=useState([]);
-  const user = auth.currentUser.email;
   const [trakker,setTrakker] = useContext(TrakkerContext);
-  console.log(user,"this is user")
+  const { initPaymentSheet, presentPaymentSheet } = useStripe();
+  const [loading, setLoading] = useState(false);
+  const user = auth.currentUser.email;
 
+  const fetchPaymentSheetParams = async () => {
+   
+      const response = await fetch(`http://${ADDRESS_IP}:3001/payment-sheet`,{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log(response,'my response----')
+      const { paymentIntent, ephemeralKey, customer} = await response.json();
+      console.log(paymentIntent, ephemeralKey, customer ,'cust')
+      return {
+        paymentIntent,
+        ephemeralKey,
+        customer,
+      };
+    
+    
+  };
 
+  const initializePaymentSheet = async () => {
+
+    const {
+      paymentIntent,
+      ephemeralKey,
+      customer,
+      publishableKey,
+    } = await fetchPaymentSheetParams();
+
+    const { error } = await initPaymentSheet({
+      merchantDisplayName: "Example, Inc.",
+      customerId: customer,
+      customerEphemeralKeySecret: ephemeralKey,
+      paymentIntentClientSecret: paymentIntent,
+      allowsDelayedPaymentMethods: true,
+      defaultBillingDetails: {
+        name: 'Jane Doe',
+      }
+    });
+    console.log(error,'err')
+    if (!error) {
+      setLoading(true);
+    }
+  }
+
+  const openPaymentSheet = async () => {
+    console.log("clicked")
+    if (loading) { // Check if the payment sheet is initialized
+      const { error } = await presentPaymentSheet();
+      if (error) {
+        alert(`Error code: ${error.code}`, error.message);
+        console.log(error)
+      } else {
+        alert('Success', 'Your order is confirmed!');
+      }
+    } else {
+      console.log("inizalize")
+      alert('Payment sheet is not initialized yet');
+    }
+  };
   const getData = () => {
     axios
       .get(`http://${ADDRESS_IP}:3001/organizations/${user}/`)
@@ -27,6 +89,9 @@ function HomeOrganization() {
   
   useEffect(() => {
     getData();
+    initializePaymentSheet()
+
+    
   },[trakker]);
   
   const formatTimeAgo = timestamp => {
@@ -77,15 +142,14 @@ function HomeOrganization() {
           
           
           <View style={styles.buttonContainer}>
-            {/* <TouchableOpacity style={[styles.topButton]} onPress={() => handleDetailsPress(el)}>
+            <TouchableOpacity style={[styles.topButton]} onPress={() => handleDetailsPress(el)}>
               <Text style={[styles.buttonTitle]}>Details</Text>
-            </TouchableOpacity> */}
-              
-            <TouchableOpacity style={[styles.bottomButton]} onPress={() => handleQuickDonationPress(el)}>
-              <Text style={[styles.buttonTitle]}>Detail</Text>
+            </TouchableOpacity>
+              <TouchableOpacity 
+                 onPress={openPaymentSheet}
+              style={[styles.bottomButton]} >
+              <Text style={[styles.buttonTitle]}>checkout</Text>
               </TouchableOpacity>
-              
-              
           </View>
         </View>
       );

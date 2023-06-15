@@ -5,6 +5,8 @@ import ADDRESS_IP from '../env';
 import OneCause from './OneCause';
 import LoadingScreen from './LoadingScreen';
 
+
+
 const AllCauses = () => {
   const [data, setData] = useState([]);
   const [progress, setProgress] = useState(0);
@@ -30,6 +32,7 @@ const AllCauses = () => {
 
   useEffect(() => {
     getCauses();
+
   }, []);
 
   const formatTimeAgo = timestamp => {

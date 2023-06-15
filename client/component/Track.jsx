@@ -5,15 +5,16 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Entypo';
 const category=[{name:"Environmental", icon:"globe"},{name:"Social",icon:"slideshare"},{name:"Aid",icon:"heart"},{name:"Other",icon:"infinity"}]
 const Track = ({el}) => {
+  console.log(el)
   const navigation=useNavigation()
 const [choice,setChoice]=useState("")
 console.log(choice)
-const categories=()=>{  
+const categories=()=>{
 return(
-  <ImageBackground source={require('../assets/texture.jpg')} style={styles.backgroundImage }>
+  <View >
           <Text style={styles.title} onPress={()=>{setChoice(el.name),navigation.navigate('CauseByCategory', {choice})}}>{el.name}</Text>
           <Icon style={styles.icon} name={el.icon} size={80} color="black" />
-  </ImageBackground>
+  </View>
 )
 }
    return(
@@ -24,10 +25,10 @@ return(
 export default Track
 const styles=StyleSheet.create({
     backgroundImage:{
-      
+
     //   display: 'grid',
     // gridTemplateColumns: 'repeat(2, 1fr)',
-  
+
         height:900,
         width:210,
         borderRadius:15,
@@ -48,6 +49,6 @@ const styles=StyleSheet.create({
     },
     icon:{
       alignSelf: 'center',
-      
+
     }
 })
