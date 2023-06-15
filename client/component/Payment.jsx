@@ -66,13 +66,13 @@ export default function CheckoutScreen() {
     }, []);
   
     return (
-      <Screen>
+      <View>
         <Button
           variant="primary"
           disabled={!loading}
           title="Checkout"
           onPress={openPaymentSheet}
         />
-      </Screen>
+      </View>
     );
   }

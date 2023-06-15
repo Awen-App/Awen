@@ -22,6 +22,7 @@ import LatestCauses from './component/LatestCauses';
 import { StripeProvider } from '@stripe/stripe-react-native';
 import TermsAndConditions from './component/TermsAndConditions';
 
+
 export default App = () => {
   const Stack = createNativeStackNavigator(); // Move Stack inside the component
 
@@ -48,6 +49,7 @@ export default App = () => {
             <Stack.Screen name= "CauseByCategory" component={CauseByCategory} options={{ headerShown:false}}/>
             <Stack.Screen name= "LatestCauses" component={LatestCauses} options={{ headerShown:false}}/>
             <Stack.Screen name= "Terms" component={TermsAndConditions} options={{ headerShown:false}}/>
+           
           </Stack.Navigator>
           <StatusBar style="auto" />
         </NavigationContainer>
