@@ -45,9 +45,9 @@ function AuthOrganization() {
   return (
        <View style={styles.signin}>
            <Image
-            style={{ width: 140, height: 80 ,marginTop:80,marginBottom:50}}
-            source={require('../../assets/logo-awen-final1.png')}
-          />
+          style={{ width: 140, height: 80 ,marginTop:80,marginBottom:50}}
+          source={require('../../assets/logo-awen-final1.png')}
+        />
            <Text style={styles.wlc}>Sign up to continue </Text>
             <View style={styles.head}>
               <TouchableOpacity
