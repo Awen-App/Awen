@@ -35,16 +35,19 @@ const OneCause = ({cause}) => {
               <Text style={[styles.buttonTitle]}>Details</Text>
             </TouchableOpacity>
               
-            <TouchableOpacity style={[styles.bottomButton]} >
+            <TouchableOpacity 
+
+
+            style={[styles.bottomButton]} >
               <Text style={[styles.buttonTitle]}>Donate</Text>
               </TouchableOpacity>
+              <Payment/>
           </View>
         </View>
   )
 }
 
 export default OneCause;
-
 const styles = StyleSheet.create({
     container: {
       flex: 1,
