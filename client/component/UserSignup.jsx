@@ -7,14 +7,20 @@ import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import ADDRESS_IP from '../env.js'
 import { AuthContext } from './Context';
+import { Checkbox } from 'react-native-paper';
 const UserSignup = () => {
     const navigation=useNavigation();
+    const [checked, setChecked] = useState(false);
     const [authUser,setAuthUser]=useContext(AuthContext)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confpassword, setConfpassword] = useState('');
     
     const addUser=async()=>{
+      if (!checked) {
+        Alert.alert('Please accept the terms and conditions');
+        return;
+      }
       const user=await axios.get(`http://${ADDRESS_IP}:3001/users/${email}`)
       if(user.data.length>0){
          Alert.alert("user already exist")
@@ -25,7 +31,7 @@ const UserSignup = () => {
         Alert.alert("you should confirm your password")
         return
       }
-      
+    
       createUserWithEmailAndPassword(auth, email, password)
       .then(async(userCredential) => {
         const user = userCredential.user;
@@ -34,6 +40,7 @@ const UserSignup = () => {
         setAuthUser({email:email,token:userCredential._tokenResponse.idToken})
         Alert.alert('user created successfully')
         navigation.navigate('grid')
+      
       })
       .catch((error) => {
         switch (error.code) {
@@ -56,6 +63,7 @@ const UserSignup = () => {
                 });
                   
     }
+    
     return (
       
         <View style={styles.signin}>
@@ -92,6 +100,14 @@ const UserSignup = () => {
                 defaultValue={confpassword}
                 secureTextEntry={true}
             />
+             <View style={styles.checkboxContainer}>
+        <Checkbox
+          style={styles.checkbox}
+          onPress={()=>{setChecked(!checked)}}
+          status={checked ? 'checked' : 'unchecked'}
+        />
+        <Text style={styles.label} onPress={()=>navigation.navigate(Terms)}>Terms and conditions</Text>
+      </View>
             <TouchableOpacity onPress={()=>addUser()} style={styles.appButtonContainer}>
                 <Text style={styles.appButtonText}>Sign Up</Text>
             </TouchableOpacity>
@@ -99,7 +115,7 @@ const UserSignup = () => {
               <Text style={styles.appButtonText}>Sign up with Google</Text>
             </TouchableOpacity>
             <Text>Already have an account? </Text>
-            <Text onPress={()=>navigation.navigate('UserSignin')}>Sign In</Text>
+            <Text onPress={()=>navigation.navigate('UserSignin')}>Sign In</Text>  
         </View>
   )
 }
@@ -202,5 +218,15 @@ const styles=StyleSheet.create({
       display:'flex',
       justifyContent:'center',
       alignItems:'center'
-    }
+    },
+    checkboxContainer: {
+      flexDirection: 'row',
+      marginBottom: 20,
+    },
+    checkbox: {
+      alignSelf: 'center',
+    },
+    label: {
+      margin: 8,
+    },
 })
