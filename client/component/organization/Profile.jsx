@@ -5,15 +5,19 @@ import {auth} from '../../fireBaseConfig'
 import ADDRESS_IP from '../../env';
 import {TrakkerContext} from '../Context'
 import axios from 'axios'
+import LoadingScreen from '../LoadingScreen';
+
 const Profile = () => {
     let navigation=useNavigation();
     const [organization,setOrg]=useState("")
+    const [isLoading, setIsLoading] = useState(true);
     const orgid=auth.currentUser.uid;
     const [trakker,setTrakker] = useContext(TrakkerContext);
     const getProfile=()=>{
         axios.get(`http://${ADDRESS_IP}:3001/organizations/id/${orgid}`)
         .then(res => {
           setOrg(res.data);
+          setIsLoading(false);
         })
         .catch(error => console.log(error));
     }
@@ -21,8 +25,9 @@ const Profile = () => {
         getProfile();
         console.log(organization,'this is data');
       },[trakker]);
-    
-
+if (isLoading) {
+    return <LoadingScreen />
+  }
   return (
     <View style={styles.container}>
       <View style={styles.avatarContainer}>
@@ -72,9 +77,10 @@ const Profile = () => {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
+      backgroundColor: '#f0f0f0',
       padding: 20,
-      justifyContent: 'center', // Added to center the button vertically
+      justifyContent: 'center', 
+      alignItems: 'center',// Added to center the button vertically
     },
     avatarContainer: {
       alignItems: 'center',
@@ -86,20 +92,29 @@ const styles = StyleSheet.create({
       borderRadius: 75,
     },
     name: {
-      fontSize: 20,
+      fontSize: 35,
       fontWeight: 'bold',
       marginTop: 10,
     },
     infoContainer: {
       marginTop: 35,
+      alignItems: 'center',
+      justifyContent: 'center',
+      textAlign: "center"
     },
     infoLabel: {
+      width : 150,
       fontWeight: 'bold',
-      fontSize: 15,
+      fontSize: 18,
+      backgroundColor:'#ada6a6',
+      opacity:0.5,
+      alignSelf: 'center',
+     
     },
     infoValue: {
       marginTop: 5,
       fontSize: 15,
+      alignSelf: 'center',
     },
     buttonContainer: {
       alignItems: 'center',
@@ -109,15 +124,17 @@ const styles = StyleSheet.create({
     appButtonContainer: {
       width: '40%',
       elevation: 8,
-      backgroundColor: '#FFA500',
+      backgroundColor: "white",
       borderRadius: 10,
-      paddingVertical: 10,
+      paddingVertical: 7,
       paddingHorizontal: 12,
       marginRight: 15,
+      borderColor: "#ada6a6",
+      borderWidth: 1,
     },
     appButtonText: {
-      fontSize: 18,
-      color: '#fff',
+      fontSize: 17,
+      color: '#ada6a6',
       fontWeight: 'bold',
       alignSelf: 'center',
       textTransform: 'uppercase',
