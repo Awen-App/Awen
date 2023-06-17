@@ -54,12 +54,12 @@ function AuthOrganization() {
                 onPress={()=>{
                   navigation.navigate('OrganizationSignUp')}}
                style={styles.org}>
-                <Text style={styles.appButtonText1}>Organization</Text>
+                <Text style={styles.appButtonText}>Organization</Text>
               </TouchableOpacity>
               <TouchableOpacity 
                onPress={()=>{
                 navigation.navigate('UserSignup')}}
-              style={styles.org}>
+              style={styles.donor}>
                 <Text style={styles.appButtonText1}>Donner</Text>
               </TouchableOpacity>
             </View>  
@@ -164,7 +164,7 @@ appButtonContainer: {
   },
   org:{
 
-    width:'45%',
+    width:'50%',
     backgroundColor: '#009688',
     paddingHorizontal: 20,
     paddingVertical: 10,
@@ -185,8 +185,34 @@ appButtonContainer: {
     // color: '#fff',
     fontSize: 26,
     fontWeight: 'bold',
-  }
+  },
+  donor:{
 
+    width:'45%',
+    backgroundColor: '#fff',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 5,
+    marginRight:5,
+    display:'flex',
+    justifyContent:'center',
+    alignItems:'center'
+  },
+  appButtonText1: {
+    fontSize: 15,
+    color: "#009688",
+    fontWeight: "bold",
+    alignSelf: "center",
+    textTransform: "uppercase"
+  },
+  appButtonText2: {
+    fontSize: 15,
+  
+    color: "#fff",
+    fontWeight: "bold",
+    alignSelf: "center",
+    textTransform: "uppercase"
+  },
 });
 
 

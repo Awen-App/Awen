@@ -21,6 +21,7 @@ import ProfileUser from './component/ProfileUser';
 import LatestCauses from './component/LatestCauses';
 import { StripeProvider } from '@stripe/stripe-react-native';
 import TermsAndConditions from './component/TermsAndConditions';
+import CauseOrg from './component/organization/CauseOrg';
 
 
 export default App = () => {
@@ -38,17 +39,18 @@ export default App = () => {
             <Stack.Screen name="CauseDetails" component={CauseDetail} options={{ headerTitle: () => <View /> }} />
             <Stack.Screen name="UserSignup" component={UserSignup} options={{ headerShown: false }} />
             <Stack.Screen name="OrganizationSignUp" component={AuthOrganization} options={{ headerShown: false }} />
-            <Stack.Screen name="organizationHome" component={NavbarOrganization} options={{ headerShown: false }} />
+            <Stack.Screen name="organizationHome" component={NavbarOrganization} options={{ headerTitle: () => <AwenHeader /> }}/>
             <Stack.Screen name="OrganizationLogin" component={SignInOrganization} options={{ headerShown: false }} />
             <Stack.Screen name="ModifyOrganization" component={Modify} options={{ headerShown: false }} />
             <Stack.Screen name="profile" component={Profile} options={{ headerShown: false }} />
-            <Stack.Screen name="profileUser" component={ProfileUser} options={{ headerShown: false }} />
+            <Stack.Screen name="profileUser" component={ProfileUser} options={{ headerTitle: () => <AwenHeader /> }} />
             <Stack.Screen name="UserSignin" component={UserLogin} options={{ headerShown: false }} />
             <Stack.Screen name="AllCauses" component={AllCauses} options={{ headerTitle: () => <View /> }} />
             <Stack.Screen name='MyStack' component={MyStack} options={{ headerTitle: () => <View /> }} />
-            <Stack.Screen name= "CauseByCategory" component={CauseByCategory} options={{ headerShown:false}}/>
-            <Stack.Screen name= "LatestCauses" component={LatestCauses} options={{ headerShown:false}}/>
+            <Stack.Screen name= "CauseByCategory" component={CauseByCategory} options={{ headerTitle: () => <View /> }}/>
+            <Stack.Screen name= "LatestCauses" component={LatestCauses} options={{ headerTitle: () => <View /> }}/>
             <Stack.Screen name= "Terms" component={TermsAndConditions} options={{ headerShown:false}}/>
+            <Stack.Screen name= "CauseOrg" component={CauseOrg} options={{ headerTitle: () => <View /> }}/>
            
           </Stack.Navigator>
           <StatusBar style="auto" />
