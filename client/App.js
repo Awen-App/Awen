@@ -19,6 +19,7 @@ const Stack=createNativeStackNavigator();
 import { AuthProvider } from './component/Context';
 import ProfileUser from './component/ProfileUser';
 import GetStart from './component/GetStart';
+import RoomChat from './component/RoomChat';
 export default App=()=>{
     return (
         <AuthProvider>
@@ -34,6 +35,7 @@ export default App=()=>{
                     <Stack.Screen name= "profile" component={Profile} options={{ headerTitle:false}}/>
                     <Stack.Screen name= "profileUser" component={ProfileUser} options={{ headerTitle:"Your Donations"}}/> 
                     <Stack.Screen name="UserSignin" component={UserLogin} options={{ headerShown: false }}/>
+                    <Stack.Screen name= "room" component={RoomChat} options={{ headerTitle: () => <View /> }}/>
                     <Stack.Screen name= "AllCauses" component={AllCauses} options={{ headerTitle: () => <View /> }}/>
                     <Stack.Screen name='MyStack' component={MyStack} options={{ headerTitle: () => <View />}}/>
                     <Stack.Screen name= "GetStart" component={GetStart} options={{ headerShown:false}}/>

@@ -6,6 +6,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState({
     email: null,
     token: "",
+    orgEmail:null
   });
 
   return (

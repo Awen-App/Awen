@@ -16,7 +16,7 @@ const UserLogin =() => {
         
         signInWithEmailAndPassword(auth,email, password)
             .then((u) => {
-                setAuthUser({email:email,token:u._tokenResponse.idToken})
+                setAuthUser({email:email,token:u._tokenResponse.idToken,orgEmail:null})
                 navigation.navigate('grid')
             }).catch((error) => {
             console.log(error);

@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import axios from 'axios';
 import ADDRESS_IP from '../env';
 import LoadingScreen from './LoadingScreen';
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 import { useRoute } from '@react-navigation/native';
-
-
-const socket=io.connect(`http://${ADDRESS_IP}:3001`)
+import { useNavigation } from '@react-navigation/native';
+import { AuthContext } from './Context';
+// import socket from '../socket.js'
 const CauseDetail = (props) => {
+  const [user,setUser]=useContext(AuthContext)
+  console.log(AuthContext)
+  const navigation=useNavigation();
   // console.log('primar consolog',props.route.params.cause.causeId)
   // console.log('second consolog',props.route.key)
   const [cause, setCause] = useState({});
@@ -17,6 +20,25 @@ const CauseDetail = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   // const route=useRoute();
   // const id=route.params.id
+  const joinRoom=async()=>{
+    const org=await axios.get(`http://${ADDRESS_IP}:3001/organizations/id/${props.route.params.cause.authorId}`)
+
+    const room=await axios.get(`http://${ADDRESS_IP}:3001/room/${user.email}/${org.data.orgName}`)
+    const leftRoom=room.data[0]
+    const leftOrg=org.data
+    if(room.data.length>0){
+      // await socket.emit('join_room',room.data[0].conversationId);
+    }else{
+      await axios.post(`http://${ADDRESS_IP}:3001/startConversation`,{
+        orgName:org.data.orgName,
+        userEmail:user.email,
+        orgId:org.data.orgId
+      })
+      const startChat=await axios.get(`http://${ADDRESS_IP}:3001/room/${user.email}/${org.data.orgName}`)
+      // await socket.emit('join_room',startChat.data[0].conversationId);
+    }
+    navigation.navigate('room',{leftOrg,leftRoom})
+  }
   useEffect(() => {
     async function fetchData() {
       try {
@@ -74,7 +96,10 @@ const CauseDetail = (props) => {
             <Text style={styles.description}>{cause.causeDescription}</Text>
           </View>
         )}
-        <Text>send a message</Text>
+        <Text onPress={()=>{
+          joinRoom()
+          
+          }}>send a message</Text>
       </ScrollView>
     </View>
   );

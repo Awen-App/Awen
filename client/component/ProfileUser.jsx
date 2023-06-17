@@ -17,7 +17,7 @@ const ProfileUser = () => {
     const [isLoading, setIsLoading] = useState(true);
     const logOutUser=()=>{
         auth.signOut();
-        setAuthUser({email:null,token:''})
+        setAuthUser({email:null,token:'',email:null,orgEmail:null})
       }
    
     const getDonation=async()=>{
