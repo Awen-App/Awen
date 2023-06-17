@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import AwenHeader from './component/AwenHeader';
 import MainContainer from './navigation/MainContainer';
 import { NavigationContainer } from "@react-navigation/native";
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MyStack from './Stacks/MyStack';
 import AllCauses from './component/AllCauses';
 import CauseDetail from './component/CauseDetail';
@@ -15,34 +15,49 @@ import AuthOrganization from './component/organization/AuthOrganization';
 import Profile from './component/organization/Profile';
 import Modify from './component/organization/ModifyOrg';
 import NavbarOrganization from './component/organization/NavbarOrganization';
-const Stack=createNativeStackNavigator();
-import { AuthProvider } from './component/Context';
+import CauseByCategory from './component/CauseByCategory';
+import { AuthProvider, TrakkerProvider } from './component/Context';
 import ProfileUser from './component/ProfileUser';
 import GetStart from './component/GetStart';
 import RoomChat from './component/RoomChat';
-export default App=()=>{
-    return (
-        <AuthProvider>
-            <NavigationContainer>
-                <Stack.Navigator>
-                    <Stack.Screen name="Tabs" component={MainContainer} options={{ headerTitle: () => <AwenHeader /> }}/>
-                    <Stack.Screen name= "CauseDetails" component={CauseDetail} options={{ headerTitle: () => <View /> }} />
-                    <Stack.Screen name="UserSignup" component={UserSignup} options={{ headerShown: false }}/>
-                    <Stack.Screen name="OrganizationSignUp" component={AuthOrganization} options={{ headerShown: false }}/>
-                    <Stack.Screen name= "organizationHome" component={NavbarOrganization} options={{ headerShown:false}}/>
-                    <Stack.Screen name="OrganizationLogin" component={SignInOrganization} options={{ headerShown: false }}/>       
-                    <Stack.Screen name= "ModifyOrganization" component={Modify} options={{ headerShown:false}}/>
-                    <Stack.Screen name= "profile" component={Profile} options={{ headerTitle:false}}/>
-                    <Stack.Screen name= "profileUser" component={ProfileUser} options={{ headerTitle:"Your Donations"}}/> 
-                    <Stack.Screen name="UserSignin" component={UserLogin} options={{ headerShown: false }}/>
-                    <Stack.Screen name= "room" component={RoomChat} options={{ headerTitle: () => <View /> }}/>
-                    <Stack.Screen name= "AllCauses" component={AllCauses} options={{ headerTitle: () => <View /> }}/>
-                    <Stack.Screen name='MyStack' component={MyStack} options={{ headerTitle: () => <View />}}/>
-                    <Stack.Screen name= "GetStart" component={GetStart} options={{ headerShown:false}}/>
-                </Stack.Navigator>
-                <StatusBar style="auto"/>
-            </NavigationContainer>
-        </AuthProvider>
-        
-    )
-}
+import LatestCauses from './component/LatestCauses';
+import { StripeProvider } from '@stripe/stripe-react-native';
+import TermsAndConditions from './component/TermsAndConditions';
+
+
+export default App = () => {
+  const Stack = createNativeStackNavigator(); // Move Stack inside the component
+
+  return (
+    <StripeProvider
+    publishableKey="pk_test_51NIClNIRnnaHIqBUs32n1r2zObkNYE80PNdQxvxahpIdnjoKtsXlcwUdYnWhsse6l864XYCpJWv7kJdjD4iECFMA00vdbxNEkw"// required for Apple Pay
+  >
+    <AuthProvider>
+      <TrakkerProvider>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen name="Tabs" component={MainContainer} options={{ headerTitle: () => <AwenHeader /> }} />
+            <Stack.Screen name="CauseDetails" component={CauseDetail} options={{ headerTitle: () => <View /> }} />
+            <Stack.Screen name="UserSignup" component={UserSignup} options={{ headerShown: false }} />
+            <Stack.Screen name="OrganizationSignUp" component={AuthOrganization} options={{ headerShown: false }} />
+            <Stack.Screen name="organizationHome" component={NavbarOrganization} options={{ headerShown: false }} />
+            <Stack.Screen name="OrganizationLogin" component={SignInOrganization} options={{ headerShown: false }} />
+            <Stack.Screen name="ModifyOrganization" component={Modify} options={{ headerShown: false }} />
+            <Stack.Screen name="profile" component={Profile} options={{ headerShown: false }} />
+            <Stack.Screen name="profileUser" component={ProfileUser} options={{ headerShown: false }} />
+            <Stack.Screen name="UserSignin" component={UserLogin} options={{ headerShown: false }} />
+            <Stack.Screen name="AllCauses" component={AllCauses} options={{ headerTitle: () => <View /> }} />
+            <Stack.Screen name='MyStack' component={MyStack} options={{ headerTitle: () => <View /> }} />
+            <Stack.Screen name= "CauseByCategory" component={CauseByCategory} options={{ headerShown:false}}/>
+            <Stack.Screen name= "LatestCauses" component={LatestCauses} options={{ headerShown:false}}/>
+            <Stack.Screen name= "Terms" component={TermsAndConditions} options={{ headerShown:false}}/>
+            <Stack.Screen name= "room" component={RoomChat} options={{ headerTitle: () => <View /> }}/>
+          </Stack.Navigator>
+          <StatusBar style="auto" />
+        </NavigationContainer>
+      </TrakkerProvider>
+    </AuthProvider>
+  </StripeProvider>
+   
+  );
+};

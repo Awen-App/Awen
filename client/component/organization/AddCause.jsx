@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState ,useContext} from 'react'
 import { StyleSheet, Text, View, TextInput,TouchableOpacity ,Image,Button} from 'react-native'
 import {auth} from '../../fireBaseConfig'
 import * as ImagePicker from 'expo-image-picker';
 import ADDRESS_IP from '../../env';
+import {TrakkerContext} from '../Context'
 import axios from 'axios'
+import { useNavigation } from '@react-navigation/native';
 function Addcause() {
   const [buttonColor, setButtonColor] = useState('#000000');
   const[image,setImage]=useState("")
@@ -11,7 +13,9 @@ function Addcause() {
   const[des,setDes]=useState("")
   const[cat,setCat]=useState("")
   const[target,setTarget]=useState("")
- //---------upload image to cloudinary--------------
+  const [trakker,setTrakker] = useContext(TrakkerContext);
+  const navigation = useNavigation()
+//  ---------upload image to cloudinary--------------
   const uploadImageToCloudinary = async (imageUri) => {
     const data = new FormData();
     let filename = imageUri.split('/').pop();
@@ -38,6 +42,7 @@ try {
   if (response.data.secure_url !== '') {
     const image = response.data.secure_url;
     setImage(image); 
+    alert("uploaded with success")
   } else {
     Alert.alert("Error", "Image upload failed");
   }
@@ -78,7 +83,8 @@ const selectImage = async () => {
       .post(`http://${ADDRESS_IP}:3001/postcauses`,cause)
       .then(response => {
         console.log(response)
-        alert("added succefully");
+        setTrakker(!trakker)
+        navigation.navigate("organizationHome")
       })
       .catch(error => 
         console.log(error.mesage));
@@ -86,32 +92,36 @@ const selectImage = async () => {
   return (
     <View style={styles.signin}>
            <Image
-            style={{ width: 80, height: 80 ,margin:50}}
-            source={require('../../assets/awenLogo.png')}
-          />
+          style={{ width: 140, height: 80 ,marginTop:80,marginBottom:50}}
+          source={require('../../assets/logo-awen-final1.png')}
+        />
            <Text style={styles.wlc}>Add a cause </Text>
-           <Button title="Select Image" onPress={selectImage} color={buttonColor} />
+          
 
         <TextInput
         style={styles.textInput}
-        placeholder="title.."
+        placeholder="Title.."
         onChangeText={title=>setTitle(title)}
       />
         <TextInput
         style={styles.textInput}
-        placeholder="descreption..."
+        placeholder="Description..."
         onChangeText={des=>setDes(des)}
       />
          <TextInput
         style={styles.textInput}
-        placeholder="target..."
+        placeholder="Target..."
         onChangeText={tar=>setTarget(tar)}
       />
        <TextInput
         style={styles.textInput}
-        placeholder="category..."
+        placeholder="Category..."
         onChangeText={cat=>setCat(cat)}
       />
+       <TouchableOpacity title="Select Image" onPress={selectImage} style={styles.appButtonContainer} ><Text 
+            style={styles.appButtonText}>
+              Select Image
+              </Text></TouchableOpacity>
           <TouchableOpacity
            onPress={()=>{
             createCause()
@@ -142,7 +152,8 @@ const styles = StyleSheet.create({
   head:{
     flexDirection: 'row',
     height:50,
-    marginVertical:40
+    marginVertical:40,
+    
   },
 textInput:{
     width: '70%',
@@ -156,14 +167,17 @@ textInput:{
 appButtonContainer: {
     width:'70%',
     elevation: 8,
-    backgroundColor: "#009688",
-    borderRadius: 15,
-    paddingVertical: 10,
-    paddingHorizontal: 12
+    backgroundColor: "white",
+    borderRadius: 10,
+    paddingVertical: 7,
+    paddingHorizontal: 15,
+    borderColor: "#ada6a6",
+    borderWidth: 1,
+    marginBottom: 10,
   },
   appButtonText: {
     fontSize: 18,
-    color: "#fff",
+    color: '#ada6a6',
     fontWeight: "bold",
     alignSelf: "center",
     textTransform: "uppercase"
@@ -172,7 +186,7 @@ appButtonContainer: {
     width:'50%',
     height:50,
     elevation: 8,
-    backgroundColor: "#009688",
+    backgroundColor: "white",
     borderRadius: 15,
     paddingVertical: 10,
     paddingHorizontal: 12,
@@ -201,6 +215,7 @@ appButtonContainer: {
     // color: '#fff',
     fontSize: 26,
     fontWeight: 'bold',
+    marginBottom: 30,
   }
 
 })

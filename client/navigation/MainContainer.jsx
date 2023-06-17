@@ -25,7 +25,7 @@ const menu='grid'
             <Tab.Navigator
                 initialRouteName={homeName}
                 screenOptions={({route})=>({
-                    tabBarActiveTintColor:'white',
+                    tabBarActiveTintColor:'#ada6a6',
                     tabBarInactiveTintColor:'white',
                     tabBarShowLabel:false,
                     tabBarHideOnKeyboard:true,

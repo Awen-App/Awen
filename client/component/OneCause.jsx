@@ -1,10 +1,78 @@
-import React from 'react'
+import React, { useState ,useEffect} from 'react'
 import { StyleSheet, Text, ScrollView, View, ImageBackground, TouchableOpacity} from 'react-native';
+import { useStripe } from '@stripe/stripe-react-native';
 import { useNavigation } from '@react-navigation/native';
+import ADDRESS_IP from '../env';
+import Icon from 'react-native-vector-icons/Feather';
 const OneCause = ({cause}) => {
+  const { initPaymentSheet, presentPaymentSheet } = useStripe();
+  const [loading, setLoading] = useState(false);
     const percentage = (cause.current / cause.target) * 100;
     const progressColor = percentage >= 100 ? '#ff6600' : percentage >= 66 ? '#ff781f' : percentage>= 33 ?'#ff8b3d':'#ff9d5c';
     const navigation=useNavigation()
+    const fetchPaymentSheetParams = async () => {
+   
+      const response = await fetch(`http://${ADDRESS_IP}:3001/payment-sheet`,{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log(response,'my response----')
+      const { paymentIntent, ephemeralKey, customer} = await response.json();
+      console.log(paymentIntent, ephemeralKey, customer ,'cust')
+      return {
+        paymentIntent,
+        ephemeralKey,
+        customer,
+      };
+    
+    
+  };
+
+  const initializePaymentSheet = async () => {
+
+    const {
+      paymentIntent,
+      ephemeralKey,
+      customer,
+      publishableKey,
+    } = await fetchPaymentSheetParams();
+
+    const { error } = await initPaymentSheet({
+      merchantDisplayName: "Example, Inc.",
+      customerId: customer,
+      customerEphemeralKeySecret: ephemeralKey,
+      paymentIntentClientSecret: paymentIntent,
+      allowsDelayedPaymentMethods: true,
+      defaultBillingDetails: {
+        name: 'Jane Doe',
+      }
+    });
+    console.log(error,'err')
+    if (!error) {
+      setLoading(true);
+    }
+  }
+
+  const openPaymentSheet = async () => {
+    console.log("clicked")
+    if (loading) { // Check if the payment sheet is initialized
+      const { error } = await presentPaymentSheet();
+      if (error) {
+        alert(`Error code: ${error.code}`, error.message);
+        console.log(error)
+      } else {
+        alert('Success', 'Your order is confirmed!');
+      }
+    } else {
+      console.log("inizalize")
+      alert('Payment sheet is not initialized yet');
+    }
+  };
+  useEffect(() => {
+    initializePaymentSheet()
+  },[]);
   return (
     <View key={cause.causeId} style={styles.itemContainer}>
                  <View style={styles.progressContainer}>
@@ -22,8 +90,10 @@ const OneCause = ({cause}) => {
    
 
           <View style={styles.amountsContainer}>
-            <Text style={styles.amountText}>Target Amount: {cause.target}DT</Text>
-            <Text style={styles.amountText}>Current Amount: {cause.current}DT</Text>
+          <Icon name="dollar-sign" size={14} color="#33A09A" />
+            <Text style={styles.targetText}>{cause.target}DT</Text>
+            <Icon name="flag" size={14} color="#33A09A" />
+            <Text style={styles.amountText}>{cause.current}DT</Text>
           </View>
           
           
@@ -32,7 +102,10 @@ const OneCause = ({cause}) => {
               <Text style={[styles.buttonTitle]}>Details</Text>
             </TouchableOpacity>
               
-            <TouchableOpacity style={[styles.bottomButton]} >
+            <TouchableOpacity 
+
+           onPress={openPaymentSheet}
+            style={[styles.bottomButton]} >
               <Text style={[styles.buttonTitle]}>Donate</Text>
               </TouchableOpacity>
           </View>
@@ -41,7 +114,6 @@ const OneCause = ({cause}) => {
 }
 
 export default OneCause;
-
 const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -94,7 +166,10 @@ const styles = StyleSheet.create({
       marginBottom: 5,
     },
     amountText: {
-      marginRight: 10,
+      marginRight: 0,
+    },
+    targetText: {
+      marginRight: 70,
     },
     progressContainer: {
       alignSelf:'center',

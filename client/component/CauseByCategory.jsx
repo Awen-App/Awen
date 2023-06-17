@@ -3,16 +3,17 @@ import { StyleSheet, Text, ScrollView, View, ImageBackground, TouchableOpacity }
 import axios from 'axios';
 import ADDRESS_IP from '../env';
 import LoadingScreen from './LoadingScreen';
-
-const CauseByCategory = ({ category }) => {
+import { useNavigation } from '@react-navigation/native';
+const CauseByCategory = ( props ) => {
+  const navigation=useNavigation()
+  console.log(props.route.params.choice)
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const getCauses = () => {
     axios
-      .get(`http://${ADDRESS_IP}:3001/getcauseby/Social`)
+      .get(`http://${ADDRESS_IP}:3001/getcauseby/${props.route.params.choice}`)
       .then(response => {
         setData(response.data);
-        console.log(data, '----', response.data);
         setIsLoading(false);
       })
       .catch(error => console.log(error));
@@ -44,39 +45,39 @@ const CauseByCategory = ({ category }) => {
 
 
   const all = () => {
-    return data.map(el => {
-      const percentage = (el.current / el.target) * 100;
-      const progressColor = percentage >= 100 ? 'green' : percentage >= 66 ? 'yellow' : percentage>= 33 ?'orange':'red';
-      const timeAgo = formatTimeAgo(el.createdAt);
+    return data.map(cause => {
+      const percentage = (cause.current / cause.target) * 100;
+      const progressColor = percentage >= 100 ? 'green' : percentage >= 66 ? 'ycauselow' : percentage>= 33 ?'orange':'red';
+      const timeAgo = formatTimeAgo(cause.createdAt);
 
       return (
-        <View key={el.causeId} style={styles.itemContainer}>
+        <View key={cause.causeId} style={styles.itemContainer}>
                  <View style={styles.progressContainer}>
             <View style={[styles.progressBar, { width: `${percentage}%`, backgroundColor: progressColor }]} />
            
             <Text style={styles.progressText}>{percentage.toFixed(0)}%</Text>
           </View>
-          <ImageBackground source={{ uri: el.causeImg }} style={styles.imageContainer} resizeMode="cover">
+          <ImageBackground source={{ uri: cause.causeImg }} style={styles.imageContainer} resizeMode="cover">
             <View style={styles.titleContainer}>
-              <Text style={styles.title}>{el.title}</Text>
+              <Text style={styles.title}>{cause.title}</Text>
               <Text style={styles.time}></Text>
-              <Text style={styles.category}>Category : {el.causeCategory}                  Since:{timeAgo}</Text>
+              <Text style={styles.category}>Category : {cause.causeCategory}                  Since:{timeAgo}</Text>
             </View>
           </ImageBackground>
    
 
           <View style={styles.amountsContainer}>
-            <Text style={styles.amountText}>Target Amount: {el.target}DT</Text>
-            <Text style={styles.amountText}>Current Amount: {el.current}DT</Text>
+            <Text style={styles.amountText}>Target Amount: {cause.target}DT</Text>
+            <Text style={styles.amountText}>Current Amount: {cause.current}DT</Text>
           </View>
           
           
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={[styles.topButton]} onPress={() => handleDetailsPress(el)}>
+          <TouchableOpacity style={[styles.topButton]} onPress={()=>navigation.navigate('CauseDetails',{cause})}>
               <Text style={[styles.buttonTitle]}>Details</Text>
             </TouchableOpacity>
               
-            <TouchableOpacity style={[styles.bottomButton]} onPress={() => handleQuickDonationPress(el)}>
+            <TouchableOpacity style={[styles.bottomButton]} onPress={() => handleQuickDonationPress(cause)}>
               <Text style={[styles.buttonTitle]}>Quick Donation</Text>
               </TouchableOpacity>
               
@@ -87,12 +88,12 @@ const CauseByCategory = ({ category }) => {
     });
   };
 
-  const handleDetailsPress = el => {
-    console.log('Details button pressed for:', el.causeId);
+  const handleDetailsPress = cause => {
+    console.log('Details button pressed for:', cause.causeId);
   };
 
-  const handleQuickDonationPress = el => {
-    console.log('Quick Donation button pressed for:', el.causeId);
+  const handleQuickDonationPress = cause => {
+    console.log('Quick Donation button pressed for:', cause.causeId);
   };
   if (isLoading) {
     return <LoadingScreen />
@@ -110,11 +111,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 20,
+    
   },
   itemContainer: {
     alignItems: 'center',
-    marginBottom: 20,
-    backgroundColor:"#D9DDDC",
+    marginBottom: 0,
+    backgroundColor:"white",
+    borderRadius: 10,
+    opacity: 10.5,
   },
   imageContainer: {
     opacity: 10.5,
@@ -122,28 +126,30 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 10,
      width: 300,
-    height: 150,
+    height: 200,
     justifyContent: 'center',
   },
   titleContainer: {
-    
     alignItems: 'center',
     marginTop: 10,
+    backgroundColor:"white",
+    width:300,
+    opacity: 0.7,
   },
-  title: {
-    
+  title: {  
     fontSize: 20,
     fontWeight: 'bold',
-    color: 'white',
+    color: '#ff6600',
   },
   time: {
-    fontSize: 14,
-    color: '#FFA500',
+    fontSize: 16,
+    color: '#ada6a6',
   },
   category: {
     fontWeight:"bold",
-    fontSize: 14,
-    color: '#FFA500',
+    fontSize: 16,
+    color: '#33A09A',
+    
   },
   amountsContainer: {
     alignSelf:'center',
@@ -155,15 +161,15 @@ const styles = StyleSheet.create({
   },
   progressContainer: {
     alignSelf:'center',
-    width: 250,
-    height: 19,
+    width: 300,
+    height: 25,
     backgroundColor: '#ada6a6',
     marginTop: 5,
     marginBottom: 10,
     borderRadius: 5,
   },
   progressBar: {
-    height: 19,
+    height: 25,
     borderRadius: 5,
     width: 100,
   },
@@ -171,7 +177,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     alignSelf: 'center',
-    fontSize: 10,
+    fontSize: 17,
+    color:'white'
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -186,16 +193,19 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     width: 125,
     borderRadius: 5,
-    borderColor: "#33A09A",
-    borderWidth: 2,
+    borderColor: "#ada6a6",
+    borderWidth: 1,
     marginHorizontal:15,
+    backgroundColor:"white",
   },
   bottomButton: {
     marginVertical: 5,
     width: 125,
     borderRadius: 5,
-    borderColor: "#FFA500",
-    borderWidth: 2,
+    borderColor: "#ada6a6",
+    borderWidth: 1,
+    backgroundColor:'white',
+    
   },
   scrollContainer: {
     alignItems: 'center',
@@ -203,8 +213,11 @@ const styles = StyleSheet.create({
   buttonTitle: {
     fontSize: 17,
     fontWeight: 'bold',
-    color: 'white',
+    color: '#ada6a6',
     textAlign: 'center',
+  },
+  all:{
+marginBottom:20,
   },
 });
 

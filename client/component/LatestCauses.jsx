@@ -5,9 +5,7 @@ import ADDRESS_IP from '../env';
 import OneCause from './OneCause';
 import LoadingScreen from './LoadingScreen';
 
-
-
-const AllCauses = () => {
+const LatestCauses = () => {
   const [data, setData] = useState([]);
   const [progress, setProgress] = useState(0);
   const [detailsPressed, setDetailsPressed] = useState(false);
@@ -16,7 +14,7 @@ const AllCauses = () => {
 
   const getCauses = () => {
     axios
-      .get(`http://${ADDRESS_IP}:3001/causeaccepted`)
+      .get(`http://${ADDRESS_IP}:3001/latest`)
       .then(response => {
         setData(response.data);
         console.log(data, '----', response.data);
@@ -32,7 +30,6 @@ const AllCauses = () => {
 
   useEffect(() => {
     getCauses();
-
   }, []);
 
   const formatTimeAgo = timestamp => {
@@ -207,4 +204,4 @@ marginBottom:20,
   },
 });
 
-export default AllCauses;
+export default LatestCauses;

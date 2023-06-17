@@ -5,21 +5,23 @@ const Tab=createBottomTabNavigator();
 import HomeOrganization from "./HomeOrganization";
 import Add from './AddCause'
 import Chat from "../../navigation/screens/Chat";
-import Help from "../../navigation/screens/Help";
 import Profile from "./Profile";
+import ModifyOrg from "./ModifyOrg";
+import SettingScreen from "../../navigation/screens/SettingScreen";
+
 
 
 const homeName='Home';
 const prof='profile';
 const chat='chatbox';
-const help='help';
+const settingName='Settings';
 const add='add'
 export default MainContainer2=()=>{
     return (  
             <Tab.Navigator
                 initialRouteName={homeName}
                 screenOptions={({route})=>({
-                    tabBarActiveTintColor:'white',
+                    tabBarActiveTintColor:'#ada6a6',
                     tabBarInactiveTintColor:'white',
                     tabBarShowLabel:false,
                     tabBarHideOnKeyboard:true,
@@ -45,8 +47,8 @@ export default MainContainer2=()=>{
                             iconName=focused ? 'chatbox' : 'chatbox-ellipses-outline'
                         }
                     
-                        else if(routeName===help){
-                            iconName=focused ? 'help' : 'help-circle-outline'
+                        else if(routeName===settingName){
+                            iconName=focused ? 'settings' : 'settings-outline'
                         }
                         return <Ionicons name={iconName} size={size} color={color} />
                     }
@@ -57,7 +59,7 @@ export default MainContainer2=()=>{
                 <Tab.Screen name={chat} component={Chat} options={{ headerShown: false }}/>
                 <Tab.Screen name={add} component={Add} options={{ headerShown: false }}/>
                 <Tab.Screen name={prof} component={Profile} options={{ headerShown: false }}/>
-                <Tab.Screen name={help} component={Help} options={{ headerShown: false }}/>
+                <Tab.Screen name={settingName} component={SettingScreen} options={{ headerShown: false }}/>
                 
             </Tab.Navigator>
         

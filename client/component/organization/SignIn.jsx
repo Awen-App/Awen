@@ -37,54 +37,44 @@ const SignInOrganization = () => {
     return (
       <View style={styles.signin}>
       <Image
-            style={{ width: 140, height: 80 ,marginTop:80,marginBottom:50}}
-            source={require('../../assets/logo-awen-final1.png')}
-          />
+          style={{ width: 140, height: 80 ,marginTop:80,marginBottom:50}}
+          source={require('../../assets/logo-awen-final1.png')}
+        />
           <Text style={styles.wlc}>Sign In to continue </Text>
           <View style={styles.head}>
-            <TouchableOpacity style={styles.org}>
-              <Text style={styles.appButtonText1}>Organization</Text>
+            <TouchableOpacity style={styles.org} >
+              <Text style={styles.appButtonText2}>Organization</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.org}>
-              <Text style={styles.appButtonText1}>Doner</Text>
+            <TouchableOpacity style={styles.donor} onPress={()=>navigation.navigate("UserSignin")}>
+              <Text style={styles.appButtonText1}>Donor</Text>
             </TouchableOpacity>
           </View>
+      <TextInput
+          style={styles.textInput}
+          // style={{height: 40}}
+          placeholder="E-mail"
+          onChangeText={newText => setEmail(newText)}
+          defaultValue={email}
+          />
           <TextInput
-            style={styles.textInput}
-            // style={{height: 40}}
-            placeholder="E-mail"
-            onChangeText={newText => setEmail(newText)}
-            defaultValue={email}
-            />
-            <TextInput
-                style={styles.textInput}
-                // style={{height: 40}}
-                placeholder="Password"
-                onChangeText={newText => setPassword(newText)}
-                defaultValue={password}
-                secureTextEntry={true}
-            />
-            <TouchableOpacity   onPress={()=>{
-                  signIn()
-          
-
-                }}
-                 style={styles.appButtonContainer}>
-                <Text style={styles.appButtonText}>Sign In</Text>
-            </TouchableOpacity>
-            <Text 
-              onPress={()=>{navigation.navigate('OrganizationSignUp') }}
-             >Don't have an account? Sign Up.</Text>
-            <Text 
-              onPress={()=>{reset()}}
-             >Forgot password ?</Text>
-          </View>
-   
-  )
+              style={styles.textInput}
+              // style={{height: 40}}
+              placeholder="Password"
+              onChangeText={newText => setPassword(newText)}
+              defaultValue={password}
+              secureTextEntry={true}
+          />
+          <TouchableOpacity onPress={()=>signIn()} style={styles.appButtonContainer}>
+              <Text style={styles.appButtonText}>Sign In</Text>
+          </TouchableOpacity>
+          <Text>Don't have an account? </Text><Text onPress={()=>navigation.navigate('UserSignup')}>Sign Up.</Text>
+          <Text 
+            onPress={()=>{reset()}}
+           >Forgot password ?</Text>
+  </View>
+)
 }
-
 export default SignInOrganization
-
 
 const styles=StyleSheet.create({
   signin: {
@@ -138,8 +128,28 @@ const styles=StyleSheet.create({
       justifyContent:'center',
       alignItems:'center'
     },
+    donor:{
+
+      width:'45%',
+      backgroundColor: '#fff',
+      paddingHorizontal: 20,
+      paddingVertical: 10,
+      borderRadius: 5,
+      marginRight:5,
+      display:'flex',
+      justifyContent:'center',
+      alignItems:'center'
+    },
     appButtonText1: {
       fontSize: 15,
+      color: "#009688",
+      fontWeight: "bold",
+      alignSelf: "center",
+      textTransform: "uppercase"
+    },
+    appButtonText2: {
+      fontSize: 15,
+    
       color: "#fff",
       fontWeight: "bold",
       alignSelf: "center",
