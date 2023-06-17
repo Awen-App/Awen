@@ -44,10 +44,10 @@ const getOneOrgByEmail=async(req:Request,res:Response)=>{
 }
 //--------------------get organization by id---------------------------------
 const getOneOrgById=async(req:Request,res:Response)=>{
-    console.log(req.params)
+    // console.log(req.params)
     try {
         const one= await prisma.organization.findUnique({where:{orgId:req.params.id}})
-        console.log(req.params.id,one,'hhhh')
+        // console.log(req.params.id,one,'hhhh')
         res.status(200).json(one)
     } catch (error) {
         res.status(500).json(error)
