@@ -18,26 +18,28 @@ const CauseDetail = (props) => {
   const [cause, setCause] = useState({});
   const [showDescription, setShowDescription] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  // const route=useRoute();
+  const [leftRoom,setLeftRoom]=useState({})// const route=useRoute();
   // const id=route.params.id
   const joinRoom=async()=>{
     const org=await axios.get(`http://${ADDRESS_IP}:3001/organizations/id/${props.route.params.cause.authorId}`)
 
     const room=await axios.get(`http://${ADDRESS_IP}:3001/room/${user.email}/${org.data.orgName}`)
-    const leftRoom=room.data[0]
     const leftOrg=org.data
-    if(room.data.length>0){
-      // await socket.emit('join_room',room.data[0].conversationId);
-    }else{
+    if(Object.keys(room.data).length>0){
+      setLeftRoom(room.data[0])
+      navigation.navigate('room',{leftRoom})// await socket.emit('join_room',room.data[0].conversationId);
+    }else if(Object.keys(room.data).length===0){
+      
       await axios.post(`http://${ADDRESS_IP}:3001/startConversation`,{
         orgName:org.data.orgName,
         userEmail:user.email,
         orgId:org.data.orgId
       })
       const startChat=await axios.get(`http://${ADDRESS_IP}:3001/room/${user.email}/${org.data.orgName}`)
+      setLeftRoom(startChat.data[0])
       // await socket.emit('join_room',startChat.data[0].conversationId);
+      navigation.navigate('room',{leftRoom})
     }
-    navigation.navigate('room',{leftOrg,leftRoom})
   }
   useEffect(() => {
     async function fetchData() {
