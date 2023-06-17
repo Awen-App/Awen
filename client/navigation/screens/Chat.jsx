@@ -5,6 +5,7 @@ import { AuthContext } from '../../component/Context';
 import { DataTable } from 'react-native-paper';
 import ADDRESS_IP from '../../env';
 import { useNavigation } from '@react-navigation/native';
+import { Avatar } from '@rneui/themed';
 const Chat = () => {
   const navigation=useNavigation()
   const [user,setUser]=useContext(AuthContext);
@@ -31,12 +32,28 @@ const Chat = () => {
     <ScrollView>
       <DataTable>
         <DataTable.Header>
-          <DataTable.Title>Your Conversations</DataTable.Title>
+          <DataTable.Title textStyle={{alignItems:"center",left:55,fontSize:25}} >Your Conversations</DataTable.Title>
         </DataTable.Header>
         {conversations.map((el,i)=>{
           return(
-            <DataTable.Row key={i} onPress={()=>navigation.navigate('room',{leftRoom:el})}>
-              {user.email!==null && <DataTable.Cell>{el.orgName}</DataTable.Cell>}
+            <DataTable.Row key={i} onPress={()=>{
+              
+              navigation.navigate('room',{leftRoom:el})}}>
+                {user.email!==null && <DataTable.Cell style={{flex:0.25}}><View>
+                  
+                <Avatar 
+                                              size={42}
+                                              rounded
+                                              title={el.orgName[0].toUpperCase()}
+                                              containerStyle={{ backgroundColor: "purple" }}
+                                              /></View></DataTable.Cell>}
+                
+                {user.orgEmail!==null && <DataTable.Cell style={{flex:0.25}}><Avatar 
+                                              size={42}
+                                              rounded
+                                              title={el.userEmail[0].toUpperCase()}
+                                              containerStyle={{ backgroundColor: "purple" }}/></DataTable.Cell>}
+              {user.email!==null && <DataTable.Cell textStyle={{fontSize:23}}>{el.orgName}</DataTable.Cell>}
               {user.orgEmail!==null && <DataTable.Cell>{el.userEmail}</DataTable.Cell>}
             </DataTable.Row>
           )

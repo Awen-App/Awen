@@ -11,7 +11,9 @@ const socket = io(`http://${ADDRESS_IP}:4001`, {
 });
 
 const RoomChat = (props) => {
+  console.log(props)
   const room = props.route.params.leftRoom.conversationId;
+  console.log(props.route.params.leftRoom)
   const [conversation, setConversation] = useState([]);
   const [user, setUser] = useContext(AuthContext);
   const [count, setCount] = useState(0);
@@ -20,9 +22,11 @@ const RoomChat = (props) => {
   useEffect(() => {
     if (user.email !== null) {
       setSender(user.email);
+      props.navigation.setOptions({headerTitle:props.route.params.leftRoom.orgName})
     }
     if (user.orgEmail !== null) {
       setSender(props.route.params.leftRoom.orgName);
+      props.navigation.setOptions({headerTitle:props.route.params.leftRoom["userEmail"]})
     }
   }, [user, props.route.params.leftRoom]);
 
@@ -34,7 +38,7 @@ const RoomChat = (props) => {
       conversationId: room,
     }).catch(e=>console.log(e));
      socket.emit('send', { sender: user.email !== null ? user.email : props.route.params.leftRoom.orgName, content: message[0].text, conversationId: room });
-    setCount(count + 1);
+    setCount(prev=>prev+1);
    }
   };
 
@@ -56,15 +60,19 @@ const RoomChat = (props) => {
     }
   };
   const handleReceiveMessage = (data) => {
-    console.log(data); 
+    console.log(data);
+    setCount(count+1) 
   };
   useEffect(() => {
-    socket.emit('join', room);
+    if(room){
+      socket.emit('join', room);
+    }
   }, [room]);
 
   useEffect(() => {
     retrieveMessage();
     socket.on('receive',handleReceiveMessage);
+    
   }, [socket, count]);
 
   return (
@@ -76,6 +84,7 @@ const RoomChat = (props) => {
           }}
           alwaysShowSend={true}
           renderAvatar={null}
+          renderAvatarOnTop={true}
           renderBubble={props => {
             const isCurrentUser = props.currentMessage.user._id === isSender
             return (
