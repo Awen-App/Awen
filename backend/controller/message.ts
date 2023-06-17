@@ -28,6 +28,7 @@ const addMessage=async(req:Request,res:Response)=>{
 }
 
 const getConversation=async(req:Request,res:Response)=>{
+    
     try{
         const conversation=await prisma.message.findMany({
             where:{
