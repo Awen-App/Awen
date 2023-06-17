@@ -18,7 +18,7 @@ function AuthOrganization() {
     
   const signUp = ()=>{
     createUserWithEmailAndPassword(auth, email,password).then((res) =>{
-      console.log(res)
+      
       const org={
         orgId:auth.currentUser.uid,
         orgName:name,
@@ -28,7 +28,7 @@ function AuthOrganization() {
         orgImg:"https://1000logos.net/wp-content/uploads/2020/08/Anonymous-Logo.png",
         rip:rib    
     }
-    console.log(org,'this is org');
+    
       axios.post(`http://${ADDRESS_IP}:3001/organizations/`,org).then(res => {
       console.log("success")})
       .catch(err =>console.log(err))
@@ -39,7 +39,7 @@ function AuthOrganization() {
     //      await signInWithPopup(auth,googleAuthProvider);
     //     }
     //     catch(err){
-    //         console.log(err)
+
     //     }
     // }
   return (

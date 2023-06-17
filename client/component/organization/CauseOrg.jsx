@@ -6,8 +6,8 @@ import ADDRESS_IP from '../../env';
 import LoadingScreen from '../LoadingScreen';
 
 const CauseOrg = (props) => {
-  // console.log('primar consolog',props.route.params.cause.causeId)
-  console.log(props)
+
+  
   const [cause, setCause] = useState({});
   const [showDescription, setShowDescription] = useState(false);
   const [isLoading, setIsLoading] = useState(true);

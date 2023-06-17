@@ -8,11 +8,12 @@ import Chat from "../../navigation/screens/Chat";
 import Profile from "./Profile";
 import ModifyOrg from "./ModifyOrg";
 import SettingScreen from "../../navigation/screens/SettingScreen";
-
+import ProfileHeader from "./ProfileHeader";
+import Help from "../../navigation/screens/Help";
 
 
 const homeName='Home';
-const prof='profile';
+const help='help';
 const chat='chatbox';
 const settingName='Settings';
 const add='add'
@@ -37,8 +38,8 @@ export default MainContainer2=()=>{
                         if(routeName===homeName){
                             iconName=focused ? 'home' : 'home-outline'
                         }
-                        else if(routeName===prof){
-                            iconName = focused ? 'person' : 'person-outline';
+                        else if(routeName===help){
+                            iconName = focused ? 'help' : 'help-circle-outline';
                         }
                         else if(routeName===add){
                             iconName = focused ? 'add-circle' : 'add-circle-outline';
@@ -58,8 +59,8 @@ export default MainContainer2=()=>{
                 <Tab.Screen name={homeName} component={HomeOrganization} options={{ headerShown: false }}/>
                 <Tab.Screen name={chat} component={Chat} options={{ headerShown: false }}/>
                 <Tab.Screen name={add} component={Add} options={{ headerShown: false }}/>
-                <Tab.Screen name={prof} component={Profile} options={{ headerShown: false }}/>
-                <Tab.Screen name={settingName} component={SettingScreen} options={{ headerShown: false }}/>
+                <Tab.Screen name={help} component={Help} options={{ headerShown: false }}/>
+                {/* <Tab.Screen name={settingName} component={SettingScreen} options={{ headerShown: false }}/> */}
                 
             </Tab.Navigator>
         
