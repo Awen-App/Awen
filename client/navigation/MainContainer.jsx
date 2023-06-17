@@ -41,9 +41,9 @@ const menu='grid'
                         if(routeName===homeName){
                             iconName=focused ? 'home' : 'home-outline'
                         }
-                        else if(routeName===settingName){
-                            iconName=focused ? 'settings' : 'settings-outline'
-                        }
+                        // else if(routeName===settingName){
+                        //     iconName=focused ? 'settings' : 'settings-outline'
+                        // }
                         else if(routeName===chat){
                             iconName=focused ? 'chatbox' : 'chatbox-ellipses-outline'
                         }
@@ -61,7 +61,7 @@ const menu='grid'
                 <Tab.Screen name={homeName} component={HomeScreen} options={{ headerShown: false }}/>
                 <Tab.Screen name={chat} component={Chat} options={{ headerShown: false }}/>
                 <Tab.Screen name={menu} component={Greed} options={{ headerShown: false }}/>
-                <Tab.Screen name={settingName} component={SettingScreen} options={{ headerShown: false }}/>
+                {/* <Tab.Screen name={settingName} component={SettingScreen} options={{ headerShown: false }}/> */}
                 <Tab.Screen name={help} component={Help} options={{ headerShown: false }}/>
             </Tab.Navigator>
         
