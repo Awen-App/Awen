@@ -18,6 +18,8 @@ import NavbarOrganization from './component/organization/NavbarOrganization';
 import CauseByCategory from './component/CauseByCategory';
 import { AuthProvider, TrakkerProvider } from './component/Context';
 import ProfileUser from './component/ProfileUser';
+import GetStart from './component/GetStart';
+import RoomChat from './component/RoomChat';
 import LatestCauses from './component/LatestCauses';
 import { StripeProvider } from '@stripe/stripe-react-native';
 import TermsAndConditions from './component/TermsAndConditions';
@@ -51,7 +53,7 @@ export default App = () => {
             <Stack.Screen name= "LatestCauses" component={LatestCauses} options={{ headerTitle: () => <View /> }}/>
             <Stack.Screen name= "Terms" component={TermsAndConditions} options={{ headerShown:false}}/>
             <Stack.Screen name= "CauseOrg" component={CauseOrg} options={{ headerTitle: () => <View /> }}/>
-           
+            <Stack.Screen name= "room" component={RoomChat} options={{ headerTitle: () => <View /> }}/>
           </Stack.Navigator>
           <StatusBar style="auto" />
         </NavigationContainer>

@@ -37,7 +37,7 @@ const UserSignup = () => {
         const user = userCredential.user;
         console.log(userCredential)
         await axios.post(`http://${ADDRESS_IP}:3001/users`,{email})
-        setAuthUser({email:email,token:userCredential._tokenResponse.idToken})
+        setAuthUser({email:email,token:userCredential._tokenResponse.idToken,orgEmail:null})
         Alert.alert('user created successfully')
         navigation.navigate('grid')
       

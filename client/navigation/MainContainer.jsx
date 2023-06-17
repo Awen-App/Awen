@@ -10,6 +10,7 @@ import SettingScreen from "./screens/SettingScreen";
 import Chat from "./screens/Chat";
 import Help from "./screens/Help";
 import Greed from "./screens/Greed";
+import RoomChat from "../component/RoomChat";
 
 
 const homeName='Home';
