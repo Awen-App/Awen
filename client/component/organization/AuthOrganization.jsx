@@ -34,21 +34,22 @@ function App() {
     }
     EmailComposer.composeAsync(options)
   };
-  // const sendEmailWithAttachment = async () => {
-  //   let result = await ImagePicker.launchImageLibraryAsync({
-  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
-  //     allowsEditing: false,
-  //     aspect: [4, 3],
-  //     quality: 1,
-  //   });
-  
-  //   if (!result.cancelled) {
-  //     const attachmentUri = result.assets[0].uri;
-  //     sendEmail([attachmentUri]); 
-  //   } else {
-  //     sendEmail([]);
-  //   }
-  // };
+  const sendEmailWithAttachment = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: false,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      const attachmentUri = result.assets[0].uri;
+      sendEmail([attachmentUri]); 
+    } else {
+      sendEmail([]);
+    }
+  };
+
 
 
   const signUp = () => {
@@ -76,6 +77,7 @@ function App() {
   };
 
   return (
+    <ScrollView>
     <View style={styles.signin}>
       <Image
         style={{ width: 140, height: 80, marginTop: 80, marginBottom: 50 }}
@@ -89,13 +91,13 @@ function App() {
           }}
           style={styles.org}
         >
-          <Text style={styles.appButtonText1}>Organization</Text>
+          <Text style={styles.appButtonText}>Organization</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate('UserSignup');
           }}
-          style={styles.org}
+          style={styles.donor}
         >
           <Text style={styles.appButtonText1}>Donner</Text>
         </TouchableOpacity>
@@ -190,13 +192,8 @@ The Awen mobile app is provided</Text>
     </Portal>
     <Text onPress={showDialog} >Terms and conditions</Text>
       <Text>Already have an account? </Text><Text onPress={()=>navigation.navigate('OrganizationLogin')}>Sign In</Text>
-      
-         
-            </View>
-  </ScrollView>
-   
-   
 
+    <View>
        <TextInput
         style={styles.textInput}
         placeholder="subject"
@@ -225,76 +222,83 @@ The Awen mobile app is provided</Text>
         <Text style={styles.appButtonText}>Sign Up</Text>
       </TouchableOpacity>
     </View>
-  );
+    </View>
+    </ScrollView> );
 }
 
 const styles = StyleSheet.create({
+  
   signin: {
     flex: 0.9,
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 20,
   },
-  head: {
+  head:{
     flexDirection: 'row',
-    height: 50,
-    marginVertical: 40,
+    height:50,
+    marginVertical:40
   },
-  textInput: {
+textInput:{
     width: '70%',
     height: 50,
     borderColor: 'gray',
     borderWidth: 1,
     marginBottom: 10,
     paddingHorizontal: 10,
-    borderRadius: 13,
-  },
-  appButtonContainer: {
-    width: '70%',
+    borderRadius :13,
+},
+appButtonContainer: {
+    width:'70%',
     elevation: 8,
-    backgroundColor: '#009688',
+    backgroundColor: "#009688",
     borderRadius: 15,
     paddingVertical: 10,
-    paddingHorizontal: 12,
+    paddingHorizontal: 12
   },
   appButtonText: {
     fontSize: 18,
-    color: '#fff',
-    fontWeight: 'bold',
-    alignSelf: 'center',
-    textTransform: 'uppercase',
+    color: "#fff",
+    fontWeight: "bold",
+    alignSelf: "center",
+    textTransform: "uppercase"
   },
   appButtonContainer1: {
-    width: '50%',
-    height: 50,
+    width:'50%',
+    height:50,
     elevation: 8,
-    backgroundColor: '#009688',
+    backgroundColor: "#009688",
     borderRadius: 15,
     paddingVertical: 10,
     paddingHorizontal: 12,
-    marginRight: 10,
+    marginRight:10
+
   },
-  org: {
-    width: '45%',
+  org:{
+
+    width:'50%',
     backgroundColor: '#009688',
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 5,
-    marginRight: 5,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginRight:5,
+    display:'flex',
+    justifyContent:'center',
+    alignItems:'center'
   },
   appButtonText1: {
     fontSize: 15,
-    color: '#fff',
-    fontWeight: 'bold',
-    alignSelf: 'center',
-    textTransform: 'uppercase',
+    color: "#fff",
+    fontWeight: "bold",
+    alignSelf: "center",
+    textTransform: "uppercase"
   },
-  wlc: {
+  wlc:{
+     color: 'black',
     fontSize: 26,
     fontWeight: 'bold',
+  },
+  donor:{
 
     width:'45%',
     backgroundColor: '#fff',

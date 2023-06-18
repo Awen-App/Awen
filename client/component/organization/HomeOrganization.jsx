@@ -16,65 +16,7 @@ function HomeOrganization() {
   const user = auth.currentUser.email;
   const navigation=useNavigation()
 
-  const fetchPaymentSheetParams = async () => {
-      const response = await fetch(`http://${ADDRESS_IP}:3001/payment-sheet`,{
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      console.log(response,'my response----')
-      const { paymentIntent, ephemeralKey, customer} = await response.json();
-      console.log(paymentIntent, ephemeralKey, customer ,'cust')
-      return {
-        paymentIntent,
-        ephemeralKey,
-        customer,
-      };
-    
-    
-  };
-
-  const initializePaymentSheet = async () => {
-
-    const {
-      paymentIntent,
-      ephemeralKey,
-      customer,
-      publishableKey,
-    } = await fetchPaymentSheetParams();
-
-    const { error } = await initPaymentSheet({
-      merchantDisplayName: "Example, Inc.",
-      customerId: customer,
-      customerEphemeralKeySecret: ephemeralKey,
-      paymentIntentClientSecret: paymentIntent,
-      allowsDelayedPaymentMethods: true,
-      defaultBillingDetails: {
-        name: 'Jane Doe',
-      }
-    });
-    console.log(error,'err')
-    if (!error) {
-      setLoading(true);
-    }
-  }
-
-  const openPaymentSheet = async () => {
-    console.log("clicked")
-    if (loading) { // Check if the payment sheet is initialized
-      const { error } = await presentPaymentSheet();
-      if (error) {
-        alert(`Error code: ${error.code}`, error.message);
-        console.log(error)
-      } else {
-        alert('Success', 'Your order is confirmed!');
-      }
-    } else {
-      console.log("inizalize")
-      alert('Payment sheet is not initialized yet');
-    }
-  };
+ 
   const getData = () => {
     axios
       .get(`http://${ADDRESS_IP}:3001/organizations/${user}/`)
