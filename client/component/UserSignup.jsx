@@ -15,6 +15,9 @@ const UserSignup = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confpassword, setConfpassword] = useState('');
+    const [visible, setVisible] = React.useState(false);
+
+    const hideDialog = () => setVisible(false);
     
     const addUser=async()=>{
       if (!checked) {
@@ -106,7 +109,7 @@ const UserSignup = () => {
           onPress={()=>{setChecked(!checked)}}
           status={checked ? 'checked' : 'unchecked'}
         />
-        <Text style={styles.label} onPress={()=>navigation.navigate(Terms)}>Terms and conditions</Text>
+        <Text style={styles.label} onPress={()=>navigation.navigate('Terms')}>Terms and conditions</Text>
       </View>
             <TouchableOpacity onPress={()=>addUser()} style={styles.appButtonContainer}>
                 <Text style={styles.appButtonText}>Sign Up</Text>

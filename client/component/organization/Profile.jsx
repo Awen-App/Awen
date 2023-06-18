@@ -15,7 +15,7 @@ const App = (props) => {
   const[image,setImage]=useState("");
   const [organization, setOrg] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [visible, setVisible] = React.useState(false);
+  const [visible, setVisible] = useState(false);
   const orgid = auth.currentUser.uid;
   const [trakker, setTrakker] = useContext(TrakkerContext);
   const getProfile = () => {
@@ -127,39 +127,45 @@ const updateImage = async () => {
           source={{ uri: organization.orgImg }}
           style={styles.avatar}
         ></ImageBackground>
+         <ImageBackground
+         source={require('../../assets/vecteezy_white-circle-frame-with-shadow_12011581_486.png')}
+          style={styles.iconBG}
+        ></ImageBackground>
         <TouchableOpacity style={styles.icon} onPress={() => setVisible(true)}>
           <Icon name="camera" style={styles.icon} />
         </TouchableOpacity>
         <Text style={styles.name}>{organization.orgName}</Text>
       </View>
-      <View style={styles.infoContainer}>
+      
+        
+        <View style={styles.infoContainer}>
+        <Icon name="mail" style={styles.infoIcon}/>
         <Text style={styles.infoLabel}>Email:</Text>
         <Text style={styles.infoValue}>{organization.orgEmail}</Text>
-      </View>
+        </View>
+        <View style = {styles.lineStyle} />
+       
       <View style={styles.infoContainer}>
+        <Icon name="layers" style={styles.infoIcon}/>
         <Text style={styles.infoLabel}>Category:</Text>
         <Text style={styles.infoValue}>{organization.category}</Text>
       </View>
+      <View style = {styles.lineStyle} />
+      
       <View style={styles.infoContainer}>
+        <Icon name="dollar-sign" style={styles.infoIcon}/>
         <Text style={styles.infoLabel}>RIB:</Text>
         <Text style={styles.infoValue}>{organization.rip}</Text>
       </View>
+      <View style = {styles.lineStyle} />
+      
       <View style={styles.infoContainer}>
+        <Icon name="book-open" style={styles.infoIcon}/>
         <Text style={styles.infoLabel}>Description:</Text>
         <Text style={styles.infoValue}>{organization.description}</Text>
       </View>
+      <View style = {styles.lineStyle} />
       <View >
-        {/* <TouchableOpacity
-          style={styles.appButtonContainer}
-          onPress={() => {
-            navigation.navigate('ModifyOrganization', { org: organization });
-          }}
-        >
-          <Text style={styles.appButtonText}>Modify</Text>
-        </TouchableOpacity> */}
-      
-      
-      
       </View>
     </View>
   );
@@ -184,9 +190,8 @@ const styles = StyleSheet.create({
     bottom: 30,
     left: 50,
     fontSize: 30,
-    color: 'black',
+    color: '#2a2a2a',
     zIndex: 1,
-    
   },
   avatar: {
     flexDirection: 'row',
@@ -207,21 +212,24 @@ const styles = StyleSheet.create({
     marginTop: 35,
     alignItems: 'center',
     justifyContent: 'center',
-    textAlign: "center"
+    textAlign: 'center',
+    flexDirection: 'row',// 
+
   },
   infoLabel: {
-    width : 150,
+    // marginTop: 35,
     fontWeight: 'bold',
     fontSize: 18,
-    backgroundColor:'#ada6a6',
-    opacity:0.5,
+    opacity: 0.6,
     alignSelf: 'center',
-   
+    paddingRight: 10, // Add some horizontal padding to separate the icon and text
   },
   infoValue: {
     marginTop: 5,
     fontSize: 15,
     alignSelf: 'center',
+    flexDirection: 'row', 
+    fontWeight: 500,
   },
   buttonContainer: {
     alignItems: 'center',
@@ -229,10 +237,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   appButtonContainer: {
-   
-    
-   
-    
     fontSize: 20,
     marginRight: 15,
    color: '#ada6a6',
@@ -245,10 +249,27 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     textTransform: 'uppercase',
   },
-  iconText:{
-    fontSize: 13,
-  }
-  
+  iconBG:{
+    position: 'absolute',
+    width: 36,
+    height: 36,
+    bottom: 55,
+    left: 97.5,
+    opacity: 0.5,
+  },
+  infoIcon: {
+    marginTop: 5,
+    fontSize: 20,
+    alignSelf: 'center',
+    flexDirection: 'row', 
+    marginRight:15// Add this to align the elements horizontally
+  },
+  lineStyle:{
+    width:215,
+    borderWidth: 0.5,
+    borderColor:'#ada6a6',
+    margin:10,
+}
 });
 
 // Wrap the root component with the Provider component

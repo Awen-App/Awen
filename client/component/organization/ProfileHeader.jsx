@@ -11,7 +11,7 @@ export default function ProfileHeader() {
     return (
       <View style={styles.header}>
        <Image
-          style={{ width: 45, height: 55 }}
+          style={{ width: 45, height: 55,marginLeft:-40, }}
           source={require('../../assets/secondLogo.png')}
         />
       
@@ -45,7 +45,7 @@ const styles=StyleSheet.create({
       color: 'black',
       paddingLeft:"60%",
       fontSize: 17,
-      marginLeft:40,
+      marginLeft:70,
       fontWeight:"bold",
     },
     text:{

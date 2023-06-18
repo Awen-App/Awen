@@ -17,7 +17,7 @@ const Chat = () => {
         setConversations(all.data);
       }else if(user.orgEmail!==null){
         const org=await axios.get(`http://${ADDRESS_IP}:3001/organizations/${user.orgEmail}`)
-        console.log(org.data)
+        console.log(org)
         const all=await axios.get(`http://${ADDRESS_IP}:3001/orgconversations/${org.data[0].orgName}`);
         console.log(all.data)
         setConversations(all.data);
@@ -26,7 +26,7 @@ const Chat = () => {
     retrieve()
 
   },[])
-  console.log(conversations)
+  // console.log(conversations)
 
   return (
     <ScrollView>
@@ -36,10 +36,10 @@ const Chat = () => {
         </DataTable.Header>
         {conversations.map((el,i)=>{
           return(
-            <DataTable.Row key={i} onPress={()=>{
+            <DataTable.Row style={{flex:0.45,elevation:28}} key={i} onPress={()=>{
               
               navigation.navigate('room',{leftRoom:el})}}>
-                {user.email!==null && <DataTable.Cell style={{flex:0.25}}><View>
+                {user.email!==null && <DataTable.Cell style={{flex:0.25,elevation:18}}><View>
                   
                 <Avatar 
                                               size={42}
@@ -48,7 +48,7 @@ const Chat = () => {
                                               containerStyle={{ backgroundColor: "purple" }}
                                               /></View></DataTable.Cell>}
                 
-                {user.orgEmail!==null && <DataTable.Cell style={{flex:0.25}}><Avatar 
+                {user.orgEmail!==null && <DataTable.Cell style={{flex:0.25,elevation:18}}><Avatar 
                                               size={42}
                                               rounded
                                               title={el.userEmail[0].toUpperCase()}
