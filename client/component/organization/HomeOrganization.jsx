@@ -16,7 +16,6 @@ function HomeOrganization() {
   const user = auth.currentUser.email;
   const navigation=useNavigation()
   const fetchPaymentSheetParams = async () => {
-   
       const response = await fetch(`http://${ADDRESS_IP}:3001/payment-sheet`,{
         method: 'POST',
         headers: {
