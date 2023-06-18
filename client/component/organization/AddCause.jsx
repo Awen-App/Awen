@@ -22,7 +22,6 @@ function Addcause() {
   const uploadImageToCloudinary = async (imageUri) => {
     const data = new FormData();
     let filename = imageUri.split('/').pop();
-    console.log(filename,'my fileee')
     let match = /\.(\w+)$/.exec(filename);
     let type = match ? `image/${match[1]}` : `image`;
     if (type === 'image/jpg') type = 'image/jpeg';
@@ -81,11 +80,11 @@ const selectImage = async () => {
     orgId:auth.currentUser.uid} 
   
   const createCause = () => {
-    console.log(cause)
+   
     axios
       .post(`http://${ADDRESS_IP}:3001/postcauses`,cause)
       .then(response => {
-        console.log(response)
+
         setTrakker(!trakker)
         navigation.navigate("organizationHome")
       })

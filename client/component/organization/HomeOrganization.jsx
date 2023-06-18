@@ -15,6 +15,7 @@ function HomeOrganization() {
   const [loading, setLoading] = useState(false);
   const user = auth.currentUser.email;
   const navigation=useNavigation()
+
   const fetchPaymentSheetParams = async () => {
       const response = await fetch(`http://${ADDRESS_IP}:3001/payment-sheet`,{
         method: 'POST',
@@ -78,19 +79,19 @@ function HomeOrganization() {
     axios
       .get(`http://${ADDRESS_IP}:3001/organizations/${user}/`)
       .then(response => {;
-        console.log(response.data[0].orgId, 'response');
+        
         return axios.get(`http://${ADDRESS_IP}:3001/causes/${response.data[0].orgId}`);
       })
       .then(res => {
         setData(res.data);
-        console.log(res.data, 'this is data');
+        
       })
       .catch(error => console.log(error));
   };
   
   useEffect(() => {
     getData();
-    initializePaymentSheet()
+    
 
     
   },[trakker]);
@@ -122,7 +123,8 @@ function HomeOrganization() {
       const progressColor = percentage >= 100 ? 'green' : percentage >= 66 ? 'yellow' : percentage>= 33 ?'orange':'red';
       const timeAgo = formatTimeAgo(el.createdAt);
       return (
-        <View key={el.causeId} style={styles.itemContainer}>
+        <View key={el.causeId}>
+        <View  style={styles.itemContainer}>
           <View style={styles.progressContainer}>
             <View style={[styles.progressBar, { width: `${percentage}%`, backgroundColor: progressColor }]} />
             <Text style={styles.progressText}>{percentage.toFixed(0)}%</Text>
@@ -130,8 +132,8 @@ function HomeOrganization() {
           <ImageBackground source={{ uri: el.causeImg }} style={styles.imageContainer} resizeMode="cover">
             <View style={styles.titleContainer}>
               <Text style={styles.title}>{el.title}</Text>
-              <Text style={styles.time}></Text>
-              <Text style={styles.category}>Category : {el.causeCategory}                  Since:{timeAgo}</Text>
+              
+              <Text style={styles.category}>{el.causeCategory}</Text>
             </View>
           </ImageBackground>
           
@@ -143,13 +145,16 @@ function HomeOrganization() {
             <Text style={styles.amountText}>{el.current}DT</Text>
           </View>
           
-          <Text style={styles.amountText}>Status: {el.accepted}</Text>
+          <Text style={styles.amountText}>Status: {el.accepted ? 'Accepted' : 'Pending'}</Text>
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={[styles.topButton]} onPress={()=>navigation.navigate('CauseOrg',{el})}>
               <Text style={[styles.buttonTitle]}>Details</Text>
             </TouchableOpacity>
              
           </View>
+          
+        </View>
+        
         </View>
       );
     });
@@ -185,6 +190,7 @@ const styles = StyleSheet.create({
     backgroundColor:"white",
     borderRadius: 10,
     opacity: 10.5,
+    marginBottom:20,
   },
   imageContainer: {
     opacity: 10.5,
@@ -254,19 +260,18 @@ const styles = StyleSheet.create({
     marginTop: 10,
     alignItems: 'center',
     width: 200,
-    alignContent: 'center',
   },
  
   topButton: {
+    marginLeft:0,
     border: 'solid',
     marginVertical: 5,
-    width: 250,
+    width: 190,
     borderRadius: 5,
     borderColor: "#ada6a6",
     borderWidth: 1,
     marginHorizontal:15,
     backgroundColor:"white",
-    right:38,
   },
   bottomButton: {
     marginVertical: 5,
