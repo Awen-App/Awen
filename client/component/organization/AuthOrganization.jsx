@@ -194,24 +194,7 @@ The Awen mobile app is provided</Text>
       <Text>Already have an account? </Text><Text onPress={()=>navigation.navigate('OrganizationLogin')}>Sign In</Text>
 
     <View>
-       <TextInput
-        style={styles.textInput}
-        placeholder="subject"
-        onChangeText={(e) => setSubject(e)}
-      />
-           <TextInput
-        style={styles.textInput}
-        placeholder="body..."
-        onChangeText={(e) => setBody(e)}
-      />
-       <TouchableOpacity
-        onPress={() => {
-          sendEmail()
-        }}
-        style={styles.appButtonContainer}
-      >
-          <Text style={styles.appButtonText}>Send email</Text>
-      </TouchableOpacity>
+       
       <TouchableOpacity
         onPress={() => {
           signUp();

@@ -26,6 +26,7 @@ import TermsAndConditions from './component/TermsAndConditions';
 import CauseOrg from './component/organization/CauseOrg';
 import OrgHeader from './component/organization/OrgHeader';
 import ProfileHeader from './component/organization/ProfileHeader';
+import SendEmail from './component/organization/SendEmail';
 export default App = () => {
   const Stack = createNativeStackNavigator(); // Move Stack inside the component
 
@@ -54,7 +55,7 @@ export default App = () => {
             <Stack.Screen name= "Terms" component={TermsAndConditions} options={{ headerShown:false}}/>
             <Stack.Screen name= "CauseOrg" component={CauseOrg} options={{ headerTitle: () => <OrgHeader /> }}/>
             <Stack.Screen name= "room" component={RoomChat} options={{ headerTitle: () => <View /> }}/>
-           
+            <Stack.Screen name= "SendEmail" component={SendEmail} options={{ headerTitle: () => <OrgHeader /> }}/>
           </Stack.Navigator>
           <StatusBar style="auto" />
         </NavigationContainer>

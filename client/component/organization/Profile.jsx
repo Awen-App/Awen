@@ -1,5 +1,5 @@
 import React, { useState ,useEffect,useContext} from 'react';
-import { View, Text, Image, StyleSheet,TouchableOpacity,ImageBackground } from 'react-native';
+import { View, Text, Image, StyleSheet,TouchableOpacity,ImageBackground,TextInput } from 'react-native';
 import { Provider as PaperProvider, Button, Dialog, Portal } from 'react-native-paper'; // Import the Provider component from react-native-paper
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
@@ -9,7 +9,7 @@ import { TrakkerContext } from '../Context';
 import axios from 'axios';
 import LoadingScreen from '../LoadingScreen';
 import Icon from 'react-native-vector-icons/Feather';
-
+import * as EmailComposer from 'expo-mail-composer';
 const App = (props) => {
   let navigation = useNavigation();
   const[image,setImage]=useState("");
@@ -18,6 +18,17 @@ const App = (props) => {
   const [visible, setVisible] = useState(false);
   const orgid = auth.currentUser.uid;
   const [trakker, setTrakker] = useContext(TrakkerContext);
+  const [subject,setSubject]=useState("");
+  const [body,setBody]=useState("");
+  const [evisible, seteVisible] = useState(false);
+  const sendEmail = () => {
+    let  options = {
+      subject:subject,
+      recipients: ["amroualwane1@gmail.com"],
+      body: body
+    }
+    EmailComposer.composeAsync(options)
+  };
   const getProfile = () => {
     axios.get(`http://${ADDRESS_IP}:3001/organizations/id/${orgid}`)
       .then(res => {
@@ -95,7 +106,7 @@ const updateImage = async () => {
           console.log(error.message);
         });
         setTrakker(!trakker)
-        // navigation.navigate("profile")
+        
 
     } catch (error) {
       console.log(error.message);
@@ -109,17 +120,39 @@ const updateImage = async () => {
   if (isLoading) {
     return <LoadingScreen />;
   }
-
+  const hideeDialog = () => seteVisible(false);
   const hideDialog = () => setVisible(false);
 
   return (
     <View style={styles.container}>
-  
+  <Icon name="send" style={styles.infoIcon} onPress={() => navigation.navigate("SendEmail")}/>
       <View style={styles.avatarContainer}>
         <Portal>
           <Dialog visible={visible} onDismiss={hideDialog}>
             <Dialog.Actions>
               <Button onPress={selectImage}>Upload New Image</Button>
+            </Dialog.Actions>
+          </Dialog>
+        </Portal>
+        <Portal>
+          <Dialog visible={evisible} onDismiss={hideeDialog}>
+            <Dialog.Actions>
+            <TextInput
+        placeholder="subject"
+        onChangeText={(e) => setSubject(e)}
+      />
+           <TextInput
+        placeholder="body..."
+        onChangeText={(e) => setBody(e)}
+      />
+       <TouchableOpacity
+        onPress={() => {
+          sendEmail()
+        }}
+        style={styles.appButtonContainer}
+      >
+          <Text style={styles.appButtonText}>Send email</Text>
+      </TouchableOpacity>
             </Dialog.Actions>
           </Dialog>
         </Portal>
@@ -177,13 +210,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#f0f0f0',
     padding: 20,
     justifyContent: 'center', 
-    alignItems: 'center',// Added to center the button vertically
+    alignItems: 'center',
   },
   avatarContainer: {
     alignItems: 'center',
     marginTop: 20,
     borderRadius: 75,
-    overflow: 'hidden', // Added to hide the overflow of the image
+    overflow: 'hidden', 
   },
   icon: {
     position: 'absolute',
@@ -201,7 +234,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     alignItems: 'center',
     justifyContent: 'center',
-    zIndex: 0, // lower than the icon
+    zIndex: 0, 
   },
   name: {
     fontSize: 35,
@@ -222,7 +255,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     opacity: 0.6,
     alignSelf: 'center',
-    paddingRight: 10, // Add some horizontal padding to separate the icon and text
+    paddingRight: 10, 
   },
   infoValue: {
     marginTop: 5,
@@ -262,17 +295,26 @@ const styles = StyleSheet.create({
     fontSize: 20,
     alignSelf: 'center',
     flexDirection: 'row', 
-    marginRight:15// Add this to align the elements horizontally
+    marginRight:15
   },
   lineStyle:{
     width:215,
     borderWidth: 0.5,
     borderColor:'#ada6a6',
     margin:10,
-}
+},
+textInput:{
+  width: '70%',
+  height: 50,
+  borderColor: 'gray',
+  borderWidth: 1,
+  marginBottom: 10,
+  paddingHorizontal: 10,
+  borderRadius :13,
+},
 });
 
-// Wrap the root component with the Provider component
+
 const Profile = () => {
   return (
     <PaperProvider>
