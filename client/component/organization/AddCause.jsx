@@ -6,6 +6,7 @@ import ADDRESS_IP from '../../env';
 import {TrakkerContext} from '../Context'
 import axios from 'axios'
 import { useNavigation } from '@react-navigation/native';
+
 function Addcause() {
   const [buttonColor, setButtonColor] = useState('#000000');
   const[image,setImage]=useState("")
@@ -14,7 +15,9 @@ function Addcause() {
   const[cat,setCat]=useState("")
   const[target,setTarget]=useState("")
   const [trakker,setTrakker] = useContext(TrakkerContext);
-  const navigation = useNavigation()
+  const navigation = useNavigation();
+ 
+
 //  ---------upload image to cloudinary--------------
   const uploadImageToCloudinary = async (imageUri) => {
     const data = new FormData();
@@ -136,6 +139,7 @@ const selectImage = async () => {
         title="signIn With google"
         onPress={() => signInWthGoogle()}
       /> */}
+         
   </View>
    
   )
@@ -216,8 +220,8 @@ appButtonContainer: {
     fontSize: 26,
     fontWeight: 'bold',
     marginBottom: 30,
-  }
-
+  },
+  
 })
 
 export default Addcause

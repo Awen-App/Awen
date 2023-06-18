@@ -5,7 +5,6 @@ import {auth} from '../../fireBaseConfig'
 import axios from 'axios';
 import ADDRESS_IP from '../../env';
 import {TrakkerContext} from '../Context'
-import CheckoutScreen  from '../../component/Payment';
 function HomeOrganization() {
   const [data,setData]=useState([]);
   const [trakker,setTrakker] = useContext(TrakkerContext);
@@ -14,7 +13,6 @@ function HomeOrganization() {
   const user = auth.currentUser.email;
 
   const fetchPaymentSheetParams = async () => {
-   
       const response = await fetch(`http://${ADDRESS_IP}:3001/payment-sheet`,{
         method: 'POST',
         headers: {

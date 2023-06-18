@@ -6,7 +6,7 @@ import organizationRoute  from './routes/organizations'
 import donationRoute from './routes/donationRoutes'
 const app=express();
 const stripSecretKey=process.env.STRIPE_API_SECRET;
-const stripePublicKey=process.env.STRIPE_API_PUBLIC
+const stripePublicKey=process.env.STRIPE_API_PUBLIC;
 const stripe = require('stripe')(stripSecretKey);
 
 app.use(cors())
@@ -46,7 +46,7 @@ try{
     customer: customer.id,
     publishableKey:stripePublicKey
   });
-  console.log(customer)
+  console.log(customer.id)
 }
 catch(err){
   res.status(404)
