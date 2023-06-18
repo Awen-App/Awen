@@ -39,6 +39,7 @@
     "react-google-button": "^0.7.2",
     "react-native": "0.71.8",
     "react-native-config": "^1.5.1",
+    "react-native-gifted-chat": "^2.4.0",
     "react-native-image-crop-picker": "^0.40.0",
     "react-native-image-picker": "^5.4.0",
     "react-native-image-slider-box": "^2.0.7",
@@ -52,7 +53,9 @@
     "react-native-select-dropdown": "^3.3.3",
     "react-native-splash-screen": "^3.3.0",
     "react-native-swiper": "^1.6.0",
-    "react-native-web": "~0.18.10"
+    "react-native-web": "~0.18.10",
+    "socket.io-client": "^4.6.2",
+    "stream-chat-react-native": "^5.15.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

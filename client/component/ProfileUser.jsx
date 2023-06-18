@@ -17,7 +17,7 @@ const ProfileUser = () => {
     const [isLoading, setIsLoading] = useState(true);
     const logOutUser=()=>{
         auth.signOut();
-        setAuthUser({email:null,token:''})
+        setAuthUser({email:null,token:'',email:null,orgEmail:null})
       }
    
     const getDonation=async()=>{
@@ -54,6 +54,7 @@ const ProfileUser = () => {
     const total=donation.reduce((acc,curr)=>acc+curr.amount,0)
     return (
         <ScrollView style={styles.container}>
+            <Text>{authUser.email}</Text>
             <View style={styles.child}>
             <DataTable>
                 <DataTable.Header >
@@ -93,7 +94,7 @@ export default ProfileUser
 const styles=StyleSheet.create({
     container:{
         flex: 1,
-        marginTop: 250,
+        marginTop: 150,
     },
     child:{
         

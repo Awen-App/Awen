@@ -39,7 +39,7 @@ function AuthOrganization() {
   
   //   if (!result.cancelled) {
   //     const attachmentUri = result.assets[0].uri;
-  //     sendEmail([attachmentUri]); // Use the first selected asset's uri
+  //     sendEmail([attachmentUri]); 
   //   } else {
   //     sendEmail([]);
   //   }
@@ -225,16 +225,9 @@ const styles = StyleSheet.create({
     fontSize: 26,
     fontWeight: 'bold',
   },
-  input: {
-    borderWidth: 1,
-    borderColor: 'black',
-    marginBottom: 10,
-    padding: 5,
-  },
-  formContainer: {
-    marginTop: 20,
-    width: '70%',
-  },
-});
+  }
+
+);
+
 
 export default AuthOrganization;
