@@ -4,6 +4,7 @@ import { useStripe } from '@stripe/stripe-react-native';
 import { useNavigation } from '@react-navigation/native';
 import ADDRESS_IP from '../env';
 import Icon from 'react-native-vector-icons/Feather';
+import axios from 'axios';
 const OneCause = ({cause}) => {
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
   const [loading, setLoading] = useState(false);
@@ -11,16 +12,13 @@ const OneCause = ({cause}) => {
     const progressColor = percentage >= 100 ? '#ff6600' : percentage >= 66 ? '#ff781f' : percentage>= 33 ?'#ff8b3d':'#ff9d5c';
     const navigation=useNavigation()
     const fetchPaymentSheetParams = async () => {
-   
       const response = await fetch(`http://${ADDRESS_IP}:3001/payment-sheet`,{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
       });
-      console.log(response,'my response----')
       const { paymentIntent, ephemeralKey, customer} = await response.json();
-      console.log(paymentIntent, ephemeralKey, customer ,'cust')
       return {
         paymentIntent,
         ephemeralKey,
@@ -31,14 +29,12 @@ const OneCause = ({cause}) => {
   };
 
   const initializePaymentSheet = async () => {
-
     const {
       paymentIntent,
       ephemeralKey,
       customer,
       publishableKey,
     } = await fetchPaymentSheetParams();
-
     const { error } = await initPaymentSheet({
       merchantDisplayName: "Example, Inc.",
       customerId: customer,
@@ -54,9 +50,18 @@ const OneCause = ({cause}) => {
       setLoading(true);
     }
   }
+  const updateCurrent=async()=>{
+    let current=cause.current+10.99
+    try{
+      await axios.put(`http://${ADDRESS_IP}:3001/current/${cause.causeId}`,current)
+      console.log(cause.current,"this is current")
 
+    }
+    catch(err){
+      console.log(err,'from update')
+  }
+}
   const openPaymentSheet = async () => {
-    console.log("clicked")
     if (loading) { // Check if the payment sheet is initialized
       const { error } = await presentPaymentSheet();
       if (error) {
@@ -64,12 +69,13 @@ const OneCause = ({cause}) => {
         console.log(error)
       } else {
         alert('Success', 'Your order is confirmed!');
+        updateCurrent()
       }
     } else {
-      console.log("inizalize")
       alert('Payment sheet is not initialized yet');
     }
   };
+
   useEffect(() => {
     initializePaymentSheet()
   },[]);
