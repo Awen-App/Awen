@@ -10,13 +10,16 @@ import ModifyOrg from "./ModifyOrg";
 import SettingScreen from "../../navigation/screens/SettingScreen";
 import ProfileHeader from "./ProfileHeader";
 import Help from "../../navigation/screens/Help";
+import WelcomeOrganization from "./WelcomeOrganization";
 
 
 const homeName='Home';
 const help='help';
 const chat='chatbox';
 const settingName='Settings';
-const add='add'
+const add='add';
+const newHome="newhome"
+
 export default MainContainer2=()=>{
     return (  
             <Tab.Navigator
@@ -51,6 +54,9 @@ export default MainContainer2=()=>{
                         else if(routeName===settingName){
                             iconName=focused ? 'settings' : 'settings-outline'
                         }
+                        else if(routeName===newHome){
+                            iconName=focused ? 'settings' : 'settings-outline'
+                        }
                         return <Ionicons name={iconName} size={size} color={color} />
                     }
                 })}
@@ -60,6 +66,8 @@ export default MainContainer2=()=>{
                 <Tab.Screen name={chat} component={Chat} options={{ headerShown: false }}/>
                 <Tab.Screen name={add} component={Add} options={{ headerShown: false }}/>
                 <Tab.Screen name={help} component={Help} options={{ headerShown: false }}/>
+                <Tab.Screen name={newHome} component={WelcomeOrganization} options={{ headerShown: false }}/>
+
                 {/* <Tab.Screen name={settingName} component={SettingScreen} options={{ headerShown: false }}/> */}
                 
             </Tab.Navigator>
