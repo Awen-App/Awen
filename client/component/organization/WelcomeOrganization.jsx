@@ -36,11 +36,50 @@ function WelcomeOrganization() {
         useEffect(() => {
           fetchData();
         }, []);
-        
+
         useEffect(() => {
             filterAccepted();
             filterNonAccepted();
           }, [data]);
+        const OneACc=()=>{
+            return nonaccepted.map((el)=>{
+                return (
+                    <Card style={[styles.cardContainer, { height: 280 }]}>
+                    <CardImage
+                      source={{ uri: el.causeImg  }}
+                    
+                    />
+                    <CardTitle subtitle={el.title}/>
+                    <CardContent text="Clifton, Western Cape" />
+                    <CardAction separator={true} inColumn={false}>
+                      <CardButton onPress={() => {}} title="Share" color="#FEB557" />
+                      <CardButton onPress={() => {}} title="Explore" color="#FEB557" />
+                    </CardAction>
+                  </Card>
+
+                
+                )
+            })
+        }  
+        const OneNAcc=()=>{
+            return accepted.map((el)=>{
+                return (
+                    <Card style={[styles.cardContainer, { height: 280 }]}>
+                    <CardImage
+                      source={{ uri: el.causeImg  }} 
+                    />
+                    <CardTitle subtitle={el.title}/>
+                    <CardContent text="Clifton, Western Cape" />
+                    <CardAction separator={true} inColumn={false}>
+                      <CardButton onPress={() => {}} title="Share" color="#FEB557" />
+                      <CardButton onPress={() => {}} title="Explore" color="#FEB557" />
+                    </CardAction>
+                  </Card>
+
+                
+                )
+            })
+        }  
     
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -48,37 +87,13 @@ function WelcomeOrganization() {
         <Text  style={styles.all}>Accepted</Text>
       </View>
       <ScrollView horizontal contentContainerStyle={styles.scrollViewContent}>
-        <Card style={[styles.cardContainer, { height: 280 }]}>
-          <CardImage
-            source={{ uri: 'http://bit.ly/2GfzooV' }}
-            title="Top 10 South African beaches"
-           style={{ height: 55555555 }} 
-          />
-          <CardTitle subtitle="Number 6" />
-          <CardContent text="Clifton, Western Cape" />
-          <CardAction separator={true} inColumn={false}>
-            <CardButton onPress={() => {}} title="Share" color="#FEB557" />
-            <CardButton onPress={() => {}} title="Explore" color="#FEB557" />
-          </CardAction>
-        </Card>
+        {OneACc()}
       </ScrollView>
       <View>
         <Text  style={styles.all}>Not Accepted</Text>
       </View>
       <ScrollView horizontal contentContainerStyle={styles.scrollViewContent}>
-        <Card style={[styles.cardContainer, { height: 280 }]}>
-          <CardImage
-            source={{ uri: 'http://bit.ly/2GfzooV' }}
-            title="Top 10 South African beaches"
-           style={{ height: 55555555 }} 
-          />
-          <CardTitle subtitle="Number 6" />
-          <CardContent text="Clifton, Western Cape" />
-          <CardAction separator={true} inColumn={false}>
-            <CardButton onPress={() => {}} title="Share" color="#FEB557" />
-            <CardButton onPress={() => {}} title="Explore" color="#FEB557" />
-          </CardAction>
-        </Card>
+       {OneNAcc()}
       </ScrollView>
     </ScrollView>
   );
