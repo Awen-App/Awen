@@ -18,7 +18,7 @@ const help='help';
 const chat='chatbox';
 const settingName='Settings';
 const add='add';
-const newHome="newhome"
+// const newHome="newhome"
 
 export default MainContainer2=()=>{
     return (  
@@ -54,19 +54,19 @@ export default MainContainer2=()=>{
                         else if(routeName===settingName){
                             iconName=focused ? 'settings' : 'settings-outline'
                         }
-                        else if(routeName===newHome){
-                            iconName=focused ? 'settings' : 'settings-outline'
-                        }
+                        // else if(routeName===newHome){
+                        //     iconName=focused ? 'settings' : 'settings-outline'
+                        // }
                         return <Ionicons name={iconName} size={size} color={color} />
                     }
                 })}
                 >
 
-                <Tab.Screen name={homeName} component={HomeOrganization} options={{ headerShown: false }}/>
+                <Tab.Screen name={homeName} component={WelcomeOrganization} options={{ headerShown: false }}/>
                 <Tab.Screen name={chat} component={Chat} options={{ headerShown: false }}/>
                 <Tab.Screen name={add} component={Add} options={{ headerShown: false }}/>
                 <Tab.Screen name={help} component={Help} options={{ headerShown: false }}/>
-                <Tab.Screen name={newHome} component={WelcomeOrganization} options={{ headerShown: false }}/>
+                {/* <Tab.Screen name={newHome} component={WelcomeOrganization} options={{ headerShown: false }}/> */}
 
                 {/* <Tab.Screen name={settingName} component={SettingScreen} options={{ headerShown: false }}/> */}
                 

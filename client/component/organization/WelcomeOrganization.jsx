@@ -1,14 +1,18 @@
 import React, { useState ,useEffect} from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView ,TouchableOpacity} from 'react-native';
 import {auth} from '../../fireBaseConfig'
 import axios from 'axios';
 import ADDRESS_IP from '../../env';
+import {useNavigation} from '@react-navigation/native';
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-cards';
+import HomeOrganization from './HomeOrganization';
 
 function WelcomeOrganization() {
         const [data, setData] = useState([]);
         const [accepted, setAcc] = useState([]);
         const [nonaccepted, setNonAcc] = useState([]);
+        const navigation=useNavigation();
+        const[show,setShow]=useState(false)
         const user = auth.currentUser.email;
 
         const fetchData = async () => {
@@ -44,11 +48,8 @@ function WelcomeOrganization() {
         const OneACc=()=>{
             return nonaccepted.map((el)=>{
                 return (
-                    <Card style={[styles.cardContainer, { height: 280 }]}>
-                    <CardImage
-                      source={{ uri: el.causeImg  }}
-                    
-                    />
+                    <Card   key={el.id} style={[styles.cardContainer, { height: 280 }]}>
+                    <CardImage source={{ uri: el.causeImg  }} />
                     <CardTitle subtitle={el.title}/>
                     <CardContent text="Clifton, Western Cape" />
                     <CardAction separator={true} inColumn={false}>
@@ -64,7 +65,7 @@ function WelcomeOrganization() {
         const OneNAcc=()=>{
             return accepted.map((el)=>{
                 return (
-                    <Card style={[styles.cardContainer, { height: 280 }]}>
+                    <Card   key={el.id} style={[styles.cardContainer, { height: 280 }]}>
                     <CardImage
                       source={{ uri: el.causeImg  }} 
                     />
@@ -95,6 +96,10 @@ function WelcomeOrganization() {
       <ScrollView horizontal contentContainerStyle={styles.scrollViewContent}>
        {OneNAcc()}
       </ScrollView>
+      <TouchableOpacity style={styles.appButtonContainer} onPress={() => setShow(!show)}>
+        <Text style={styles.appButtonText}>Show all</Text>
+      </TouchableOpacity>
+      {show ? <HomeOrganization /> : null}
     </ScrollView>
   );
 }
@@ -140,4 +145,22 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom:20
   },
+  appButtonContainer: {
+    width:'70%',
+    elevation: 8,
+    backgroundColor: "#009688",
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    marginLeft:50,
+    marginBottom:50
+},
+appButtonText: {
+fontSize: 18,
+color: "#fff",
+fontWeight: "bold",
+alignSelf: "center",
+textTransform: "uppercase"
+},
+
 });
