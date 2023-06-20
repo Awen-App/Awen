@@ -38,6 +38,7 @@
     "react-dom": "18.2.0",
     "react-google-button": "^0.7.2",
     "react-native": "0.71.8",
+    "react-native-cards": "^1.1.4",
     "react-native-config": "^1.5.1",
     "react-native-gifted-chat": "^2.4.0",
     "react-native-image-crop-picker": "^0.40.0",

@@ -8,6 +8,7 @@ import {TrakkerContext} from '../Context'
 import CheckoutScreen  from '../../component/Payment'
 import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
+import WelcomeOrganization from './WelcomeOrganization';
 function HomeOrganization() {
   const [data,setData]=useState([]);
   const [trakker,setTrakker] = useContext(TrakkerContext);
@@ -96,7 +97,6 @@ function HomeOrganization() {
           </View>
           
         </View>
-        
         </View>
       );
     });
