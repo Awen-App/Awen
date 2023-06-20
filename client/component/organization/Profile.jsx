@@ -10,17 +10,26 @@ import axios from 'axios';
 import LoadingScreen from '../LoadingScreen';
 import Icon from 'react-native-vector-icons/Feather';
 import * as EmailComposer from 'expo-mail-composer';
+import useFetch from '../../useFetch';
 const App = (props) => {
-  let navigation = useNavigation();
-  const[image,setImage]=useState("");
-  const [organization, setOrg] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-  const [visible, setVisible] = useState(false);
   const orgid = auth.currentUser.uid;
   const [trakker, setTrakker] = useContext(TrakkerContext);
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [organization, setOrg] = useState("");
+  const {data : organization,error,isLoading}=useFetch(`http://${ADDRESS_IP}:3001/organizations/id/${orgid}`,[trakker])
+  console.log(organization)
+  
+    // setIsLoading(fal<se)
+  
+  let navigation = useNavigation();
+  const[image,setImage]=useState("");
+  const [visible, setVisible] = useState(false);
+
+  
   const [subject,setSubject]=useState("");
   const [body,setBody]=useState("");
   const [evisible, seteVisible] = useState(false);
+  const [hovering, setHovering] = useState(false);
   const sendEmail = () => {
     let  options = {
       subject:subject,
@@ -29,14 +38,14 @@ const App = (props) => {
     }
     EmailComposer.composeAsync(options)
   };
-  const getProfile = () => {
-    axios.get(`http://${ADDRESS_IP}:3001/organizations/id/${orgid}`)
-      .then(res => {
-        setOrg(res.data);
-        setIsLoading(false);
-      })
-      .catch(error => console.log(error));
-  }
+  // const getProfile = () => {
+  //   axios.get(`http://${ADDRESS_IP}:3001/organizations/id/${orgid}`)
+  //     .then(res => {
+  //       setOrg(res.data);
+  //       setIsLoading(false);
+  //     })
+  //     .catch(error => console.log(error));
+  // }
   const uploadImageToCloudinary = async (imageUri) => {
     const data = new FormData();
     let filename = imageUri.split('/').pop();
@@ -112,20 +121,25 @@ const updateImage = async () => {
       console.log(error.message);
     }
   };
-  useEffect(() => {
-    getProfile();
+  // useEffect(() => {
+  //   getProfile();
    
-  }, [trakker]);
+  // }, [trakker]);
 
   if (isLoading) {
     return <LoadingScreen />;
   }
   const hideeDialog = () => seteVisible(false);
+
   const hideDialog = () => setVisible(false);
 
   return (
     <View style={styles.container}>
-  <Icon name="send" style={styles.infoIcon} onPress={() => navigation.navigate("SendEmail")}/>
+       
+      <View style={styles.emailCont}   onMouseEnter={() => setHovering(true)}
+  onMouseLeave={() => setHovering(false)}>
+      <Text style={styles.infoValue} visible={!hovering} >Contact us</Text>
+      <Icon name="send" style={styles.emailIcon} onPress={() => navigation.navigate("SendEmail")}/></View>
       <View style={styles.avatarContainer}>
         <Portal>
           <Dialog visible={visible} onDismiss={hideDialog}>
@@ -246,7 +260,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     textAlign: 'center',
-    flexDirection: 'row',// 
+    flexDirection: 'row', 
 
   },
   infoLabel: {
@@ -311,6 +325,16 @@ textInput:{
   marginBottom: 10,
   paddingHorizontal: 10,
   borderRadius :13,
+}, 
+emailIcon: {
+  fontSize: 22,
+  flexDirection: 'row', 
+  
+},
+emailCont: {
+  alignSelf: 'flex-end',
+  flexDirection: 'row', 
+  
 },
 });
 

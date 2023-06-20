@@ -1,49 +1,19 @@
 
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { View, Text,ImageBackground,StyleSheet ,ScrollView,Dimensions,TouchableOpacity} from 'react-native';
 import LoadingScreen from '../../component/LoadingScreen';
-// import Slideshow from 'react-native-image-slider-show';
-import axios from 'axios';
 import ADDRESS_IP from '../../env';
 import Swiper from 'react-native-swiper'
 import Track from '../../component/Track';
-// import { Padding } from '@mui/icons-material';
-// import {Spinner} from 'native-base'
 import {useNavigation} from '@react-navigation/native';
 import OneCause from '../../component/OneCause';
-
+import useFetch from '../../useFetch';
 const category=[{name:"Environmental", icon:"globe"},{name:"Social",icon:"slideshare"},{name:"Aid",icon:"heart"},{name:"Other",icon:"infinity"}]
-const x=[0,1,2,3,4]
 const Greed = () => {
   const navigation=useNavigation();
-  const [data, setData] = useState([]);
-  const [latest,setLatest]=useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  
-  useEffect(() => {
-    const retrieveLatest=async()=>{
-      
-      try {
-        const res=await axios.get(`http://${ADDRESS_IP}:3001/latest`);
-        setLatest(res.data);
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Error retrieving data:', error);
-      }
-    }
-    const retrieveToSlide = async () => {
-      try {
-        const res = await axios.get(`http://${ADDRESS_IP}:3001/slidecauses`);
-        setData(res.data);
-      } catch (error) {
-        console.error('Error retrieving data:', error);
-      }
-    };
-    
-    retrieveToSlide();
-    retrieveLatest();
-  }, []);
+  const {data : latest,error,isLoading}=useFetch(`http://${ADDRESS_IP}:3001/latest`,[]);
+  const {data : data,error:err}=useFetch(`http://${ADDRESS_IP}:3001/slidecauses`,[])
   if (isLoading) {
     return <LoadingScreen />
   }

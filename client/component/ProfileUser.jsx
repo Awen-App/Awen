@@ -15,7 +15,7 @@ const ProfileUser = () => {
     const [authUser,setAuthUser]=useContext(AuthContext)
     const [donation,setDonation]=useState([])
     const [isLoading, setIsLoading] = useState(true);
-    console.log(authUser.email,"mail")
+    console.log(authUser,"mail")
     const logOutUser=()=>{
         auth.signOut();
         setAuthUser({email:null,token:'',email:null,orgEmail:null})
@@ -55,7 +55,7 @@ const ProfileUser = () => {
     const total=donation.reduce((acc,curr)=>acc+curr.amount,0)
     return (
         <ScrollView style={styles.container}>
-            <Text style={styles.email}>{authUser.email}</Text>
+            <Text>{authUser.email}</Text>
             <View style={styles.child}>
             <DataTable>
                 <DataTable.Header >
@@ -116,13 +116,5 @@ const styles=StyleSheet.create({
         fontWeight: "bold",
         alignSelf: "center",
         textTransform: "uppercase"
-    },
-    email:{
-        fontWeight: "bold",
-        fontSize: 18,
-        alignSelf: "center",
-        marginBottom:45,
-        elevation: 18,
     }
-
 })
