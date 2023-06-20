@@ -29,7 +29,7 @@ const LoadingScreen = () => {
       inputRange: [0, 1],
       outputRange: ['0deg', '360deg'],
     });
-  console.log(spin)
+ 
     return (
       <View style={styles.container}>
         <Animated.Image

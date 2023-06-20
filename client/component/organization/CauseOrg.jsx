@@ -4,27 +4,12 @@ import Icon from 'react-native-vector-icons/Feather';
 import axios from 'axios';
 import ADDRESS_IP from '../../env';
 import LoadingScreen from '../LoadingScreen';
-
+import useFetch from '../../useFetch';
 const CauseOrg = (props) => {
 
-  
-  const [cause, setCause] = useState({});
+  const {data : cause,error,isLoading}=useFetch(`http://${ADDRESS_IP}:3001/getcause/${props.route.params.el.causeId}`,[])
   const [showDescription, setShowDescription] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  // const route=useRoute();
-  // const id=route.params.id
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get(`http://${ADDRESS_IP}:3001/getcause/${props.route.params.el.causeId}`);
-        setCause(response.data);
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    }
-    fetchData();
-  }, []);
+  
 
   const percentage = (cause.current / cause.target) * 100;
   const progressColor = percentage >= 100 ? '#ff6600' : percentage >= 66 ? '#ff781f' : percentage>= 33 ?'#ff8b3d':'#ff9d5c';

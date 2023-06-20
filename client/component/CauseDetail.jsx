@@ -8,6 +8,7 @@ import LoadingScreen from './LoadingScreen';
 import { useRoute } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from './Context';
+import useFetch from '../useFetch';
 // import socket from '../socket.js'
 const CauseDetail = (props) => {
   const [user,setUser]=useContext(AuthContext)
@@ -15,11 +16,12 @@ const CauseDetail = (props) => {
   const navigation=useNavigation();
   // console.log('primar consolog',props.route.params.cause.causeId)
   // console.log('second consolog',props.route.key)
-  const [cause, setCause] = useState({});
+  // const [cause, setCause] = useState({});
   const [showDescription, setShowDescription] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
   const [leftRoom,setLeftRoom]=useState({})// const route=useRoute();
   // const id=route.params.id
+  const {data : cause,error,isLoading}=useFetch(`http://${ADDRESS_IP}:3001/getcause/${props.route.params.cause.causeId}`,[])
   const joinRoom=async()=>{
     const org=await axios.get(`http://${ADDRESS_IP}:3001/organizations/id/${props.route.params.cause.authorId}`)
 
@@ -41,18 +43,18 @@ const CauseDetail = (props) => {
       navigation.navigate('room',{leftRoom})
     }
   }
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get(`http://${ADDRESS_IP}:3001/getcause/${props.route.params.cause.causeId}`);
-        setCause(response.data);
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    }
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       const response = await axios.get(`http://${ADDRESS_IP}:3001/getcause/${props.route.params.cause.causeId}`);
+  //       setCause(response.data);
+  //       setIsLoading(false);
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   }
+  //   fetchData();
+  // }, []);
 
   const percentage = (cause.current / cause.target) * 100;
   const progressColor = percentage >= 100 ? '#ff6600' : percentage >= 66 ? '#ff781f' : percentage>= 33 ?'#ff8b3d':'#ff9d5c';
