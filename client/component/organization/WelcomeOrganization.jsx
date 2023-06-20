@@ -11,6 +11,8 @@ function WelcomeOrganization() {
         const [data, setData] = useState([]);
         const [accepted, setAcc] = useState([]);
         const [nonaccepted, setNonAcc] = useState([]);
+        const[finished,setFinsh]=useState([]);
+        const[notFinished,setNotFinsh]=useState([]);
         const navigation=useNavigation();
         const[show,setShow]=useState(false)
         const user = auth.currentUser.email;
@@ -37,6 +39,19 @@ function WelcomeOrganization() {
             setNonAcc(nonacceptedData);
             console.log(nonaccepted,'----')
           };
+
+          const filterFinished = () => {
+            const finishedData = data.filter((e) => e.current === e.target);
+            setFinsh(finishedData);
+            console.log(finishedData,'///')
+          };
+
+          const filterNotFinished = () => {
+            const nofinishedData = data.filter((e) => e.current !== e.target);
+            setNonAcc(nofinishedData);
+            console.log(nofinishedData,'****')
+          };
+
         useEffect(() => {
           fetchData();
         }, []);
@@ -44,6 +59,8 @@ function WelcomeOrganization() {
         useEffect(() => {
             filterAccepted();
             filterNonAccepted();
+            filterFinished();
+            filterNotFinished();
           }, [data]);
         const OneACc=()=>{
             return nonaccepted.map((el)=>{
@@ -58,10 +75,10 @@ function WelcomeOrganization() {
                     </CardAction>
                   </Card>
 
-                
                 )
             })
         }  
+
         const OneNAcc=()=>{
             return accepted.map((el)=>{
                 return (
@@ -75,13 +92,44 @@ function WelcomeOrganization() {
                       <CardButton onPress={() => {}} title="Share" color="#FEB557" />
                       <CardButton onPress={() => {}} title="Explore" color="#FEB557" />
                     </CardAction>
-                  </Card>
-
-                
+                  </Card>  
                 )
             })
         }  
-    
+        const OneFinish=()=>{
+            return finished.map((el)=>{
+                return (
+                    <Card   key={el.id} style={[styles.cardContainer, { height: 280 }]}>
+                    <CardImage
+                      source={{ uri: el.causeImg  }} 
+                    />
+                    <CardTitle subtitle={el.title}/>
+                    <CardContent text="Clifton, Western Cape" />
+                    <CardAction separator={true} inColumn={false}>
+                      <CardButton onPress={() => {}} title="Share" color="#FEB557" />
+                      <CardButton onPress={() => {}} title="Explore" color="#FEB557" />
+                    </CardAction>
+                  </Card>  
+                )
+            })
+        } 
+        const OneNotFinish=()=>{
+            return notFinished.map((el)=>{
+                return (
+                    <Card   key={el.id} style={[styles.cardContainer, { height: 280 }]}>
+                    <CardImage
+                      source={{ uri: el.causeImg  }} 
+                    />
+                    <CardTitle subtitle={el.title}/>
+                    <CardContent text="Clifton, Western Cape" />
+                    <CardAction separator={true} inColumn={false}>
+                      <CardButton onPress={() => {}} title="Share" color="#FEB557" />
+                      <CardButton onPress={() => {}} title="Explore" color="#FEB557" />
+                    </CardAction>
+                  </Card>  
+                )
+            })
+        } 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View>
@@ -95,6 +143,18 @@ function WelcomeOrganization() {
       </View>
       <ScrollView horizontal contentContainerStyle={styles.scrollViewContent}>
        {OneNAcc()}
+      </ScrollView>
+      <View>
+        <Text  style={styles.all}>Finished</Text>
+      </View>
+      <ScrollView horizontal contentContainerStyle={styles.scrollViewContent}>
+       {OneFinish()}
+      </ScrollView>
+      <View>
+        <Text  style={styles.all}>Not Finished</Text>
+      </View>
+      <ScrollView horizontal contentContainerStyle={styles.scrollViewContent}>
+       {OneNotFinish()}
       </ScrollView>
       <TouchableOpacity style={styles.appButtonContainer} onPress={() => setShow(!show)}>
         <Text style={styles.appButtonText}>Show all</Text>
