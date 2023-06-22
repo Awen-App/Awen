@@ -24,9 +24,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "permissions": [
-        "CAMERA"
-      ],
+      "permissions": ["ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION","ACCESS_BACKGROUND_LOCATION","CAMERA"],
       "package": "com.sarhane.testexpo"
     },
     

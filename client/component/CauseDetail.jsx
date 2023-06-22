@@ -29,7 +29,6 @@ const CauseDetail = (props) => {
     const org=await axios.get(`http://${ADDRESS_IP}:3001/organizations/id/${props.route.params.cause.authorId}`)
 
     const room=await axios.get(`http://${ADDRESS_IP}:3001/room/${user.email}/${org.data.orgName}`)
-    const leftOrg=org.data
     if(Object.keys(room.data).length>0){
       setLeftRoom(room.data[0])
       navigation.navigate('room',{leftRoom})// await socket.emit('join_room',room.data[0].conversationId);
@@ -338,6 +337,12 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontSize: 17,
   },
+  buttonContact:{
+    marginLeft: 110,
+    border: 'solid',
+    marginVertical: 5,
+    width: 180,
+    borderRadius: 10,
   send: {
     position: 'relative',
     marginBottom: 10,
@@ -374,6 +379,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginHorizontal:15,
     backgroundColor:"white",
+  }
   },
   bottomButton: {
     marginVertical: 5,
