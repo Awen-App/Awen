@@ -4,8 +4,6 @@ import Icon from 'react-native-vector-icons/Feather';
 import axios from 'axios';
 import ADDRESS_IP from '../env';
 import LoadingScreen from './LoadingScreen';
-// import io from 'socket.io-client';
-import { useRoute } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from './Context';
 // import socket from '../socket.js'
@@ -19,12 +17,11 @@ const CauseDetail = (props) => {
   const [showDescription, setShowDescription] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [leftRoom,setLeftRoom]=useState({})// const route=useRoute();
-  // const id=route.params.id
+
   const joinRoom=async()=>{
     const org=await axios.get(`http://${ADDRESS_IP}:3001/organizations/id/${props.route.params.cause.authorId}`)
 
     const room=await axios.get(`http://${ADDRESS_IP}:3001/room/${user.email}/${org.data.orgName}`)
-    const leftOrg=org.data
     if(Object.keys(room.data).length>0){
       setLeftRoom(room.data[0])
       navigation.navigate('room',{leftRoom})// await socket.emit('join_room',room.data[0].conversationId);
@@ -97,10 +94,9 @@ const CauseDetail = (props) => {
             <Text style={styles.description}>{cause.causeDescription}</Text>
           </View>
         )}
-        <Text onPress={()=>{
-          joinRoom()
-          
-          }}>send a message</Text>
+        <TouchableOpacity  onPress={()=>joinRoom()} style={styles.buttonContact}>
+            <Text style={styles.buttonText}>Contact the Organization</Text>
+        </TouchableOpacity>
       </ScrollView>
     </View>
   );
@@ -246,6 +242,17 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontSize: 17,
   },
+  buttonContact:{
+    marginLeft: 110,
+    border: 'solid',
+    marginVertical: 5,
+    width: 180,
+    borderRadius: 10,
+    borderColor: "#ada6a6",
+    borderWidth: 1,
+    marginHorizontal:15,
+    backgroundColor:"white",
+  }
 });
 
 export default CauseDetail;
