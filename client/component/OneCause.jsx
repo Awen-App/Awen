@@ -1,11 +1,12 @@
 import React, { useState ,useEffect} from 'react'
-import { StyleSheet, Text, ScrollView, View, ImageBackground, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, ScrollView, View, ImageBackground, TouchableOpacity,Image} from 'react-native';
 import { useStripe } from '@stripe/stripe-react-native';
 import { useNavigation } from '@react-navigation/native';
 import ADDRESS_IP from '../env';
 import Icon from 'react-native-vector-icons/Feather';
 import axios from 'axios';
 const OneCause = ({cause}) => {
+  
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
   const [loading, setLoading] = useState(false);
     const percentage = (cause.current / cause.target) * 100;
@@ -28,6 +29,7 @@ const OneCause = ({cause}) => {
     
   };
 
+ 
   const initializePaymentSheet = async () => {
     const {
       paymentIntent,
@@ -90,7 +92,6 @@ const OneCause = ({cause}) => {
             <Text style={styles.progressText}>{percentage.toFixed(0)}%</Text>
           </View>
           <ImageBackground source={{ uri: cause.causeImg }} style={styles.imageContainer} resizeMode="cover">
-            
             <View style={styles.titleContainer}>
               <Text style={styles.title}>{cause.title}</Text>
               <Text style={styles.category}>{cause.causeCategory}</Text>
@@ -241,4 +242,8 @@ const styles = StyleSheet.create({
     all:{
   marginBottom:20,
     },
+    img:{
+      width:50,
+      height:50
+    }
   });
