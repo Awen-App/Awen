@@ -50,17 +50,21 @@ const OneCause = ({cause}) => {
       setLoading(true);
     }
   }
-  const updateCurrent=async()=>{
-    let current=cause.current+10.99
-    try{
-      await axios.put(`http://${ADDRESS_IP}:3001/current/${cause.causeId}`,current)
-      console.log(cause.current,"this is current")
-
+  const updateCurrent = async () => {
+    let current = cause.current + 10.99;
+    try {
+      await axios.put(`http://${ADDRESS_IP}:3001/current/${cause.causeId}`, current);
+      console.log(cause.current, "this is current");
+  
+      if (current >= cause.target) {
+        const updatedCause = { ...cause, status: false };
+        await axios.put(`http://${ADDRESS_IP}:3001/update-cause/${cause.causeId}`, updatedCause);
+        console.log(updatedCause);
+      }
+    } catch (err) {
+      console.log(err, 'from update');
     }
-    catch(err){
-      console.log(err,'from update')
-  }
-}
+  };
   const openPaymentSheet = async () => {
     if (loading) { // Check if the payment sheet is initialized
       const { error } = await presentPaymentSheet();
@@ -184,11 +188,11 @@ const styles = StyleSheet.create({
       backgroundColor: '#ada6a6',
       marginTop: 5,
       marginBottom: 10,
-      borderRadius: 5,
+      borderRadius: 15,
     },
     progressBar: {
       height: 25,
-      borderRadius: 5,
+      borderRadius: 15,
       width: 100,
     },
     progressText: {

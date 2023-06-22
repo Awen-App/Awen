@@ -1,24 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, ScrollView, View, ImageBackground, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, ScrollView, View, ImageBackground, TouchableOpacity, TextInput } from 'react-native';
 import axios from 'axios';
 import ADDRESS_IP from '../env';
 import OneCause from './OneCause';
 import LoadingScreen from './LoadingScreen';
-
-
+import { Searchbar } from 'react-native-paper';
 
 const AllCauses = () => {
   const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [progress, setProgress] = useState(0);
   const [detailsPressed, setDetailsPressed] = useState(false);
   const [donationPressed, setDonationPressed] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const getCauses = () => {
     axios
       .get(`http://${ADDRESS_IP}:3001/causeaccepted`)
       .then(response => {
         setData(response.data);
+        setFilteredData(response.data);
         console.log(data, '----', response.data);
 
         response.data.forEach(el => {
@@ -32,7 +34,6 @@ const AllCauses = () => {
 
   useEffect(() => {
     getCauses();
-
   }, []);
 
   const formatTimeAgo = timestamp => {
@@ -65,15 +66,30 @@ const AllCauses = () => {
     setDonationPressed(true);
   };
 
+  const handleSearch = text => {
+    setSearchQuery(text);
+    const filteredCauses = data.filter(cause =>
+      cause.title.toLowerCase().includes(text.toLowerCase())
+    );
+    setFilteredData(filteredCauses);
+  };
+
   const all = () => {
-    return data.map(el => {
+    return filteredData.map(el => {
       const percentage = (el.current / el.target) * 100;
-      const progressColor = percentage >= 100 ? '#ff6600' : percentage >= 66 ? '#ff781f' : percentage >= 33 ? '#ff8b3d' : '#ff9d5c';
+      const progressColor =
+        percentage >= 100
+          ? '#ff6600'
+          : percentage >= 66
+          ? '#ff781f'
+          : percentage >= 33
+          ? '#ff8b3d'
+          : '#ff9d5c';
       const timeAgo = formatTimeAgo(el.createdAt);
 
       return (
         <View key={el.causeId} style={styles.all}>
-          <OneCause cause={el}/>
+          <OneCause cause={el} />
           <Text style={styles.time}>{timeAgo}</Text>
         </View>
       );
@@ -81,12 +97,20 @@ const AllCauses = () => {
   };
 
   if (isLoading) {
-    return <LoadingScreen />
+    return <LoadingScreen />;
   }
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>{all()}</ScrollView>
+      <Searchbar
+      placeholder="Search"
+      onChangeText={handleSearch}
+      value={searchQuery}
+      style={styles.searchBar}
+    />
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        {all()}
+      </ScrollView>
     </View>
   );
 };
@@ -152,11 +176,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#ada6a6',
     marginTop: 5,
     marginBottom: 10,
-    borderRadius: 5,
+    borderRadius: 15,
   },
   progressBar: {
     height: 25,
-    borderRadius: 5,
+    borderRadius: 15,
     width: 100,
   },
   progressText: {
@@ -204,6 +228,11 @@ const styles = StyleSheet.create({
   },
   all:{
 marginBottom:20,
+  },
+  searchBar: {
+    width: '80%',
+    marginBottom: 20,
+    backgroundColor: 'white',
   },
 });
 
