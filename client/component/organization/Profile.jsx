@@ -14,6 +14,7 @@ import useFetch from '../../useFetch';
 const App = (props) => {
   const orgid = auth.currentUser.uid;
   const [trakker, setTrakker] = useContext(TrakkerContext);
+  const [show, setShow] = useState(false);
   // const [isLoading, setIsLoading] = useState(false);
   // const [organization, setOrg] = useState("");
   const {data : organization,error,isLoading}=useFetch(`http://${ADDRESS_IP}:3001/organizations/id/${orgid}`,[trakker])
@@ -206,11 +207,13 @@ const updateImage = async () => {
       </View>
       <View style = {styles.lineStyle} />
       
-      <View style={styles.infoContainer}>
+      <View style={styles.infoContainer} >
         <Icon name="book-open" style={styles.infoIcon}/>
-        <Text style={styles.infoLabel}>Description:</Text>
-        <Text style={styles.infoValue}>{organization.description}</Text>
+        <Text style={styles.infoLabel} onPress={()=>setShow(!show)}>Description:</Text>
+        
+        
       </View>
+      {show ? <View><Text style={styles.infoValue}>{organization.description}</Text></View> : <View></View>}
       <View style = {styles.lineStyle} />
       <View >
       </View>

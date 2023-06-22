@@ -27,7 +27,7 @@ if(data.length>0){
       autoplay={true}
       loop={true}
       autoplayTimeout={4}
-      height={230}
+      height={260}
     >
       {data.map((cause,i)=>{
         return (<ImageBackground source={{uri:cause.causeImg}} key={i} style={styles.image} >
@@ -37,7 +37,7 @@ if(data.length>0){
     </Swiper>
     </View>
     <Text style={styles.track}>Categories</Text>
-    <View style={{ flex:0.5}}>
+    <View style={{ flex:0.5,backgroundColor:"white"}}>
         <Swiper style={styles.swiper2}
             loop={true}
             showsPagination={true}
@@ -99,7 +99,7 @@ const styles=StyleSheet.create({
     // width:'80%',
     // flex:1,
     position:'relative',
-    // height:'50%'
+    // height:580,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,

@@ -104,7 +104,7 @@ function App() {
       </View>
       <TextInput
         style={styles.textInput}
-        placeholder="name..."
+        placeholder="Name..."
         onChangeText={(name) => setName(name)}
 
       />
@@ -190,7 +190,9 @@ The Awen mobile app is provided</Text>
         </Dialog.ScrollArea>
       </Dialog>
     </Portal>
+    <View><Text></Text></View>
     <Text onPress={showDialog} >Terms and conditions</Text>
+    <View><Text></Text></View>
       <Text>Already have an account? </Text><Text onPress={()=>navigation.navigate('OrganizationLogin')}>Sign In</Text>
 
     <View>
@@ -232,12 +234,13 @@ textInput:{
     borderRadius :13,
 },
 appButtonContainer: {
-    width:'70%',
-    elevation: 8,
-    backgroundColor: "#009688",
-    borderRadius: 15,
-    paddingVertical: 10,
-    paddingHorizontal: 12
+  margin:10,
+  width:200,
+  elevation: 8,
+  backgroundColor: "#009688",
+  borderRadius: 10,
+  paddingVertical: 10,
+  paddingHorizontal: 12
   },
   appButtonText: {
     fontSize: 18,

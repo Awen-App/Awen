@@ -16,11 +16,11 @@ const ProfileUser = () => {
     const [donation,setDonation]=useState([])
     const [isLoading, setIsLoading] = useState(true);
     console.log(authUser,"mail")
-    const logOutUser=()=>{
-        auth.signOut();
-        setAuthUser({email:null,token:'',email:null,orgEmail:null})
-      }
-   console.log(authUser,"mail")
+//     const logOutUser=()=>{
+//         auth.signOut();
+//         setAuthUser({email:null,token:'',email:null,orgEmail:null})
+//       }
+//    console.log(authUser,"mail")
     const getDonation=async()=>{
         let allForUser=[];
         try{
@@ -55,7 +55,7 @@ const ProfileUser = () => {
     const total=donation.reduce((acc,curr)=>acc+curr.amount,0)
     return (
         <ScrollView style={styles.container}>
-            <Text>{authUser.email}</Text>
+            <Text style={styles.headText}>{authUser.email}</Text>
             <View style={styles.child}>
             <DataTable>
                 <DataTable.Header >
@@ -77,13 +77,13 @@ const ProfileUser = () => {
                     <DataTable.Cell style={{flex:1}}>{total}Dt</DataTable.Cell>
                 </DataTable.Row>
             </DataTable>
-            <TouchableOpacity style={styles.logout}  onPress={()=>{
+            {/* <TouchableOpacity style={styles.logout}  onPress={()=>{
                     logOutUser();
                     navigation.navigate('Home')
                 }}>
                 <Text
                 style={styles.text}>LogOut</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             </View>
         </ScrollView>
       )
@@ -116,5 +116,13 @@ const styles=StyleSheet.create({
         fontWeight: "bold",
         alignSelf: "center",
         textTransform: "uppercase"
-    }
+    },
+    headText: {
+        fontSize: 18,
+        color: "black",
+        fontWeight: "bold",
+        alignSelf: "center",
+        textTransform: "uppercase",
+        margin:50
+      },
 })
