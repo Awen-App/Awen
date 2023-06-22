@@ -17,7 +17,7 @@ const Chat = () => {
         setConversations(all.data);
       }else if(user.orgEmail!==null){
         const org=await axios.get(`http://${ADDRESS_IP}:3001/organizations/${user.orgEmail}`)
-        console.log(org.data)
+        console.log(org)
         const all=await axios.get(`http://${ADDRESS_IP}:3001/orgconversations/${org.data[0].orgName}`);
         console.log(all.data)
         setConversations(all.data);
@@ -26,7 +26,7 @@ const Chat = () => {
     retrieve()
 
   },[])
-  console.log(conversations)
+  // console.log(conversations)
 
   return (
     <ScrollView>

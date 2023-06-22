@@ -16,16 +16,25 @@
     ],
     "ios": {
       "supportsTablet": true
+    
+     
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "permissions": ["ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION","ACCESS_BACKGROUND_LOCATION"]
+      "permissions": ["ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION","ACCESS_BACKGROUND_LOCATION","CAMERA"],
+      "package": "com.sarhane.testexpo"
     },
+    
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "2e6351df-f5a4-4513-a649-93f32a44dc48"
+      }
     }
   }
 }

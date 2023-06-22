@@ -12,6 +12,7 @@ function ModifyOrg({route}) {
     const[image,setImage]=useState("");
     const [buttonColor, setButtonColor] = useState('#000000');;
     const org=route.params.org
+    console.log(trakker,"this")
     const id=org.orgId
     console.log(id,'this is organization')
     //---------upload image to cloudinary
@@ -90,7 +91,7 @@ function ModifyOrg({route}) {
 
   return (
     <View style={styles.head}>
-     <Button title="Select Image" onPress={selectImage} style={styles.appButtonContainer} />
+     <Button title="Select Image" onPress={selectImage} color={buttonColor} />
      <TouchableOpacity
            onPress={()=>{
             updateImage()
@@ -109,25 +110,25 @@ const styles = StyleSheet.create({
   head:{
     flexDirection: 'row',
     height:50,
-    marginVertical:'50%',
+    marginVertical:40,
   },
-  textInput:{
+textInput:{
     width: '70%',
     height: 50,
-    borderColor:'gray',
-    borderWidth:1,
+    borderColor: 'gray',
+    borderWidth: 1,
     marginBottom: 10,
-    paddingHorizontal:10,
+    paddingHorizontal: 10,
     borderRadius :13,
-  },
-  appButtonContainer: {
-    flex:0.5,
-    width:'15%',
+},
+appButtonContainer: {
+  flex:0.5,
+    width:'70%',
     elevation: 8,
     backgroundColor: "#009688",
     borderRadius: 15,
-    paddingVertical: 8,
-    paddingHorizontal:8
+    paddingVertical: 10,
+    paddingHorizontal: 12
   },
   appButtonText: {
     fontSize: 18,

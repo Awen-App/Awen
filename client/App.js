@@ -18,14 +18,16 @@ import NavbarOrganization from './component/organization/NavbarOrganization';
 import CauseByCategory from './component/CauseByCategory';
 import { AuthProvider, TrakkerProvider } from './component/Context';
 import ProfileUser from './component/ProfileUser';
-import GetStart from './component/GetStart';
 import RoomChat from './component/RoomChat';
 import LatestCauses from './component/LatestCauses';
 import { StripeProvider } from '@stripe/stripe-react-native';
 import TermsAndConditions from './component/TermsAndConditions';
 import CauseOrg from './component/organization/CauseOrg';
-
-
+import OrgHeader from './component/organization/OrgHeader';
+import ProfileHeader from './component/organization/ProfileHeader';
+import SendEmail from './component/organization/SendEmail';
+import UserHeader from './component/UserHeader';
+import HomeOrganization from './component/organization/HomeOrganization';
 export default App = () => {
   const Stack = createNativeStackNavigator(); // Move Stack inside the component
 
@@ -41,19 +43,21 @@ export default App = () => {
             <Stack.Screen name="CauseDetails" component={CauseDetail} options={{ headerTitle: () => <View /> }} />
             <Stack.Screen name="UserSignup" component={UserSignup} options={{ headerShown: false }} />
             <Stack.Screen name="OrganizationSignUp" component={AuthOrganization} options={{ headerShown: false }} />
-            <Stack.Screen name="organizationHome" component={NavbarOrganization} options={{ headerTitle: () => <AwenHeader /> }}/>
+            <Stack.Screen name="organizationHome" component={NavbarOrganization} options={{ headerTitle: () => <OrgHeader /> }}/>
             <Stack.Screen name="OrganizationLogin" component={SignInOrganization} options={{ headerShown: false }} />
             <Stack.Screen name="ModifyOrganization" component={Modify} options={{ headerShown: false }} />
-            <Stack.Screen name="profile" component={Profile} options={{ headerShown: false }} />
-            <Stack.Screen name="profileUser" component={ProfileUser} options={{ headerTitle: () => <AwenHeader /> }} />
+            <Stack.Screen name="profile" component={Profile} options={{ headerTitle: () => <ProfileHeader /> }} />
+            <Stack.Screen name="profileUser" component={ProfileUser} options={{ headerTitle: () => <UserHeader /> }} />
             <Stack.Screen name="UserSignin" component={UserLogin} options={{ headerShown: false }} />
             <Stack.Screen name="AllCauses" component={AllCauses} options={{ headerTitle: () => <View /> }} />
             <Stack.Screen name='MyStack' component={MyStack} options={{ headerTitle: () => <View /> }} />
             <Stack.Screen name= "CauseByCategory" component={CauseByCategory} options={{ headerTitle: () => <View /> }}/>
             <Stack.Screen name= "LatestCauses" component={LatestCauses} options={{ headerTitle: () => <View /> }}/>
             <Stack.Screen name= "Terms" component={TermsAndConditions} options={{ headerShown:false}}/>
-            <Stack.Screen name= "CauseOrg" component={CauseOrg} options={{ headerTitle: () => <View /> }}/>
+            <Stack.Screen name= "CauseOrg" component={CauseOrg} options={{ headerTitle: () => <OrgHeader /> }}/>
             <Stack.Screen name= "room" component={RoomChat} options={{ headerTitle: () => <View /> }}/>
+            <Stack.Screen name= "SendEmail" component={SendEmail} options={{ headerTitle: () => <OrgHeader /> }}/>
+            <Stack.Screen name= "OrgHome" component={HomeOrganization} options={{ headerTitle: () => <OrgHeader /> }}/>
           </Stack.Navigator>
           <StatusBar style="auto" />
         </NavigationContainer>
