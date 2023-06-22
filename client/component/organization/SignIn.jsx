@@ -1,11 +1,12 @@
-import React,{useState} from 'react'
+import React,{useContext, useState} from 'react'
 import {View , Image,Text,TextInput,Button,Alert,StyleSheet,TouchableOpacity} from 'react-native'
 import {auth,googleAuthProvider} from '../../fireBaseConfig'
 import {signInWithEmailAndPassword,sendPasswordResetEmail} from "firebase/auth";
 import {useNavigation} from '@react-navigation/native'
-
+import { AuthContext } from '../Context';
 
 const SignInOrganization = () => {
+  const [authUser,setAuthUser]=useContext(AuthContext)
   let navigation=useNavigation();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -13,10 +14,12 @@ const SignInOrganization = () => {
     signInWithEmailAndPassword(auth,email,password)
     .then((userCredential)=> {
     console.log(userCredential.user.email)
+    setAuthUser({email:null,token:userCredential._tokenResponse.idToken,orgEmail:userCredential.user.email})
     navigation.navigate('organizationHome')
   } )
     .catch((error) => {
     console.log(error.message);
+    
   });
     }
     const reset=()=>{
