@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet,ImageBackground } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import axios from 'axios';
 import ADDRESS_IP from '../env';
@@ -10,9 +10,11 @@ import { useRoute } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from './Context';
 import useFetch from '../useFetch';
+import { Avatar } from '@rneui/themed';
 // import socket from '../socket.js'
 const CauseDetail = (props) => {
   const [user,setUser]=useContext(AuthContext)
+  // const [organization,setOrganization]=useState(null)
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
   const [loading, setLoading] = useState(false);
   console.log(AuthContext)
@@ -25,13 +27,15 @@ const CauseDetail = (props) => {
   const [leftRoom,setLeftRoom]=useState({})// const route=useRoute();
   // const id=route.params.id
   const {data : cause,error,isLoading}=useFetch(`http://${ADDRESS_IP}:3001/getcause/${props.route.params.cause.causeId}`,[])
+  const {data:organization,error:e}=useFetch(`http://${ADDRESS_IP}:3001/organizations/id/${cause.authorId}`,[])
+  console.log(organization,'////////////////////////')
   const joinRoom=async()=>{
     const org=await axios.get(`http://${ADDRESS_IP}:3001/organizations/id/${props.route.params.cause.authorId}`)
 
     const room=await axios.get(`http://${ADDRESS_IP}:3001/room/${user.email}/${org.data.orgName}`)
     if(Object.keys(room.data).length>0){
       setLeftRoom(room.data[0])
-      navigation.navigate('room',{leftRoom})// await socket.emit('join_room',room.data[0].conversationId);
+      navigation.navigate('room',{leftRoom})
     }else if(Object.keys(room.data).length===0){
       
       await axios.post(`http://${ADDRESS_IP}:3001/startConversation`,{
@@ -45,6 +49,11 @@ const CauseDetail = (props) => {
       navigation.navigate('room',{leftRoom})
     }
   }
+//   const getOrganization=async()=>{
+//     const org=await axios.get(`http://${ADDRESS_IP}:3001/organizations/id/${cause.authorId}`)
+//     setOrganization(org.data)
+  
+// }
   // useEffect(() => {
   //   async function fetchData() {
   //     try {
@@ -134,7 +143,9 @@ const openPaymentSheet = async () => {
 
 useEffect(() => {
   initializePaymentSheet()
+  
 },[]);
+
   return (
     <View style={styles.container}>
      
@@ -148,7 +159,14 @@ useEffect(() => {
       <ScrollView>
       <Text style={styles.title}>{cause.title}</Text>
         <View style={styles.imageContainer}>
-          <Image source={{ uri: cause.causeImg }} style={styles.image} resizeMode="cover" />
+          <ImageBackground source={{ uri: cause.causeImg }} style={styles.image} resizeMode="cover" >
+              {organization && <Avatar
+                size={52}
+                rounded
+                source={{ uri: organization.orgImg }}
+                avatarStyle={{margin:2}}
+              />}
+          </ImageBackground>
           <View style={styles.imageOverlay}>
             <View style={styles.progressContainer}>
               <View style={[styles.progressBar, { width: `${percentage}%`, backgroundColor: progressColor }]} />
