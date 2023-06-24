@@ -47,22 +47,27 @@ const OneCause = ({cause}) => {
         name: 'Jane Doe',
       }
     });
-    console.log(error,'err')
+    console.log(error,'tarek')
     if (!error) {
       setLoading(true);
     }
   }
+  console.log(cause,"+-+-+")
   const updateCurrent = async () => {
-    let current = cause.current + 10.99;
+    let current = cause.current + 1000;
+    
+
     try {
-      await axios.put(`http://${ADDRESS_IP}:3001/current/${cause.causeId}`, current);
+      // if (current >= cause.target) {
+      //   const updatedCause = { ...cause, status: false };
+      //   await axios.put(`http://${ADDRESS_IP}:3001/update-cause/${cause.causeId}`, updatedCause);
+      //   console.log(updatedCause);
+      // }
+      
+      await axios.put(`http://${ADDRESS_IP}:3001/current/${cause.causeId}`,current);
       console.log(cause.current, "this is current");
-  
-      if (current >= cause.target) {
-        const updatedCause = { ...cause, status: false };
-        await axios.put(`http://${ADDRESS_IP}:3001/update-cause/${cause.causeId}`, updatedCause);
-        console.log(updatedCause);
-      }
+      log(cause.causeId)
+      
     } catch (err) {
       console.log(err, 'from update');
     }
@@ -70,12 +75,14 @@ const OneCause = ({cause}) => {
   const openPaymentSheet = async () => {
     if (loading) { // Check if the payment sheet is initialized
       const { error } = await presentPaymentSheet();
+   
       if (error) {
         alert(`Error code: ${error.code}`, error.message);
         console.log(error)
       } else {
-        alert('Success', 'Your order is confirmed!');
         updateCurrent()
+        alert('Success', 'Your order is confirmed!');
+      
       }
     } else {
       alert('Payment sheet is not initialized yet');
@@ -115,7 +122,7 @@ const OneCause = ({cause}) => {
               
             <TouchableOpacity 
 
-           onPress={openPaymentSheet}
+            onPress={openPaymentSheet}
             style={[styles.bottomButton]} >
               <Text style={[styles.buttonTitle]}>Donate</Text>
               </TouchableOpacity>

@@ -112,7 +112,7 @@ const initializePaymentSheet = async () => {
   }
 }
 const updateCurrent = async () => {
-  let current = cause.current + 10.99;
+  let current = cause.current + 10000;
   try {
     await axios.put(`http://${ADDRESS_IP}:3001/current/${props.route.params.cause.causeId}`, current);
     console.log(cause.current, "this is current");
@@ -188,10 +188,8 @@ useEffect(() => {
             <Text style={[styles.amountValue, styles.boldText]}>{cause.target}</Text>
           </View>
         </View>
-        {/* <View>
-          <Text style={styles.latestDonors}>Latest Donors</Text>
-        </View> */}
-        <View style={styles.buttonContainer}>
+        
+        <View style={styles.buttonContainer1}>
          <TouchableOpacity 
 
 onPress={openPaymentSheet}
@@ -356,31 +354,32 @@ const styles = StyleSheet.create({
     fontSize: 17,
   },
   buttonContact:{
-    marginLeft: 110,
+    marginLeft: 300,
     border: 'solid',
     marginVertical: 5,
     width: 180,
-    borderRadius: 10,
+    borderRadius: 10,},
   send: {
     position: 'relative',
     marginBottom: 10,
-    alignSelf:"flex-end" ,
+    alignSelf:"flex-end",
     fontSize: 17,
     marginTop: 10,
     borderRadius: 5,
     right:15,
     flexDirection: 'row',
   },
-  bottomButton: {
-    marginVertical: 5,
-    width: 125,
-    borderRadius: 5,
-    borderColor: "#ada6a6",
-    borderWidth: 1,
-    backgroundColor:'white',
+  // bottomButton: {
+
+  //   marginVertical: 5,
+  //   width: 125,
+  //   borderRadius: 5,
+  //   borderColor: "#ada6a6",
+  //   borderWidth: 1,
+  //   backgroundColor:'white',
     
-  },
-  buttonContainer: {
+  // },
+  buttonContainer1: {
     flexDirection: 'row',
     marginTop: 10,
     alignItems: 'center',
@@ -397,9 +396,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginHorizontal:15,
     backgroundColor:"white",
-  }
+  
   },
   bottomButton: {
+    justifyContent:"center",
     marginVertical: 5,
     width: 125,
     borderRadius: 5,

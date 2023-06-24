@@ -70,7 +70,23 @@ const updateImage = async (req: Request, res: Response) => {
         res.status(500).send(error);
     }
 };
+const updatemail = async (req: Request, res: Response) => {
+    try {
+        const updated = await prisma.organization.update({
+            where: {
+                orgId: req.params.id
+            },
+            data:{orgEmail:req.body.orgEmail}
+        });
+
+        res.status(200).send("image updated");
+        console.log(res,'okk')
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error);
+    }
+};
 
 
 
-export default {getAllOrg,postOrg,getOneOrgByEmail,getOneOrgById,updateImage}
+export default {getAllOrg,postOrg,getOneOrgByEmail,getOneOrgById,updateImage,updatemail}

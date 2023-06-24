@@ -69,7 +69,7 @@ function App() {
         axios
           .post(`http://${ADDRESS_IP}:3001/organizations/`, org)
           .then((res) => {
-            console.log('success');
+            navigation.navigate('OrganizationLogin');
           })
           .catch((err) => console.log(err));
       })
@@ -200,7 +200,7 @@ The Awen mobile app is provided</Text>
       <TouchableOpacity
         onPress={() => {
           signUp();
-          navigation.navigate('OrganizationLogin');
+        
         }}
         style={styles.appButtonContainer}
       >

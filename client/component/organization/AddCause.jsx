@@ -91,6 +91,7 @@ const selectImage = async () => {
       .catch(error => 
         console.log(error.mesage));
   };
+  
   return (
     <View style={styles.signin}>
            <Image

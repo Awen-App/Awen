@@ -1,5 +1,14 @@
 import React, { useState ,useEffect,useContext} from 'react';
-import { View, Text, Image, StyleSheet,TouchableOpacity,ImageBackground,TextInput } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  ImageBackground,
+  TextInput,
+  ScrollView,
+} from 'react-native';
 import { Provider as PaperProvider, Button, Dialog, Portal } from 'react-native-paper'; // Import the Provider component from react-native-paper
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
@@ -135,7 +144,7 @@ const updateImage = async () => {
   const hideDialog = () => setVisible(false);
 
   return (
-    <View style={styles.container}>
+    <View contentContainerStyle={styles.container}>
        
       <View style={styles.emailCont}   onMouseEnter={() => setHovering(true)}
   onMouseLeave={() => setHovering(false)}>
@@ -182,9 +191,9 @@ const updateImage = async () => {
         <TouchableOpacity style={styles.icon} onPress={() => setVisible(true)}>
           <Icon name="camera" style={styles.icon} />
         </TouchableOpacity>
-        <Text style={styles.name}>{organization.orgName}</Text>
+       
       </View>
-      
+      <Text style={styles.name}>{organization.orgName}</Text>
         
         <View style={styles.infoContainer}>
         <Icon name="mail" style={styles.infoIcon}/>
@@ -210,10 +219,12 @@ const updateImage = async () => {
       <View style={styles.infoContainer} >
         <Icon name="book-open" style={styles.infoIcon}/>
         <Text style={styles.infoLabel} onPress={()=>setShow(!show)}>Description:</Text>
-        
-        
       </View>
-      {show ? <View><Text style={styles.infoValue}>{organization.description}</Text></View> : <View></View>}
+      {show && (
+        <ScrollView style={styles.descriptionContainer}>
+          <Text style={styles.descriptionText}>{organization.description}</Text>
+        </ScrollView>
+      )}
       <View style = {styles.lineStyle} />
       <View >
       </View>
@@ -226,7 +237,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f0f0f0',
     padding: 20,
-    justifyContent: 'center', 
+    justifyContent: 'center',
     alignItems: 'center',
   },
   avatarContainer: {
@@ -257,6 +268,9 @@ const styles = StyleSheet.create({
     fontSize: 35,
     fontWeight: 'bold',
     marginTop: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
   },
   infoContainer: {
     marginTop: 35,
@@ -315,10 +329,13 @@ const styles = StyleSheet.create({
     marginRight:15
   },
   lineStyle:{
-    width:215,
+    width:"100%",
     borderWidth: 0.5,
     borderColor:'#ada6a6',
     margin:10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
 },
 textInput:{
   width: '70%',
@@ -338,6 +355,14 @@ emailCont: {
   alignSelf: 'flex-end',
   flexDirection: 'row', 
   
+},
+descriptionContainer: {
+  maxHeight: 200,
+  padding: 10,
+},
+descriptionText: {
+  fontSize: 16,
+  lineHeight: 22,
 },
 });
 

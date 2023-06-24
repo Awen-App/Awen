@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect ,useContext} from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity,Image } from 'react-native';
 import { auth } from '../../fireBaseConfig';
 import axios from 'axios';
+import {TrakkerContext} from '../Context'
 import ADDRESS_IP from '../../env';
 import { useNavigation } from '@react-navigation/native';
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-cards';
@@ -13,6 +14,7 @@ function WelcomeOrganization() {
   const [nonaccepted, setNonAcc] = useState([]);
   const [finished, setFinished] = useState([]);
   const [notFinished, setNotFinished] = useState([]);
+  const [trakker,setTrakker] = useContext(TrakkerContext);
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(true);
   const user = auth.currentUser.email;
@@ -55,7 +57,7 @@ function WelcomeOrganization() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [trakker]);
 
   useEffect(() => {
     filterAccepted();
